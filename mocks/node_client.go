@@ -5,12 +5,12 @@ package mocks
 
 import (
 	"context"
-	"github.com/libsv/go-bc"
+	"github.com/bsv-blockchain/go-bn"
+	"github.com/bsv-blockchain/go-bn/internal"
+	"github.com/bsv-blockchain/go-bn/models"
+	"github.com/bsv-blockchain/go-bc"
 	"github.com/libsv/go-bk/wif"
-	"github.com/libsv/go-bn"
-	"github.com/libsv/go-bn/internal"
-	"github.com/libsv/go-bn/models"
-	"github.com/libsv/go-bt/v2"
+	"github.com/bsv-blockchain/go-bt/v2"
 	"sync"
 	"time"
 )
@@ -21,379 +21,379 @@ var _ bn.NodeClient = &NodeClientMock{}
 
 // NodeClientMock is a mock implementation of bn.NodeClient.
 //
-// 	func TestSomethingThatUsesNodeClient(t *testing.T) {
+//	func TestSomethingThatUsesNodeClient(t *testing.T) {
 //
-// 		// make and configure a mocked bn.NodeClient
-// 		mockedNodeClient := &NodeClientMock{
-// 			AbandonTransactionFunc: func(ctx context.Context, txID string) error {
-// 				panic("mock out the AbandonTransaction method")
-// 			},
-// 			AccountFunc: func(ctx context.Context, address string) (string, error) {
-// 				panic("mock out the Account method")
-// 			},
-// 			AccountAddressFunc: func(ctx context.Context, account string) (string, error) {
-// 				panic("mock out the AccountAddress method")
-// 			},
-// 			AccountAddressesFunc: func(ctx context.Context, account string) ([]string, error) {
-// 				panic("mock out the AccountAddresses method")
-// 			},
-// 			ActiveZMQNotificationsFunc: func(ctx context.Context) ([]*models.ZMQNotification, error) {
-// 				panic("mock out the ActiveZMQNotifications method")
-// 			},
-// 			AddMultiSigAddressFunc: func(ctx context.Context, n int, keys ...string) (string, error) {
-// 				panic("mock out the AddMultiSigAddress method")
-// 			},
-// 			AddNodeFunc: func(ctx context.Context, node string, command internal.NodeAddType) error {
-// 				panic("mock out the AddNode method")
-// 			},
-// 			BackupWalletFunc: func(ctx context.Context, dest string) error {
-// 				panic("mock out the BackupWallet method")
-// 			},
-// 			BalanceFunc: func(ctx context.Context, opts *models.OptsBalance) (uint64, error) {
-// 				panic("mock out the Balance method")
-// 			},
-// 			BestBlockHashFunc: func(ctx context.Context) (string, error) {
-// 				panic("mock out the BestBlockHash method")
-// 			},
-// 			BlockFunc: func(ctx context.Context, hash string) (*models.Block, error) {
-// 				panic("mock out the Block method")
-// 			},
-// 			BlockByHeightFunc: func(ctx context.Context, height int) (*models.Block, error) {
-// 				panic("mock out the BlockByHeight method")
-// 			},
-// 			BlockCountFunc: func(ctx context.Context) (uint32, error) {
-// 				panic("mock out the BlockCount method")
-// 			},
-// 			BlockDecodeHeaderFunc: func(ctx context.Context, hash string) (*models.BlockDecodeHeader, error) {
-// 				panic("mock out the BlockDecodeHeader method")
-// 			},
-// 			BlockDecodeHeaderByHeightFunc: func(ctx context.Context, height int) (*models.BlockDecodeHeader, error) {
-// 				panic("mock out the BlockDecodeHeaderByHeight method")
-// 			},
-// 			BlockHashFunc: func(ctx context.Context, height int) (string, error) {
-// 				panic("mock out the BlockHash method")
-// 			},
-// 			BlockHeaderFunc: func(ctx context.Context, hash string) (*models.BlockHeader, error) {
-// 				panic("mock out the BlockHeader method")
-// 			},
-// 			BlockHeaderHexFunc: func(ctx context.Context, hash string) (string, error) {
-// 				panic("mock out the BlockHeaderHex method")
-// 			},
-// 			BlockHexFunc: func(ctx context.Context, hash string) (string, error) {
-// 				panic("mock out the BlockHex method")
-// 			},
-// 			BlockHexByHeightFunc: func(ctx context.Context, height int) (string, error) {
-// 				panic("mock out the BlockHexByHeight method")
-// 			},
-// 			BlockStatsFunc: func(ctx context.Context, hash string, fields ...string) (*models.BlockStats, error) {
-// 				panic("mock out the BlockStats method")
-// 			},
-// 			BlockStatsByHeightFunc: func(ctx context.Context, height int, fields ...string) (*models.BlockStats, error) {
-// 				panic("mock out the BlockStatsByHeight method")
-// 			},
-// 			BlockTemplateFunc: func(ctx context.Context, opts *models.BlockTemplateRequest) (*models.BlockTemplate, error) {
-// 				panic("mock out the BlockTemplate method")
-// 			},
-// 			ChainInfoFunc: func(ctx context.Context) (*models.ChainInfo, error) {
-// 				panic("mock out the ChainInfo method")
-// 			},
-// 			ChainTipsFunc: func(ctx context.Context) ([]*models.ChainTip, error) {
-// 				panic("mock out the ChainTips method")
-// 			},
-// 			ChainTxStatsFunc: func(ctx context.Context, opts *models.OptsChainTxStats) (*models.ChainTxStats, error) {
-// 				panic("mock out the ChainTxStats method")
-// 			},
-// 			CheckJournalFunc: func(ctx context.Context) (*models.JournalStatus, error) {
-// 				panic("mock out the CheckJournal method")
-// 			},
-// 			ClearBannedFunc: func(ctx context.Context) error {
-// 				panic("mock out the ClearBanned method")
-// 			},
-// 			ClearInvalidTransactionsFunc: func(ctx context.Context) (uint64, error) {
-// 				panic("mock out the ClearInvalidTransactions method")
-// 			},
-// 			ConnectionCountFunc: func(ctx context.Context) (uint64, error) {
-// 				panic("mock out the ConnectionCount method")
-// 			},
-// 			CreateMultiSigFunc: func(ctx context.Context, n int, keys ...string) (*models.MultiSig, error) {
-// 				panic("mock out the CreateMultiSig method")
-// 			},
-// 			CreateRawTransactionFunc: func(ctx context.Context, utxos bt.UTXOs, params models.ParamsCreateRawTransaction) (*bt.Tx, error) {
-// 				panic("mock out the CreateRawTransaction method")
-// 			},
-// 			DifficultyFunc: func(ctx context.Context) (float64, error) {
-// 				panic("mock out the Difficulty method")
-// 			},
-// 			DisconnectNodeFunc: func(ctx context.Context, params models.ParamsDisconnectNode) error {
-// 				panic("mock out the DisconnectNode method")
-// 			},
-// 			DumpParamsFunc: func(ctx context.Context) ([]string, error) {
-// 				panic("mock out the DumpParams method")
-// 			},
-// 			DumpPrivateKeyFunc: func(ctx context.Context, address string) (*wif.WIF, error) {
-// 				panic("mock out the DumpPrivateKey method")
-// 			},
-// 			DumpWalletFunc: func(ctx context.Context, dest string) (*models.DumpWallet, error) {
-// 				panic("mock out the DumpWallet method")
-// 			},
-// 			EncryptWalletFunc: func(ctx context.Context, passphrase string) error {
-// 				panic("mock out the EncryptWallet method")
-// 			},
-// 			ExcessiveBlockFunc: func(ctx context.Context) (*models.ExcessiveBlock, error) {
-// 				panic("mock out the ExcessiveBlock method")
-// 			},
-// 			FundRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsFundRawTransaction) (*models.FundRawTransaction, error) {
-// 				panic("mock out the FundRawTransaction method")
-// 			},
-// 			GenerateFunc: func(ctx context.Context, n int, opts *models.OptsGenerate) ([]string, error) {
-// 				panic("mock out the Generate method")
-// 			},
-// 			GenerateToAddressFunc: func(ctx context.Context, n int, addr string, opts *models.OptsGenerate) ([]string, error) {
-// 				panic("mock out the GenerateToAddress method")
-// 			},
-// 			ImportAddressFunc: func(ctx context.Context, address string, opts *models.OptsImportAddress) error {
-// 				panic("mock out the ImportAddress method")
-// 			},
-// 			ImportMultiFunc: func(ctx context.Context, reqs []models.ImportMultiRequest, opts *models.OptsImportMulti) ([]*models.ImportMulti, error) {
-// 				panic("mock out the ImportMulti method")
-// 			},
-// 			ImportPrivateKeyFunc: func(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error {
-// 				panic("mock out the ImportPrivateKey method")
-// 			},
-// 			ImportPrunedFundsFunc: func(ctx context.Context, tx *bt.Tx, txOutProof string) error {
-// 				panic("mock out the ImportPrunedFunds method")
-// 			},
-// 			ImportPublicKeyFunc: func(ctx context.Context, publicKey string, opts *models.OptsImportPublicKey) error {
-// 				panic("mock out the ImportPublicKey method")
-// 			},
-// 			ImportWalletFunc: func(ctx context.Context, filename string) error {
-// 				panic("mock out the ImportWallet method")
-// 			},
-// 			InfoFunc: func(ctx context.Context) (*models.Info, error) {
-// 				panic("mock out the Info method")
-// 			},
-// 			KeypoolRefillFunc: func(ctx context.Context, opts *models.OptsKeypoolRefill) error {
-// 				panic("mock out the KeypoolRefill method")
-// 			},
-// 			LegacyMerkleProofFunc: func(ctx context.Context, txID string, opts *models.OptsLegacyMerkleProof) (*models.LegacyMerkleProof, error) {
-// 				panic("mock out the LegacyMerkleProof method")
-// 			},
-// 			ListAccountsFunc: func(ctx context.Context, opts *models.OptsListAccounts) (map[string]uint64, error) {
-// 				panic("mock out the ListAccounts method")
-// 			},
-// 			ListBannedFunc: func(ctx context.Context) ([]*models.BannedSubnet, error) {
-// 				panic("mock out the ListBanned method")
-// 			},
-// 			ListLockUnspentFunc: func(ctx context.Context) ([]*models.LockUnspent, error) {
-// 				panic("mock out the ListLockUnspent method")
-// 			},
-// 			ListReceivedByAccountFunc: func(ctx context.Context, opts *models.OptsListReceivedBy) ([]*models.ReceivedByAccount, error) {
-// 				panic("mock out the ListReceivedByAccount method")
-// 			},
-// 			ListReceivedByAddressFunc: func(ctx context.Context, opts *models.OptsListReceivedBy) ([]*models.ReceivedByAddress, error) {
-// 				panic("mock out the ListReceivedByAddress method")
-// 			},
-// 			ListSinceBlockFunc: func(ctx context.Context, opts *models.OptsListSinceBlock) (*models.SinceBlock, error) {
-// 				panic("mock out the ListSinceBlock method")
-// 			},
-// 			ListTransactionsFunc: func(ctx context.Context, opts *models.OptsListTransactions) ([]*models.Transaction, error) {
-// 				panic("mock out the ListTransactions method")
-// 			},
-// 			ListUnspentFunc: func(ctx context.Context, opts *models.OptsListUnspent) (bt.UTXOs, error) {
-// 				panic("mock out the ListUnspent method")
-// 			},
-// 			ListWalletsFunc: func(ctx context.Context) ([]string, error) {
-// 				panic("mock out the ListWallets method")
-// 			},
-// 			LockUnspentFunc: func(ctx context.Context, lock bool, opts *models.OptsLockUnspent) (bool, error) {
-// 				panic("mock out the LockUnspent method")
-// 			},
-// 			MemoryInfoFunc: func(ctx context.Context) (*models.MemoryInfo, error) {
-// 				panic("mock out the MemoryInfo method")
-// 			},
-// 			MempoolAncestorIDsFunc: func(ctx context.Context, txID string) ([]string, error) {
-// 				panic("mock out the MempoolAncestorIDs method")
-// 			},
-// 			MempoolAncestorsFunc: func(ctx context.Context, txID string) (models.MempoolTxs, error) {
-// 				panic("mock out the MempoolAncestors method")
-// 			},
-// 			MempoolDescendantIDsFunc: func(ctx context.Context, txID string) ([]string, error) {
-// 				panic("mock out the MempoolDescendantIDs method")
-// 			},
-// 			MempoolDescendantsFunc: func(ctx context.Context, txID string) (models.MempoolTxs, error) {
-// 				panic("mock out the MempoolDescendants method")
-// 			},
-// 			MempoolEntryFunc: func(ctx context.Context, txID string) (*models.MempoolEntry, error) {
-// 				panic("mock out the MempoolEntry method")
-// 			},
-// 			MerkleProofFunc: func(ctx context.Context, blockHash string, txID string, opts *models.OptsMerkleProof) (*bc.MerkleProof, error) {
-// 				panic("mock out the MerkleProof method")
-// 			},
-// 			MiningCandidateFunc: func(ctx context.Context, opts *models.OptsMiningCandidate) (*models.MiningCandidate, error) {
-// 				panic("mock out the MiningCandidate method")
-// 			},
-// 			MiningInfoFunc: func(ctx context.Context) (*models.MiningInfo, error) {
-// 				panic("mock out the MiningInfo method")
-// 			},
-// 			MoveFunc: func(ctx context.Context, from string, to string, amount uint64, opts *models.OptsMove) (bool, error) {
-// 				panic("mock out the Move method")
-// 			},
-// 			NetworkHashPSFunc: func(ctx context.Context, opts *models.OptsNetworkHashPS) (uint64, error) {
-// 				panic("mock out the NetworkHashPS method")
-// 			},
-// 			NetworkInfoFunc: func(ctx context.Context) (*models.NetworkInfo, error) {
-// 				panic("mock out the NetworkInfo method")
-// 			},
-// 			NetworkTotalsFunc: func(ctx context.Context) (*models.NetworkTotals, error) {
-// 				panic("mock out the NetworkTotals method")
-// 			},
-// 			NewAddressFunc: func(ctx context.Context, opts *models.OptsNewAddress) (string, error) {
-// 				panic("mock out the NewAddress method")
-// 			},
-// 			NodeInfoFunc: func(ctx context.Context, opts *models.OptsNodeInfo) ([]*models.NodeInfo, error) {
-// 				panic("mock out the NodeInfo method")
-// 			},
-// 			OutputFunc: func(ctx context.Context, txID string, n int, opts *models.OptsOutput) (*models.Output, error) {
-// 				panic("mock out the Output method")
-// 			},
-// 			OutputSetInfoFunc: func(ctx context.Context) (*models.OutputSetInfo, error) {
-// 				panic("mock out the OutputSetInfo method")
-// 			},
-// 			PeerInfoFunc: func(ctx context.Context) ([]*models.PeerInfo, error) {
-// 				panic("mock out the PeerInfo method")
-// 			},
-// 			PingFunc: func(ctx context.Context) error {
-// 				panic("mock out the Ping method")
-// 			},
-// 			PreciousBlockFunc: func(ctx context.Context, blockHash string) error {
-// 				panic("mock out the PreciousBlock method")
-// 			},
-// 			PrioritiseTxFunc: func(ctx context.Context, txID string, feeDelta int64) (bool, error) {
-// 				panic("mock out the PrioritiseTx method")
-// 			},
-// 			PruneChainFunc: func(ctx context.Context, height int) (uint32, error) {
-// 				panic("mock out the PruneChain method")
-// 			},
-// 			RawChangeAddressFunc: func(ctx context.Context) (string, error) {
-// 				panic("mock out the RawChangeAddress method")
-// 			},
-// 			RawMempoolFunc: func(ctx context.Context) (models.MempoolTxs, error) {
-// 				panic("mock out the RawMempool method")
-// 			},
-// 			RawMempoolIDsFunc: func(ctx context.Context) ([]string, error) {
-// 				panic("mock out the RawMempoolIDs method")
-// 			},
-// 			RawNonFinalMempoolFunc: func(ctx context.Context) ([]string, error) {
-// 				panic("mock out the RawNonFinalMempool method")
-// 			},
-// 			RawTransactionFunc: func(ctx context.Context, txID string) (*bt.Tx, error) {
-// 				panic("mock out the RawTransaction method")
-// 			},
-// 			RebuildJournalFunc: func(ctx context.Context) error {
-// 				panic("mock out the RebuildJournal method")
-// 			},
-// 			ReceivedByAddressFunc: func(ctx context.Context, address string) (uint64, error) {
-// 				panic("mock out the ReceivedByAddress method")
-// 			},
-// 			RemovePrunedFundsFunc: func(ctx context.Context, txID string) error {
-// 				panic("mock out the RemovePrunedFunds method")
-// 			},
-// 			SendFromFunc: func(ctx context.Context, from string, to string, amount uint64, opts *models.OptsSendFrom) (string, error) {
-// 				panic("mock out the SendFrom method")
-// 			},
-// 			SendManyFunc: func(ctx context.Context, from string, amounts map[string]uint64, opts *models.OptsSendMany) (string, error) {
-// 				panic("mock out the SendMany method")
-// 			},
-// 			SendRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsSendRawTransaction) (string, error) {
-// 				panic("mock out the SendRawTransaction method")
-// 			},
-// 			SendRawTransactionsFunc: func(ctx context.Context, params ...models.ParamsSendRawTransactions) (*models.SendRawTransactionsResponse, error) {
-// 				panic("mock out the SendRawTransactions method")
-// 			},
-// 			SendToAddressFunc: func(ctx context.Context, address string, amount uint64, opts *models.OptsSendToAddress) (string, error) {
-// 				panic("mock out the SendToAddress method")
-// 			},
-// 			SetAccountFunc: func(ctx context.Context, address string, account string) error {
-// 				panic("mock out the SetAccount method")
-// 			},
-// 			SetBanFunc: func(ctx context.Context, subnet string, action internal.BanAction, opts *models.OptsSetBan) error {
-// 				panic("mock out the SetBan method")
-// 			},
-// 			SetBlockMaxSizeFunc: func(ctx context.Context, size uint64) (string, error) {
-// 				panic("mock out the SetBlockMaxSize method")
-// 			},
-// 			SetExcessiveBlockFunc: func(ctx context.Context, size uint64) (string, error) {
-// 				panic("mock out the SetExcessiveBlock method")
-// 			},
-// 			SetNetworkActiveFunc: func(ctx context.Context, enabled bool) error {
-// 				panic("mock out the SetNetworkActive method")
-// 			},
-// 			SetTxFeeFunc: func(ctx context.Context, amount uint64) (bool, error) {
-// 				panic("mock out the SetTxFee method")
-// 			},
-// 			SetTxPropagationFrequencyFunc: func(ctx context.Context, frequency uint64) error {
-// 				panic("mock out the SetTxPropagationFrequency method")
-// 			},
-// 			SettingsFunc: func(ctx context.Context) (*models.Settings, error) {
-// 				panic("mock out the Settings method")
-// 			},
-// 			SignMessageFunc: func(ctx context.Context, address string, message string) (string, error) {
-// 				panic("mock out the SignMessage method")
-// 			},
-// 			SignMessageWithPrivKeyFunc: func(ctx context.Context, w *wif.WIF, msg string) (string, error) {
-// 				panic("mock out the SignMessageWithPrivKey method")
-// 			},
-// 			SignRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsSignRawTransaction) (*models.SignedRawTransaction, error) {
-// 				panic("mock out the SignRawTransaction method")
-// 			},
-// 			StopFunc: func(ctx context.Context) error {
-// 				panic("mock out the Stop method")
-// 			},
-// 			SubmitBlockFunc: func(ctx context.Context, block *bc.Block, params *models.OptsSubmitBlock) (string, error) {
-// 				panic("mock out the SubmitBlock method")
-// 			},
-// 			SubmitMiningSolutionFunc: func(ctx context.Context, solution *models.MiningSolution) (string, error) {
-// 				panic("mock out the SubmitMiningSolution method")
-// 			},
-// 			TransactionFunc: func(ctx context.Context, txID string) (*models.Transaction, error) {
-// 				panic("mock out the Transaction method")
-// 			},
-// 			UnconfirmedBalanceFunc: func(ctx context.Context) (uint64, error) {
-// 				panic("mock out the UnconfirmedBalance method")
-// 			},
-// 			UptimeFunc: func(ctx context.Context) (time.Duration, error) {
-// 				panic("mock out the Uptime method")
-// 			},
-// 			ValidateAddressFunc: func(ctx context.Context, address string) (*models.ValidateAddress, error) {
-// 				panic("mock out the ValidateAddress method")
-// 			},
-// 			VerifyBlockCandidateFunc: func(ctx context.Context, block *bc.Block, params *models.OptsSubmitBlock) (string, error) {
-// 				panic("mock out the VerifyBlockCandidate method")
-// 			},
-// 			VerifyChainFunc: func(ctx context.Context) (bool, error) {
-// 				panic("mock out the VerifyChain method")
-// 			},
-// 			VerifySignedMessageFunc: func(ctx context.Context, w *wif.WIF, signature string, message string) (bool, error) {
-// 				panic("mock out the VerifySignedMessage method")
-// 			},
-// 			WalletInfoFunc: func(ctx context.Context) (*models.WalletInfo, error) {
-// 				panic("mock out the WalletInfo method")
-// 			},
-// 			WalletLockFunc: func(ctx context.Context) error {
-// 				panic("mock out the WalletLock method")
-// 			},
-// 			WalletPhassphraseFunc: func(ctx context.Context, passphrase string, timeout int) error {
-// 				panic("mock out the WalletPhassphrase method")
-// 			},
-// 			WalletPhassphraseChangeFunc: func(ctx context.Context, oldPassphrase string, newPassphrase string) error {
-// 				panic("mock out the WalletPhassphraseChange method")
-// 			},
-// 		}
+//		// make and configure a mocked bn.NodeClient
+//		mockedNodeClient := &NodeClientMock{
+//			AbandonTransactionFunc: func(ctx context.Context, txID string) error {
+//				panic("mock out the AbandonTransaction method")
+//			},
+//			AccountFunc: func(ctx context.Context, address string) (string, error) {
+//				panic("mock out the Account method")
+//			},
+//			AccountAddressFunc: func(ctx context.Context, account string) (string, error) {
+//				panic("mock out the AccountAddress method")
+//			},
+//			AccountAddressesFunc: func(ctx context.Context, account string) ([]string, error) {
+//				panic("mock out the AccountAddresses method")
+//			},
+//			ActiveZMQNotificationsFunc: func(ctx context.Context) ([]*models.ZMQNotification, error) {
+//				panic("mock out the ActiveZMQNotifications method")
+//			},
+//			AddMultiSigAddressFunc: func(ctx context.Context, n int, keys ...string) (string, error) {
+//				panic("mock out the AddMultiSigAddress method")
+//			},
+//			AddNodeFunc: func(ctx context.Context, node string, command internal.NodeAddType) error {
+//				panic("mock out the AddNode method")
+//			},
+//			BackupWalletFunc: func(ctx context.Context, dest string) error {
+//				panic("mock out the BackupWallet method")
+//			},
+//			BalanceFunc: func(ctx context.Context, opts *models.OptsBalance) (uint64, error) {
+//				panic("mock out the Balance method")
+//			},
+//			BestBlockHashFunc: func(ctx context.Context) (string, error) {
+//				panic("mock out the BestBlockHash method")
+//			},
+//			BlockFunc: func(ctx context.Context, hash string) (*models.Block, error) {
+//				panic("mock out the Block method")
+//			},
+//			BlockByHeightFunc: func(ctx context.Context, height int) (*models.Block, error) {
+//				panic("mock out the BlockByHeight method")
+//			},
+//			BlockCountFunc: func(ctx context.Context) (uint32, error) {
+//				panic("mock out the BlockCount method")
+//			},
+//			BlockDecodeHeaderFunc: func(ctx context.Context, hash string) (*models.BlockDecodeHeader, error) {
+//				panic("mock out the BlockDecodeHeader method")
+//			},
+//			BlockDecodeHeaderByHeightFunc: func(ctx context.Context, height int) (*models.BlockDecodeHeader, error) {
+//				panic("mock out the BlockDecodeHeaderByHeight method")
+//			},
+//			BlockHashFunc: func(ctx context.Context, height int) (string, error) {
+//				panic("mock out the BlockHash method")
+//			},
+//			BlockHeaderFunc: func(ctx context.Context, hash string) (*models.BlockHeader, error) {
+//				panic("mock out the BlockHeader method")
+//			},
+//			BlockHeaderHexFunc: func(ctx context.Context, hash string) (string, error) {
+//				panic("mock out the BlockHeaderHex method")
+//			},
+//			BlockHexFunc: func(ctx context.Context, hash string) (string, error) {
+//				panic("mock out the BlockHex method")
+//			},
+//			BlockHexByHeightFunc: func(ctx context.Context, height int) (string, error) {
+//				panic("mock out the BlockHexByHeight method")
+//			},
+//			BlockStatsFunc: func(ctx context.Context, hash string, fields ...string) (*models.BlockStats, error) {
+//				panic("mock out the BlockStats method")
+//			},
+//			BlockStatsByHeightFunc: func(ctx context.Context, height int, fields ...string) (*models.BlockStats, error) {
+//				panic("mock out the BlockStatsByHeight method")
+//			},
+//			BlockTemplateFunc: func(ctx context.Context, opts *models.BlockTemplateRequest) (*models.BlockTemplate, error) {
+//				panic("mock out the BlockTemplate method")
+//			},
+//			ChainInfoFunc: func(ctx context.Context) (*models.ChainInfo, error) {
+//				panic("mock out the ChainInfo method")
+//			},
+//			ChainTipsFunc: func(ctx context.Context) ([]*models.ChainTip, error) {
+//				panic("mock out the ChainTips method")
+//			},
+//			ChainTxStatsFunc: func(ctx context.Context, opts *models.OptsChainTxStats) (*models.ChainTxStats, error) {
+//				panic("mock out the ChainTxStats method")
+//			},
+//			CheckJournalFunc: func(ctx context.Context) (*models.JournalStatus, error) {
+//				panic("mock out the CheckJournal method")
+//			},
+//			ClearBannedFunc: func(ctx context.Context) error {
+//				panic("mock out the ClearBanned method")
+//			},
+//			ClearInvalidTransactionsFunc: func(ctx context.Context) (uint64, error) {
+//				panic("mock out the ClearInvalidTransactions method")
+//			},
+//			ConnectionCountFunc: func(ctx context.Context) (uint64, error) {
+//				panic("mock out the ConnectionCount method")
+//			},
+//			CreateMultiSigFunc: func(ctx context.Context, n int, keys ...string) (*models.MultiSig, error) {
+//				panic("mock out the CreateMultiSig method")
+//			},
+//			CreateRawTransactionFunc: func(ctx context.Context, utxos bt.UTXOs, params models.ParamsCreateRawTransaction) (*bt.Tx, error) {
+//				panic("mock out the CreateRawTransaction method")
+//			},
+//			DifficultyFunc: func(ctx context.Context) (float64, error) {
+//				panic("mock out the Difficulty method")
+//			},
+//			DisconnectNodeFunc: func(ctx context.Context, params models.ParamsDisconnectNode) error {
+//				panic("mock out the DisconnectNode method")
+//			},
+//			DumpParamsFunc: func(ctx context.Context) ([]string, error) {
+//				panic("mock out the DumpParams method")
+//			},
+//			DumpPrivateKeyFunc: func(ctx context.Context, address string) (*wif.WIF, error) {
+//				panic("mock out the DumpPrivateKey method")
+//			},
+//			DumpWalletFunc: func(ctx context.Context, dest string) (*models.DumpWallet, error) {
+//				panic("mock out the DumpWallet method")
+//			},
+//			EncryptWalletFunc: func(ctx context.Context, passphrase string) error {
+//				panic("mock out the EncryptWallet method")
+//			},
+//			ExcessiveBlockFunc: func(ctx context.Context) (*models.ExcessiveBlock, error) {
+//				panic("mock out the ExcessiveBlock method")
+//			},
+//			FundRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsFundRawTransaction) (*models.FundRawTransaction, error) {
+//				panic("mock out the FundRawTransaction method")
+//			},
+//			GenerateFunc: func(ctx context.Context, n int, opts *models.OptsGenerate) ([]string, error) {
+//				panic("mock out the Generate method")
+//			},
+//			GenerateToAddressFunc: func(ctx context.Context, n int, addr string, opts *models.OptsGenerate) ([]string, error) {
+//				panic("mock out the GenerateToAddress method")
+//			},
+//			ImportAddressFunc: func(ctx context.Context, address string, opts *models.OptsImportAddress) error {
+//				panic("mock out the ImportAddress method")
+//			},
+//			ImportMultiFunc: func(ctx context.Context, reqs []models.ImportMultiRequest, opts *models.OptsImportMulti) ([]*models.ImportMulti, error) {
+//				panic("mock out the ImportMulti method")
+//			},
+//			ImportPrivateKeyFunc: func(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error {
+//				panic("mock out the ImportPrivateKey method")
+//			},
+//			ImportPrunedFundsFunc: func(ctx context.Context, tx *bt.Tx, txOutProof string) error {
+//				panic("mock out the ImportPrunedFunds method")
+//			},
+//			ImportPublicKeyFunc: func(ctx context.Context, publicKey string, opts *models.OptsImportPublicKey) error {
+//				panic("mock out the ImportPublicKey method")
+//			},
+//			ImportWalletFunc: func(ctx context.Context, filename string) error {
+//				panic("mock out the ImportWallet method")
+//			},
+//			InfoFunc: func(ctx context.Context) (*models.Info, error) {
+//				panic("mock out the Info method")
+//			},
+//			KeypoolRefillFunc: func(ctx context.Context, opts *models.OptsKeypoolRefill) error {
+//				panic("mock out the KeypoolRefill method")
+//			},
+//			LegacyMerkleProofFunc: func(ctx context.Context, txID string, opts *models.OptsLegacyMerkleProof) (*models.LegacyMerkleProof, error) {
+//				panic("mock out the LegacyMerkleProof method")
+//			},
+//			ListAccountsFunc: func(ctx context.Context, opts *models.OptsListAccounts) (map[string]uint64, error) {
+//				panic("mock out the ListAccounts method")
+//			},
+//			ListBannedFunc: func(ctx context.Context) ([]*models.BannedSubnet, error) {
+//				panic("mock out the ListBanned method")
+//			},
+//			ListLockUnspentFunc: func(ctx context.Context) ([]*models.LockUnspent, error) {
+//				panic("mock out the ListLockUnspent method")
+//			},
+//			ListReceivedByAccountFunc: func(ctx context.Context, opts *models.OptsListReceivedBy) ([]*models.ReceivedByAccount, error) {
+//				panic("mock out the ListReceivedByAccount method")
+//			},
+//			ListReceivedByAddressFunc: func(ctx context.Context, opts *models.OptsListReceivedBy) ([]*models.ReceivedByAddress, error) {
+//				panic("mock out the ListReceivedByAddress method")
+//			},
+//			ListSinceBlockFunc: func(ctx context.Context, opts *models.OptsListSinceBlock) (*models.SinceBlock, error) {
+//				panic("mock out the ListSinceBlock method")
+//			},
+//			ListTransactionsFunc: func(ctx context.Context, opts *models.OptsListTransactions) ([]*models.Transaction, error) {
+//				panic("mock out the ListTransactions method")
+//			},
+//			ListUnspentFunc: func(ctx context.Context, opts *models.OptsListUnspent) (bt.UTXOs, error) {
+//				panic("mock out the ListUnspent method")
+//			},
+//			ListWalletsFunc: func(ctx context.Context) ([]string, error) {
+//				panic("mock out the ListWallets method")
+//			},
+//			LockUnspentFunc: func(ctx context.Context, lock bool, opts *models.OptsLockUnspent) (bool, error) {
+//				panic("mock out the LockUnspent method")
+//			},
+//			MemoryInfoFunc: func(ctx context.Context) (*models.MemoryInfo, error) {
+//				panic("mock out the MemoryInfo method")
+//			},
+//			MempoolAncestorIDsFunc: func(ctx context.Context, txID string) ([]string, error) {
+//				panic("mock out the MempoolAncestorIDs method")
+//			},
+//			MempoolAncestorsFunc: func(ctx context.Context, txID string) (models.MempoolTxs, error) {
+//				panic("mock out the MempoolAncestors method")
+//			},
+//			MempoolDescendantIDsFunc: func(ctx context.Context, txID string) ([]string, error) {
+//				panic("mock out the MempoolDescendantIDs method")
+//			},
+//			MempoolDescendantsFunc: func(ctx context.Context, txID string) (models.MempoolTxs, error) {
+//				panic("mock out the MempoolDescendants method")
+//			},
+//			MempoolEntryFunc: func(ctx context.Context, txID string) (*models.MempoolEntry, error) {
+//				panic("mock out the MempoolEntry method")
+//			},
+//			MerkleProofFunc: func(ctx context.Context, blockHash string, txID string, opts *models.OptsMerkleProof) (*bc.MerkleProof, error) {
+//				panic("mock out the MerkleProof method")
+//			},
+//			MiningCandidateFunc: func(ctx context.Context, opts *models.OptsMiningCandidate) (*models.MiningCandidate, error) {
+//				panic("mock out the MiningCandidate method")
+//			},
+//			MiningInfoFunc: func(ctx context.Context) (*models.MiningInfo, error) {
+//				panic("mock out the MiningInfo method")
+//			},
+//			MoveFunc: func(ctx context.Context, from string, to string, amount uint64, opts *models.OptsMove) (bool, error) {
+//				panic("mock out the Move method")
+//			},
+//			NetworkHashPSFunc: func(ctx context.Context, opts *models.OptsNetworkHashPS) (uint64, error) {
+//				panic("mock out the NetworkHashPS method")
+//			},
+//			NetworkInfoFunc: func(ctx context.Context) (*models.NetworkInfo, error) {
+//				panic("mock out the NetworkInfo method")
+//			},
+//			NetworkTotalsFunc: func(ctx context.Context) (*models.NetworkTotals, error) {
+//				panic("mock out the NetworkTotals method")
+//			},
+//			NewAddressFunc: func(ctx context.Context, opts *models.OptsNewAddress) (string, error) {
+//				panic("mock out the NewAddress method")
+//			},
+//			NodeInfoFunc: func(ctx context.Context, opts *models.OptsNodeInfo) ([]*models.NodeInfo, error) {
+//				panic("mock out the NodeInfo method")
+//			},
+//			OutputFunc: func(ctx context.Context, txID string, n int, opts *models.OptsOutput) (*models.Output, error) {
+//				panic("mock out the Output method")
+//			},
+//			OutputSetInfoFunc: func(ctx context.Context) (*models.OutputSetInfo, error) {
+//				panic("mock out the OutputSetInfo method")
+//			},
+//			PeerInfoFunc: func(ctx context.Context) ([]*models.PeerInfo, error) {
+//				panic("mock out the PeerInfo method")
+//			},
+//			PingFunc: func(ctx context.Context) error {
+//				panic("mock out the Ping method")
+//			},
+//			PreciousBlockFunc: func(ctx context.Context, blockHash string) error {
+//				panic("mock out the PreciousBlock method")
+//			},
+//			PrioritiseTxFunc: func(ctx context.Context, txID string, feeDelta int64) (bool, error) {
+//				panic("mock out the PrioritiseTx method")
+//			},
+//			PruneChainFunc: func(ctx context.Context, height int) (uint32, error) {
+//				panic("mock out the PruneChain method")
+//			},
+//			RawChangeAddressFunc: func(ctx context.Context) (string, error) {
+//				panic("mock out the RawChangeAddress method")
+//			},
+//			RawMempoolFunc: func(ctx context.Context) (models.MempoolTxs, error) {
+//				panic("mock out the RawMempool method")
+//			},
+//			RawMempoolIDsFunc: func(ctx context.Context) ([]string, error) {
+//				panic("mock out the RawMempoolIDs method")
+//			},
+//			RawNonFinalMempoolFunc: func(ctx context.Context) ([]string, error) {
+//				panic("mock out the RawNonFinalMempool method")
+//			},
+//			RawTransactionFunc: func(ctx context.Context, txID string) (*bt.Tx, error) {
+//				panic("mock out the RawTransaction method")
+//			},
+//			RebuildJournalFunc: func(ctx context.Context) error {
+//				panic("mock out the RebuildJournal method")
+//			},
+//			ReceivedByAddressFunc: func(ctx context.Context, address string) (uint64, error) {
+//				panic("mock out the ReceivedByAddress method")
+//			},
+//			RemovePrunedFundsFunc: func(ctx context.Context, txID string) error {
+//				panic("mock out the RemovePrunedFunds method")
+//			},
+//			SendFromFunc: func(ctx context.Context, from string, to string, amount uint64, opts *models.OptsSendFrom) (string, error) {
+//				panic("mock out the SendFrom method")
+//			},
+//			SendManyFunc: func(ctx context.Context, from string, amounts map[string]uint64, opts *models.OptsSendMany) (string, error) {
+//				panic("mock out the SendMany method")
+//			},
+//			SendRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsSendRawTransaction) (string, error) {
+//				panic("mock out the SendRawTransaction method")
+//			},
+//			SendRawTransactionsFunc: func(ctx context.Context, params ...models.ParamsSendRawTransactions) (*models.SendRawTransactionsResponse, error) {
+//				panic("mock out the SendRawTransactions method")
+//			},
+//			SendToAddressFunc: func(ctx context.Context, address string, amount uint64, opts *models.OptsSendToAddress) (string, error) {
+//				panic("mock out the SendToAddress method")
+//			},
+//			SetAccountFunc: func(ctx context.Context, address string, account string) error {
+//				panic("mock out the SetAccount method")
+//			},
+//			SetBanFunc: func(ctx context.Context, subnet string, action internal.BanAction, opts *models.OptsSetBan) error {
+//				panic("mock out the SetBan method")
+//			},
+//			SetBlockMaxSizeFunc: func(ctx context.Context, size uint64) (string, error) {
+//				panic("mock out the SetBlockMaxSize method")
+//			},
+//			SetExcessiveBlockFunc: func(ctx context.Context, size uint64) (string, error) {
+//				panic("mock out the SetExcessiveBlock method")
+//			},
+//			SetNetworkActiveFunc: func(ctx context.Context, enabled bool) error {
+//				panic("mock out the SetNetworkActive method")
+//			},
+//			SetTxFeeFunc: func(ctx context.Context, amount uint64) (bool, error) {
+//				panic("mock out the SetTxFee method")
+//			},
+//			SetTxPropagationFrequencyFunc: func(ctx context.Context, frequency uint64) error {
+//				panic("mock out the SetTxPropagationFrequency method")
+//			},
+//			SettingsFunc: func(ctx context.Context) (*models.Settings, error) {
+//				panic("mock out the Settings method")
+//			},
+//			SignMessageFunc: func(ctx context.Context, address string, message string) (string, error) {
+//				panic("mock out the SignMessage method")
+//			},
+//			SignMessageWithPrivKeyFunc: func(ctx context.Context, w *wif.WIF, msg string) (string, error) {
+//				panic("mock out the SignMessageWithPrivKey method")
+//			},
+//			SignRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsSignRawTransaction) (*models.SignedRawTransaction, error) {
+//				panic("mock out the SignRawTransaction method")
+//			},
+//			StopFunc: func(ctx context.Context) error {
+//				panic("mock out the Stop method")
+//			},
+//			SubmitBlockFunc: func(ctx context.Context, block *bc.Block, params *models.OptsSubmitBlock) (string, error) {
+//				panic("mock out the SubmitBlock method")
+//			},
+//			SubmitMiningSolutionFunc: func(ctx context.Context, solution *models.MiningSolution) (string, error) {
+//				panic("mock out the SubmitMiningSolution method")
+//			},
+//			TransactionFunc: func(ctx context.Context, txID string) (*models.Transaction, error) {
+//				panic("mock out the Transaction method")
+//			},
+//			UnconfirmedBalanceFunc: func(ctx context.Context) (uint64, error) {
+//				panic("mock out the UnconfirmedBalance method")
+//			},
+//			UptimeFunc: func(ctx context.Context) (time.Duration, error) {
+//				panic("mock out the Uptime method")
+//			},
+//			ValidateAddressFunc: func(ctx context.Context, address string) (*models.ValidateAddress, error) {
+//				panic("mock out the ValidateAddress method")
+//			},
+//			VerifyBlockCandidateFunc: func(ctx context.Context, block *bc.Block, params *models.OptsSubmitBlock) (string, error) {
+//				panic("mock out the VerifyBlockCandidate method")
+//			},
+//			VerifyChainFunc: func(ctx context.Context) (bool, error) {
+//				panic("mock out the VerifyChain method")
+//			},
+//			VerifySignedMessageFunc: func(ctx context.Context, w *wif.WIF, signature string, message string) (bool, error) {
+//				panic("mock out the VerifySignedMessage method")
+//			},
+//			WalletInfoFunc: func(ctx context.Context) (*models.WalletInfo, error) {
+//				panic("mock out the WalletInfo method")
+//			},
+//			WalletLockFunc: func(ctx context.Context) error {
+//				panic("mock out the WalletLock method")
+//			},
+//			WalletPhassphraseFunc: func(ctx context.Context, passphrase string, timeout int) error {
+//				panic("mock out the WalletPhassphrase method")
+//			},
+//			WalletPhassphraseChangeFunc: func(ctx context.Context, oldPassphrase string, newPassphrase string) error {
+//				panic("mock out the WalletPhassphraseChange method")
+//			},
+//		}
 //
-// 		// use mockedNodeClient in code that requires bn.NodeClient
-// 		// and then make assertions.
+//		// use mockedNodeClient in code that requires bn.NodeClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type NodeClientMock struct {
 	// AbandonTransactionFunc mocks the AbandonTransaction method.
 	AbandonTransactionFunc func(ctx context.Context, txID string) error
@@ -1658,130 +1658,130 @@ type NodeClientMock struct {
 			NewPassphrase string
 		}
 	}
-	lockAbandonTransaction        sync.RWMutex
-	lockAccount                   sync.RWMutex
-	lockAccountAddress            sync.RWMutex
-	lockAccountAddresses          sync.RWMutex
-	lockActiveZMQNotifications    sync.RWMutex
-	lockAddMultiSigAddress        sync.RWMutex
-	lockAddNode                   sync.RWMutex
-	lockAddToConsensusBlacklist                   sync.RWMutex
+	lockAbandonTransaction                    sync.RWMutex
+	lockAccount                               sync.RWMutex
+	lockAccountAddress                        sync.RWMutex
+	lockAccountAddresses                      sync.RWMutex
+	lockActiveZMQNotifications                sync.RWMutex
+	lockAddMultiSigAddress                    sync.RWMutex
+	lockAddNode                               sync.RWMutex
+	lockAddToConsensusBlacklist               sync.RWMutex
 	lockAddToConfiscationTransactionWhitelist sync.RWMutex
-	lockBackupWallet              sync.RWMutex
-	lockBalance                   sync.RWMutex
-	lockBestBlockHash             sync.RWMutex
-	lockBlock                     sync.RWMutex
-	lockBlockByHeight             sync.RWMutex
-	lockBlockCount                sync.RWMutex
-	lockBlockDecodeHeader         sync.RWMutex
-	lockBlockDecodeHeaderByHeight sync.RWMutex
-	lockBlockHash                 sync.RWMutex
-	lockBlockHeader               sync.RWMutex
-	lockBlockHeaderHex            sync.RWMutex
-	lockBlockHex                  sync.RWMutex
-	lockBlockHexByHeight          sync.RWMutex
-	lockBlockStats                sync.RWMutex
-	lockBlockStatsByHeight        sync.RWMutex
-	lockBlockTemplate             sync.RWMutex
-	lockChainInfo                 sync.RWMutex
-	lockChainTips                 sync.RWMutex
-	lockChainTxStats              sync.RWMutex
-	lockCheckJournal              sync.RWMutex
-	lockClearBanned               sync.RWMutex
-	lockClearInvalidTransactions  sync.RWMutex
-	lockConnectionCount           sync.RWMutex
-	lockCreateMultiSig            sync.RWMutex
-	lockCreateRawTransaction      sync.RWMutex
-	lockDifficulty                sync.RWMutex
-	lockDisconnectNode            sync.RWMutex
-	lockDumpParams                sync.RWMutex
-	lockDumpPrivateKey            sync.RWMutex
-	lockDumpWallet                sync.RWMutex
-	lockEncryptWallet             sync.RWMutex
-	lockExcessiveBlock            sync.RWMutex
-	lockFundRawTransaction        sync.RWMutex
-	lockGenerate                  sync.RWMutex
-	lockGenerateToAddress         sync.RWMutex
-	lockImportAddress             sync.RWMutex
-	lockImportMulti               sync.RWMutex
-	lockImportPrivateKey          sync.RWMutex
-	lockImportPrunedFunds         sync.RWMutex
-	lockImportPublicKey           sync.RWMutex
-	lockImportWallet              sync.RWMutex
-	lockInfo                      sync.RWMutex
-	lockInvalidateBlock                     sync.RWMutex
-	lockKeypoolRefill             sync.RWMutex
-	lockLegacyMerkleProof         sync.RWMutex
-	lockListAccounts              sync.RWMutex
-	lockListBanned                sync.RWMutex
-	lockListLockUnspent           sync.RWMutex
-	lockListReceivedByAccount     sync.RWMutex
-	lockListReceivedByAddress     sync.RWMutex
-	lockListSinceBlock            sync.RWMutex
-	lockListTransactions          sync.RWMutex
-	lockListUnspent               sync.RWMutex
-	lockListWallets               sync.RWMutex
-	lockLockUnspent               sync.RWMutex
-	lockMemoryInfo                sync.RWMutex
-	lockMempoolAncestorIDs        sync.RWMutex
-	lockMempoolAncestors          sync.RWMutex
-	lockMempoolDescendantIDs      sync.RWMutex
-	lockMempoolDescendants        sync.RWMutex
-	lockMempoolEntry              sync.RWMutex
-	lockMerkleProof               sync.RWMutex
-	lockMiningCandidate           sync.RWMutex
-	lockMiningInfo                sync.RWMutex
-	lockMove                      sync.RWMutex
-	lockNetworkHashPS             sync.RWMutex
-	lockNetworkInfo               sync.RWMutex
-	lockNetworkTotals             sync.RWMutex
-	lockNewAddress                sync.RWMutex
-	lockNodeInfo                  sync.RWMutex
-	lockOutput                    sync.RWMutex
-	lockOutputSetInfo             sync.RWMutex
-	lockPeerInfo                  sync.RWMutex
-	lockPing                      sync.RWMutex
-	lockPreciousBlock             sync.RWMutex
-	lockPrioritiseTx              sync.RWMutex
-	lockPruneChain                sync.RWMutex
-	lockRawChangeAddress          sync.RWMutex
-	lockRawMempool                sync.RWMutex
-	lockRawMempoolIDs             sync.RWMutex
-	lockRawNonFinalMempool        sync.RWMutex
-	lockRawTransaction            sync.RWMutex
-	lockRebuildJournal            sync.RWMutex
-	lockReceivedByAddress         sync.RWMutex
-	lockRemovePrunedFunds         sync.RWMutex
-	lockSendFrom                  sync.RWMutex
-	lockSendMany                  sync.RWMutex
-	lockSendRawTransaction        sync.RWMutex
-	lockSendRawTransactions       sync.RWMutex
-	lockSendToAddress             sync.RWMutex
-	lockSetAccount                sync.RWMutex
-	lockSetBan                    sync.RWMutex
-	lockSetBlockMaxSize           sync.RWMutex
-	lockSetExcessiveBlock         sync.RWMutex
-	lockSetNetworkActive          sync.RWMutex
-	lockSetTxFee                  sync.RWMutex
-	lockSetTxPropagationFrequency sync.RWMutex
-	lockSettings                  sync.RWMutex
-	lockSignMessage               sync.RWMutex
-	lockSignMessageWithPrivKey    sync.RWMutex
-	lockSignRawTransaction        sync.RWMutex
-	lockStop                      sync.RWMutex
-	lockSubmitBlock               sync.RWMutex
-	lockSubmitMiningSolution      sync.RWMutex
-	lockTransaction               sync.RWMutex
-	lockUnconfirmedBalance        sync.RWMutex
-	lockUptime                    sync.RWMutex
-	lockValidateAddress           sync.RWMutex
-	lockVerifyBlockCandidate      sync.RWMutex
-	lockVerifyChain               sync.RWMutex
-	lockVerifySignedMessage       sync.RWMutex
-	lockWalletInfo                sync.RWMutex
-	lockWalletLock                sync.RWMutex
-	lockWalletPhassphrase         sync.RWMutex
-	lockWalletPhassphraseChange   sync.RWMutex
+	lockBackupWallet                          sync.RWMutex
+	lockBalance                               sync.RWMutex
+	lockBestBlockHash                         sync.RWMutex
+	lockBlock                                 sync.RWMutex
+	lockBlockByHeight                         sync.RWMutex
+	lockBlockCount                            sync.RWMutex
+	lockBlockDecodeHeader                     sync.RWMutex
+	lockBlockDecodeHeaderByHeight             sync.RWMutex
+	lockBlockHash                             sync.RWMutex
+	lockBlockHeader                           sync.RWMutex
+	lockBlockHeaderHex                        sync.RWMutex
+	lockBlockHex                              sync.RWMutex
+	lockBlockHexByHeight                      sync.RWMutex
+	lockBlockStats                            sync.RWMutex
+	lockBlockStatsByHeight                    sync.RWMutex
+	lockBlockTemplate                         sync.RWMutex
+	lockChainInfo                             sync.RWMutex
+	lockChainTips                             sync.RWMutex
+	lockChainTxStats                          sync.RWMutex
+	lockCheckJournal                          sync.RWMutex
+	lockClearBanned                           sync.RWMutex
+	lockClearInvalidTransactions              sync.RWMutex
+	lockConnectionCount                       sync.RWMutex
+	lockCreateMultiSig                        sync.RWMutex
+	lockCreateRawTransaction                  sync.RWMutex
+	lockDifficulty                            sync.RWMutex
+	lockDisconnectNode                        sync.RWMutex
+	lockDumpParams                            sync.RWMutex
+	lockDumpPrivateKey                        sync.RWMutex
+	lockDumpWallet                            sync.RWMutex
+	lockEncryptWallet                         sync.RWMutex
+	lockExcessiveBlock                        sync.RWMutex
+	lockFundRawTransaction                    sync.RWMutex
+	lockGenerate                              sync.RWMutex
+	lockGenerateToAddress                     sync.RWMutex
+	lockImportAddress                         sync.RWMutex
+	lockImportMulti                           sync.RWMutex
+	lockImportPrivateKey                      sync.RWMutex
+	lockImportPrunedFunds                     sync.RWMutex
+	lockImportPublicKey                       sync.RWMutex
+	lockImportWallet                          sync.RWMutex
+	lockInfo                                  sync.RWMutex
+	lockInvalidateBlock                       sync.RWMutex
+	lockKeypoolRefill                         sync.RWMutex
+	lockLegacyMerkleProof                     sync.RWMutex
+	lockListAccounts                          sync.RWMutex
+	lockListBanned                            sync.RWMutex
+	lockListLockUnspent                       sync.RWMutex
+	lockListReceivedByAccount                 sync.RWMutex
+	lockListReceivedByAddress                 sync.RWMutex
+	lockListSinceBlock                        sync.RWMutex
+	lockListTransactions                      sync.RWMutex
+	lockListUnspent                           sync.RWMutex
+	lockListWallets                           sync.RWMutex
+	lockLockUnspent                           sync.RWMutex
+	lockMemoryInfo                            sync.RWMutex
+	lockMempoolAncestorIDs                    sync.RWMutex
+	lockMempoolAncestors                      sync.RWMutex
+	lockMempoolDescendantIDs                  sync.RWMutex
+	lockMempoolDescendants                    sync.RWMutex
+	lockMempoolEntry                          sync.RWMutex
+	lockMerkleProof                           sync.RWMutex
+	lockMiningCandidate                       sync.RWMutex
+	lockMiningInfo                            sync.RWMutex
+	lockMove                                  sync.RWMutex
+	lockNetworkHashPS                         sync.RWMutex
+	lockNetworkInfo                           sync.RWMutex
+	lockNetworkTotals                         sync.RWMutex
+	lockNewAddress                            sync.RWMutex
+	lockNodeInfo                              sync.RWMutex
+	lockOutput                                sync.RWMutex
+	lockOutputSetInfo                         sync.RWMutex
+	lockPeerInfo                              sync.RWMutex
+	lockPing                                  sync.RWMutex
+	lockPreciousBlock                         sync.RWMutex
+	lockPrioritiseTx                          sync.RWMutex
+	lockPruneChain                            sync.RWMutex
+	lockRawChangeAddress                      sync.RWMutex
+	lockRawMempool                            sync.RWMutex
+	lockRawMempoolIDs                         sync.RWMutex
+	lockRawNonFinalMempool                    sync.RWMutex
+	lockRawTransaction                        sync.RWMutex
+	lockRebuildJournal                        sync.RWMutex
+	lockReceivedByAddress                     sync.RWMutex
+	lockRemovePrunedFunds                     sync.RWMutex
+	lockSendFrom                              sync.RWMutex
+	lockSendMany                              sync.RWMutex
+	lockSendRawTransaction                    sync.RWMutex
+	lockSendRawTransactions                   sync.RWMutex
+	lockSendToAddress                         sync.RWMutex
+	lockSetAccount                            sync.RWMutex
+	lockSetBan                                sync.RWMutex
+	lockSetBlockMaxSize                       sync.RWMutex
+	lockSetExcessiveBlock                     sync.RWMutex
+	lockSetNetworkActive                      sync.RWMutex
+	lockSetTxFee                              sync.RWMutex
+	lockSetTxPropagationFrequency             sync.RWMutex
+	lockSettings                              sync.RWMutex
+	lockSignMessage                           sync.RWMutex
+	lockSignMessageWithPrivKey                sync.RWMutex
+	lockSignRawTransaction                    sync.RWMutex
+	lockStop                                  sync.RWMutex
+	lockSubmitBlock                           sync.RWMutex
+	lockSubmitMiningSolution                  sync.RWMutex
+	lockTransaction                           sync.RWMutex
+	lockUnconfirmedBalance                    sync.RWMutex
+	lockUptime                                sync.RWMutex
+	lockValidateAddress                       sync.RWMutex
+	lockVerifyBlockCandidate                  sync.RWMutex
+	lockVerifyChain                           sync.RWMutex
+	lockVerifySignedMessage                   sync.RWMutex
+	lockWalletInfo                            sync.RWMutex
+	lockWalletLock                            sync.RWMutex
+	lockWalletPhassphrase                     sync.RWMutex
+	lockWalletPhassphraseChange               sync.RWMutex
 }
 
 // AbandonTransaction calls AbandonTransactionFunc.
@@ -1804,7 +1804,8 @@ func (mock *NodeClientMock) AbandonTransaction(ctx context.Context, txID string)
 
 // AbandonTransactionCalls gets all the calls that were made to AbandonTransaction.
 // Check the length with:
-//     len(mockedNodeClient.AbandonTransactionCalls())
+//
+//	len(mockedNodeClient.AbandonTransactionCalls())
 func (mock *NodeClientMock) AbandonTransactionCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -1839,7 +1840,8 @@ func (mock *NodeClientMock) Account(ctx context.Context, address string) (string
 
 // AccountCalls gets all the calls that were made to Account.
 // Check the length with:
-//     len(mockedNodeClient.AccountCalls())
+//
+//	len(mockedNodeClient.AccountCalls())
 func (mock *NodeClientMock) AccountCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -1874,7 +1876,8 @@ func (mock *NodeClientMock) AccountAddress(ctx context.Context, account string) 
 
 // AccountAddressCalls gets all the calls that were made to AccountAddress.
 // Check the length with:
-//     len(mockedNodeClient.AccountAddressCalls())
+//
+//	len(mockedNodeClient.AccountAddressCalls())
 func (mock *NodeClientMock) AccountAddressCalls() []struct {
 	Ctx     context.Context
 	Account string
@@ -1909,7 +1912,8 @@ func (mock *NodeClientMock) AccountAddresses(ctx context.Context, account string
 
 // AccountAddressesCalls gets all the calls that were made to AccountAddresses.
 // Check the length with:
-//     len(mockedNodeClient.AccountAddressesCalls())
+//
+//	len(mockedNodeClient.AccountAddressesCalls())
 func (mock *NodeClientMock) AccountAddressesCalls() []struct {
 	Ctx     context.Context
 	Account string
@@ -1942,7 +1946,8 @@ func (mock *NodeClientMock) ActiveZMQNotifications(ctx context.Context) ([]*mode
 
 // ActiveZMQNotificationsCalls gets all the calls that were made to ActiveZMQNotifications.
 // Check the length with:
-//     len(mockedNodeClient.ActiveZMQNotificationsCalls())
+//
+//	len(mockedNodeClient.ActiveZMQNotificationsCalls())
 func (mock *NodeClientMock) ActiveZMQNotificationsCalls() []struct {
 	Ctx context.Context
 } {
@@ -1977,7 +1982,8 @@ func (mock *NodeClientMock) AddMultiSigAddress(ctx context.Context, n int, keys 
 
 // AddMultiSigAddressCalls gets all the calls that were made to AddMultiSigAddress.
 // Check the length with:
-//     len(mockedNodeClient.AddMultiSigAddressCalls())
+//
+//	len(mockedNodeClient.AddMultiSigAddressCalls())
 func (mock *NodeClientMock) AddMultiSigAddressCalls() []struct {
 	Ctx  context.Context
 	N    int
@@ -2016,7 +2022,8 @@ func (mock *NodeClientMock) AddNode(ctx context.Context, node string, command in
 
 // AddNodeCalls gets all the calls that were made to AddNode.
 // Check the length with:
-//     len(mockedNodeClient.AddNodeCalls())
+//
+//	len(mockedNodeClient.AddNodeCalls())
 func (mock *NodeClientMock) AddNodeCalls() []struct {
 	Ctx     context.Context
 	Node    string
@@ -2039,10 +2046,10 @@ func (mock *NodeClientMock) AddToConfiscationTransactionWhitelist(ctx context.Co
 		panic("TransactionClientMock.AddToConfiscationTransactionWhitelistFunc: method is nil but TransactionClient.AddToConfiscationTransactionWhitelist was just called")
 	}
 	callInfo := struct {
-		Ctx   context.Context
+		Ctx                      context.Context
 		ConfiscationTransactions []models.ConfiscationTransactionDetails
 	}{
-		Ctx: ctx,
+		Ctx:                      ctx,
 		ConfiscationTransactions: confiscationTxs,
 	}
 	mock.lockAddToConfiscationTransactionWhitelist.Lock()
@@ -2060,7 +2067,7 @@ func (mock *NodeClientMock) AddToConsensusBlacklist(ctx context.Context, funds [
 		Ctx   context.Context
 		Funds []models.Fund
 	}{
-		Ctx: ctx,
+		Ctx:   ctx,
 		Funds: funds,
 	}
 	mock.lockAddToConsensusBlacklist.Lock()
@@ -2089,7 +2096,8 @@ func (mock *NodeClientMock) BackupWallet(ctx context.Context, dest string) error
 
 // BackupWalletCalls gets all the calls that were made to BackupWallet.
 // Check the length with:
-//     len(mockedNodeClient.BackupWalletCalls())
+//
+//	len(mockedNodeClient.BackupWalletCalls())
 func (mock *NodeClientMock) BackupWalletCalls() []struct {
 	Ctx  context.Context
 	Dest string
@@ -2124,7 +2132,8 @@ func (mock *NodeClientMock) Balance(ctx context.Context, opts *models.OptsBalanc
 
 // BalanceCalls gets all the calls that were made to Balance.
 // Check the length with:
-//     len(mockedNodeClient.BalanceCalls())
+//
+//	len(mockedNodeClient.BalanceCalls())
 func (mock *NodeClientMock) BalanceCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsBalance
@@ -2157,7 +2166,8 @@ func (mock *NodeClientMock) BestBlockHash(ctx context.Context) (string, error) {
 
 // BestBlockHashCalls gets all the calls that were made to BestBlockHash.
 // Check the length with:
-//     len(mockedNodeClient.BestBlockHashCalls())
+//
+//	len(mockedNodeClient.BestBlockHashCalls())
 func (mock *NodeClientMock) BestBlockHashCalls() []struct {
 	Ctx context.Context
 } {
@@ -2190,7 +2200,8 @@ func (mock *NodeClientMock) Block(ctx context.Context, hash string) (*models.Blo
 
 // BlockCalls gets all the calls that were made to Block.
 // Check the length with:
-//     len(mockedNodeClient.BlockCalls())
+//
+//	len(mockedNodeClient.BlockCalls())
 func (mock *NodeClientMock) BlockCalls() []struct {
 	Ctx  context.Context
 	Hash string
@@ -2225,7 +2236,8 @@ func (mock *NodeClientMock) BlockByHeight(ctx context.Context, height int) (*mod
 
 // BlockByHeightCalls gets all the calls that were made to BlockByHeight.
 // Check the length with:
-//     len(mockedNodeClient.BlockByHeightCalls())
+//
+//	len(mockedNodeClient.BlockByHeightCalls())
 func (mock *NodeClientMock) BlockByHeightCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -2258,7 +2270,8 @@ func (mock *NodeClientMock) BlockCount(ctx context.Context) (uint32, error) {
 
 // BlockCountCalls gets all the calls that were made to BlockCount.
 // Check the length with:
-//     len(mockedNodeClient.BlockCountCalls())
+//
+//	len(mockedNodeClient.BlockCountCalls())
 func (mock *NodeClientMock) BlockCountCalls() []struct {
 	Ctx context.Context
 } {
@@ -2291,7 +2304,8 @@ func (mock *NodeClientMock) BlockDecodeHeader(ctx context.Context, hash string) 
 
 // BlockDecodeHeaderCalls gets all the calls that were made to BlockDecodeHeader.
 // Check the length with:
-//     len(mockedNodeClient.BlockDecodeHeaderCalls())
+//
+//	len(mockedNodeClient.BlockDecodeHeaderCalls())
 func (mock *NodeClientMock) BlockDecodeHeaderCalls() []struct {
 	Ctx  context.Context
 	Hash string
@@ -2326,7 +2340,8 @@ func (mock *NodeClientMock) BlockDecodeHeaderByHeight(ctx context.Context, heigh
 
 // BlockDecodeHeaderByHeightCalls gets all the calls that were made to BlockDecodeHeaderByHeight.
 // Check the length with:
-//     len(mockedNodeClient.BlockDecodeHeaderByHeightCalls())
+//
+//	len(mockedNodeClient.BlockDecodeHeaderByHeightCalls())
 func (mock *NodeClientMock) BlockDecodeHeaderByHeightCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -2361,7 +2376,8 @@ func (mock *NodeClientMock) BlockHash(ctx context.Context, height int) (string, 
 
 // BlockHashCalls gets all the calls that were made to BlockHash.
 // Check the length with:
-//     len(mockedNodeClient.BlockHashCalls())
+//
+//	len(mockedNodeClient.BlockHashCalls())
 func (mock *NodeClientMock) BlockHashCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -2396,7 +2412,8 @@ func (mock *NodeClientMock) BlockHeader(ctx context.Context, hash string) (*mode
 
 // BlockHeaderCalls gets all the calls that were made to BlockHeader.
 // Check the length with:
-//     len(mockedNodeClient.BlockHeaderCalls())
+//
+//	len(mockedNodeClient.BlockHeaderCalls())
 func (mock *NodeClientMock) BlockHeaderCalls() []struct {
 	Ctx  context.Context
 	Hash string
@@ -2431,7 +2448,8 @@ func (mock *NodeClientMock) BlockHeaderHex(ctx context.Context, hash string) (st
 
 // BlockHeaderHexCalls gets all the calls that were made to BlockHeaderHex.
 // Check the length with:
-//     len(mockedNodeClient.BlockHeaderHexCalls())
+//
+//	len(mockedNodeClient.BlockHeaderHexCalls())
 func (mock *NodeClientMock) BlockHeaderHexCalls() []struct {
 	Ctx  context.Context
 	Hash string
@@ -2466,7 +2484,8 @@ func (mock *NodeClientMock) BlockHex(ctx context.Context, hash string) (string, 
 
 // BlockHexCalls gets all the calls that were made to BlockHex.
 // Check the length with:
-//     len(mockedNodeClient.BlockHexCalls())
+//
+//	len(mockedNodeClient.BlockHexCalls())
 func (mock *NodeClientMock) BlockHexCalls() []struct {
 	Ctx  context.Context
 	Hash string
@@ -2501,7 +2520,8 @@ func (mock *NodeClientMock) BlockHexByHeight(ctx context.Context, height int) (s
 
 // BlockHexByHeightCalls gets all the calls that were made to BlockHexByHeight.
 // Check the length with:
-//     len(mockedNodeClient.BlockHexByHeightCalls())
+//
+//	len(mockedNodeClient.BlockHexByHeightCalls())
 func (mock *NodeClientMock) BlockHexByHeightCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -2538,7 +2558,8 @@ func (mock *NodeClientMock) BlockStats(ctx context.Context, hash string, fields 
 
 // BlockStatsCalls gets all the calls that were made to BlockStats.
 // Check the length with:
-//     len(mockedNodeClient.BlockStatsCalls())
+//
+//	len(mockedNodeClient.BlockStatsCalls())
 func (mock *NodeClientMock) BlockStatsCalls() []struct {
 	Ctx    context.Context
 	Hash   string
@@ -2577,7 +2598,8 @@ func (mock *NodeClientMock) BlockStatsByHeight(ctx context.Context, height int, 
 
 // BlockStatsByHeightCalls gets all the calls that were made to BlockStatsByHeight.
 // Check the length with:
-//     len(mockedNodeClient.BlockStatsByHeightCalls())
+//
+//	len(mockedNodeClient.BlockStatsByHeightCalls())
 func (mock *NodeClientMock) BlockStatsByHeightCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -2614,7 +2636,8 @@ func (mock *NodeClientMock) BlockTemplate(ctx context.Context, opts *models.Bloc
 
 // BlockTemplateCalls gets all the calls that were made to BlockTemplate.
 // Check the length with:
-//     len(mockedNodeClient.BlockTemplateCalls())
+//
+//	len(mockedNodeClient.BlockTemplateCalls())
 func (mock *NodeClientMock) BlockTemplateCalls() []struct {
 	Ctx  context.Context
 	Opts *models.BlockTemplateRequest
@@ -2647,7 +2670,8 @@ func (mock *NodeClientMock) ChainInfo(ctx context.Context) (*models.ChainInfo, e
 
 // ChainInfoCalls gets all the calls that were made to ChainInfo.
 // Check the length with:
-//     len(mockedNodeClient.ChainInfoCalls())
+//
+//	len(mockedNodeClient.ChainInfoCalls())
 func (mock *NodeClientMock) ChainInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -2678,7 +2702,8 @@ func (mock *NodeClientMock) ChainTips(ctx context.Context) ([]*models.ChainTip, 
 
 // ChainTipsCalls gets all the calls that were made to ChainTips.
 // Check the length with:
-//     len(mockedNodeClient.ChainTipsCalls())
+//
+//	len(mockedNodeClient.ChainTipsCalls())
 func (mock *NodeClientMock) ChainTipsCalls() []struct {
 	Ctx context.Context
 } {
@@ -2711,7 +2736,8 @@ func (mock *NodeClientMock) ChainTxStats(ctx context.Context, opts *models.OptsC
 
 // ChainTxStatsCalls gets all the calls that were made to ChainTxStats.
 // Check the length with:
-//     len(mockedNodeClient.ChainTxStatsCalls())
+//
+//	len(mockedNodeClient.ChainTxStatsCalls())
 func (mock *NodeClientMock) ChainTxStatsCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsChainTxStats
@@ -2744,7 +2770,8 @@ func (mock *NodeClientMock) CheckJournal(ctx context.Context) (*models.JournalSt
 
 // CheckJournalCalls gets all the calls that were made to CheckJournal.
 // Check the length with:
-//     len(mockedNodeClient.CheckJournalCalls())
+//
+//	len(mockedNodeClient.CheckJournalCalls())
 func (mock *NodeClientMock) CheckJournalCalls() []struct {
 	Ctx context.Context
 } {
@@ -2775,7 +2802,8 @@ func (mock *NodeClientMock) ClearBanned(ctx context.Context) error {
 
 // ClearBannedCalls gets all the calls that were made to ClearBanned.
 // Check the length with:
-//     len(mockedNodeClient.ClearBannedCalls())
+//
+//	len(mockedNodeClient.ClearBannedCalls())
 func (mock *NodeClientMock) ClearBannedCalls() []struct {
 	Ctx context.Context
 } {
@@ -2806,7 +2834,8 @@ func (mock *NodeClientMock) ClearInvalidTransactions(ctx context.Context) (uint6
 
 // ClearInvalidTransactionsCalls gets all the calls that were made to ClearInvalidTransactions.
 // Check the length with:
-//     len(mockedNodeClient.ClearInvalidTransactionsCalls())
+//
+//	len(mockedNodeClient.ClearInvalidTransactionsCalls())
 func (mock *NodeClientMock) ClearInvalidTransactionsCalls() []struct {
 	Ctx context.Context
 } {
@@ -2837,7 +2866,8 @@ func (mock *NodeClientMock) ConnectionCount(ctx context.Context) (uint64, error)
 
 // ConnectionCountCalls gets all the calls that were made to ConnectionCount.
 // Check the length with:
-//     len(mockedNodeClient.ConnectionCountCalls())
+//
+//	len(mockedNodeClient.ConnectionCountCalls())
 func (mock *NodeClientMock) ConnectionCountCalls() []struct {
 	Ctx context.Context
 } {
@@ -2872,7 +2902,8 @@ func (mock *NodeClientMock) CreateMultiSig(ctx context.Context, n int, keys ...s
 
 // CreateMultiSigCalls gets all the calls that were made to CreateMultiSig.
 // Check the length with:
-//     len(mockedNodeClient.CreateMultiSigCalls())
+//
+//	len(mockedNodeClient.CreateMultiSigCalls())
 func (mock *NodeClientMock) CreateMultiSigCalls() []struct {
 	Ctx  context.Context
 	N    int
@@ -2911,7 +2942,8 @@ func (mock *NodeClientMock) CreateRawTransaction(ctx context.Context, utxos bt.U
 
 // CreateRawTransactionCalls gets all the calls that were made to CreateRawTransaction.
 // Check the length with:
-//     len(mockedNodeClient.CreateRawTransactionCalls())
+//
+//	len(mockedNodeClient.CreateRawTransactionCalls())
 func (mock *NodeClientMock) CreateRawTransactionCalls() []struct {
 	Ctx    context.Context
 	Utxos  bt.UTXOs
@@ -2946,7 +2978,8 @@ func (mock *NodeClientMock) Difficulty(ctx context.Context) (float64, error) {
 
 // DifficultyCalls gets all the calls that were made to Difficulty.
 // Check the length with:
-//     len(mockedNodeClient.DifficultyCalls())
+//
+//	len(mockedNodeClient.DifficultyCalls())
 func (mock *NodeClientMock) DifficultyCalls() []struct {
 	Ctx context.Context
 } {
@@ -2979,7 +3012,8 @@ func (mock *NodeClientMock) DisconnectNode(ctx context.Context, params models.Pa
 
 // DisconnectNodeCalls gets all the calls that were made to DisconnectNode.
 // Check the length with:
-//     len(mockedNodeClient.DisconnectNodeCalls())
+//
+//	len(mockedNodeClient.DisconnectNodeCalls())
 func (mock *NodeClientMock) DisconnectNodeCalls() []struct {
 	Ctx    context.Context
 	Params models.ParamsDisconnectNode
@@ -3012,7 +3046,8 @@ func (mock *NodeClientMock) DumpParams(ctx context.Context) ([]string, error) {
 
 // DumpParamsCalls gets all the calls that were made to DumpParams.
 // Check the length with:
-//     len(mockedNodeClient.DumpParamsCalls())
+//
+//	len(mockedNodeClient.DumpParamsCalls())
 func (mock *NodeClientMock) DumpParamsCalls() []struct {
 	Ctx context.Context
 } {
@@ -3045,7 +3080,8 @@ func (mock *NodeClientMock) DumpPrivateKey(ctx context.Context, address string) 
 
 // DumpPrivateKeyCalls gets all the calls that were made to DumpPrivateKey.
 // Check the length with:
-//     len(mockedNodeClient.DumpPrivateKeyCalls())
+//
+//	len(mockedNodeClient.DumpPrivateKeyCalls())
 func (mock *NodeClientMock) DumpPrivateKeyCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -3080,7 +3116,8 @@ func (mock *NodeClientMock) DumpWallet(ctx context.Context, dest string) (*model
 
 // DumpWalletCalls gets all the calls that were made to DumpWallet.
 // Check the length with:
-//     len(mockedNodeClient.DumpWalletCalls())
+//
+//	len(mockedNodeClient.DumpWalletCalls())
 func (mock *NodeClientMock) DumpWalletCalls() []struct {
 	Ctx  context.Context
 	Dest string
@@ -3115,7 +3152,8 @@ func (mock *NodeClientMock) EncryptWallet(ctx context.Context, passphrase string
 
 // EncryptWalletCalls gets all the calls that were made to EncryptWallet.
 // Check the length with:
-//     len(mockedNodeClient.EncryptWalletCalls())
+//
+//	len(mockedNodeClient.EncryptWalletCalls())
 func (mock *NodeClientMock) EncryptWalletCalls() []struct {
 	Ctx        context.Context
 	Passphrase string
@@ -3148,7 +3186,8 @@ func (mock *NodeClientMock) ExcessiveBlock(ctx context.Context) (*models.Excessi
 
 // ExcessiveBlockCalls gets all the calls that were made to ExcessiveBlock.
 // Check the length with:
-//     len(mockedNodeClient.ExcessiveBlockCalls())
+//
+//	len(mockedNodeClient.ExcessiveBlockCalls())
 func (mock *NodeClientMock) ExcessiveBlockCalls() []struct {
 	Ctx context.Context
 } {
@@ -3183,7 +3222,8 @@ func (mock *NodeClientMock) FundRawTransaction(ctx context.Context, tx *bt.Tx, o
 
 // FundRawTransactionCalls gets all the calls that were made to FundRawTransaction.
 // Check the length with:
-//     len(mockedNodeClient.FundRawTransactionCalls())
+//
+//	len(mockedNodeClient.FundRawTransactionCalls())
 func (mock *NodeClientMock) FundRawTransactionCalls() []struct {
 	Ctx  context.Context
 	Tx   *bt.Tx
@@ -3222,7 +3262,8 @@ func (mock *NodeClientMock) Generate(ctx context.Context, n int, opts *models.Op
 
 // GenerateCalls gets all the calls that were made to Generate.
 // Check the length with:
-//     len(mockedNodeClient.GenerateCalls())
+//
+//	len(mockedNodeClient.GenerateCalls())
 func (mock *NodeClientMock) GenerateCalls() []struct {
 	Ctx  context.Context
 	N    int
@@ -3263,7 +3304,8 @@ func (mock *NodeClientMock) GenerateToAddress(ctx context.Context, n int, addr s
 
 // GenerateToAddressCalls gets all the calls that were made to GenerateToAddress.
 // Check the length with:
-//     len(mockedNodeClient.GenerateToAddressCalls())
+//
+//	len(mockedNodeClient.GenerateToAddressCalls())
 func (mock *NodeClientMock) GenerateToAddressCalls() []struct {
 	Ctx  context.Context
 	N    int
@@ -3304,7 +3346,8 @@ func (mock *NodeClientMock) ImportAddress(ctx context.Context, address string, o
 
 // ImportAddressCalls gets all the calls that were made to ImportAddress.
 // Check the length with:
-//     len(mockedNodeClient.ImportAddressCalls())
+//
+//	len(mockedNodeClient.ImportAddressCalls())
 func (mock *NodeClientMock) ImportAddressCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -3343,7 +3386,8 @@ func (mock *NodeClientMock) ImportMulti(ctx context.Context, reqs []models.Impor
 
 // ImportMultiCalls gets all the calls that were made to ImportMulti.
 // Check the length with:
-//     len(mockedNodeClient.ImportMultiCalls())
+//
+//	len(mockedNodeClient.ImportMultiCalls())
 func (mock *NodeClientMock) ImportMultiCalls() []struct {
 	Ctx  context.Context
 	Reqs []models.ImportMultiRequest
@@ -3382,7 +3426,8 @@ func (mock *NodeClientMock) ImportPrivateKey(ctx context.Context, w *wif.WIF, op
 
 // ImportPrivateKeyCalls gets all the calls that were made to ImportPrivateKey.
 // Check the length with:
-//     len(mockedNodeClient.ImportPrivateKeyCalls())
+//
+//	len(mockedNodeClient.ImportPrivateKeyCalls())
 func (mock *NodeClientMock) ImportPrivateKeyCalls() []struct {
 	Ctx  context.Context
 	W    *wif.WIF
@@ -3421,7 +3466,8 @@ func (mock *NodeClientMock) ImportPrunedFunds(ctx context.Context, tx *bt.Tx, tx
 
 // ImportPrunedFundsCalls gets all the calls that were made to ImportPrunedFunds.
 // Check the length with:
-//     len(mockedNodeClient.ImportPrunedFundsCalls())
+//
+//	len(mockedNodeClient.ImportPrunedFundsCalls())
 func (mock *NodeClientMock) ImportPrunedFundsCalls() []struct {
 	Ctx        context.Context
 	Tx         *bt.Tx
@@ -3460,7 +3506,8 @@ func (mock *NodeClientMock) ImportPublicKey(ctx context.Context, publicKey strin
 
 // ImportPublicKeyCalls gets all the calls that were made to ImportPublicKey.
 // Check the length with:
-//     len(mockedNodeClient.ImportPublicKeyCalls())
+//
+//	len(mockedNodeClient.ImportPublicKeyCalls())
 func (mock *NodeClientMock) ImportPublicKeyCalls() []struct {
 	Ctx       context.Context
 	PublicKey string
@@ -3497,7 +3544,8 @@ func (mock *NodeClientMock) ImportWallet(ctx context.Context, filename string) e
 
 // ImportWalletCalls gets all the calls that were made to ImportWallet.
 // Check the length with:
-//     len(mockedNodeClient.ImportWalletCalls())
+//
+//	len(mockedNodeClient.ImportWalletCalls())
 func (mock *NodeClientMock) ImportWalletCalls() []struct {
 	Ctx      context.Context
 	Filename string
@@ -3530,7 +3578,8 @@ func (mock *NodeClientMock) Info(ctx context.Context) (*models.Info, error) {
 
 // InfoCalls gets all the calls that were made to Info.
 // Check the length with:
-//     len(mockedNodeClient.InfoCalls())
+//
+//	len(mockedNodeClient.InfoCalls())
 func (mock *NodeClientMock) InfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -3549,10 +3598,10 @@ func (mock *NodeClientMock) InvalidateBlock(ctx context.Context, hash string) er
 		panic("NodeClientMock.InvalidateBlockFunc: method is nil but NodeClient.InvalidateBlock was just called")
 	}
 	callInfo := struct {
-		Ctx  context.Context
+		Ctx       context.Context
 		BlockHash string
 	}{
-		Ctx:  ctx,
+		Ctx:       ctx,
 		BlockHash: hash,
 	}
 	mock.lockBlock.Lock()
@@ -3581,7 +3630,8 @@ func (mock *NodeClientMock) KeypoolRefill(ctx context.Context, opts *models.Opts
 
 // KeypoolRefillCalls gets all the calls that were made to KeypoolRefill.
 // Check the length with:
-//     len(mockedNodeClient.KeypoolRefillCalls())
+//
+//	len(mockedNodeClient.KeypoolRefillCalls())
 func (mock *NodeClientMock) KeypoolRefillCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsKeypoolRefill
@@ -3618,7 +3668,8 @@ func (mock *NodeClientMock) LegacyMerkleProof(ctx context.Context, txID string, 
 
 // LegacyMerkleProofCalls gets all the calls that were made to LegacyMerkleProof.
 // Check the length with:
-//     len(mockedNodeClient.LegacyMerkleProofCalls())
+//
+//	len(mockedNodeClient.LegacyMerkleProofCalls())
 func (mock *NodeClientMock) LegacyMerkleProofCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -3655,7 +3706,8 @@ func (mock *NodeClientMock) ListAccounts(ctx context.Context, opts *models.OptsL
 
 // ListAccountsCalls gets all the calls that were made to ListAccounts.
 // Check the length with:
-//     len(mockedNodeClient.ListAccountsCalls())
+//
+//	len(mockedNodeClient.ListAccountsCalls())
 func (mock *NodeClientMock) ListAccountsCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListAccounts
@@ -3688,7 +3740,8 @@ func (mock *NodeClientMock) ListBanned(ctx context.Context) ([]*models.BannedSub
 
 // ListBannedCalls gets all the calls that were made to ListBanned.
 // Check the length with:
-//     len(mockedNodeClient.ListBannedCalls())
+//
+//	len(mockedNodeClient.ListBannedCalls())
 func (mock *NodeClientMock) ListBannedCalls() []struct {
 	Ctx context.Context
 } {
@@ -3719,7 +3772,8 @@ func (mock *NodeClientMock) ListLockUnspent(ctx context.Context) ([]*models.Lock
 
 // ListLockUnspentCalls gets all the calls that were made to ListLockUnspent.
 // Check the length with:
-//     len(mockedNodeClient.ListLockUnspentCalls())
+//
+//	len(mockedNodeClient.ListLockUnspentCalls())
 func (mock *NodeClientMock) ListLockUnspentCalls() []struct {
 	Ctx context.Context
 } {
@@ -3752,7 +3806,8 @@ func (mock *NodeClientMock) ListReceivedByAccount(ctx context.Context, opts *mod
 
 // ListReceivedByAccountCalls gets all the calls that were made to ListReceivedByAccount.
 // Check the length with:
-//     len(mockedNodeClient.ListReceivedByAccountCalls())
+//
+//	len(mockedNodeClient.ListReceivedByAccountCalls())
 func (mock *NodeClientMock) ListReceivedByAccountCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListReceivedBy
@@ -3787,7 +3842,8 @@ func (mock *NodeClientMock) ListReceivedByAddress(ctx context.Context, opts *mod
 
 // ListReceivedByAddressCalls gets all the calls that were made to ListReceivedByAddress.
 // Check the length with:
-//     len(mockedNodeClient.ListReceivedByAddressCalls())
+//
+//	len(mockedNodeClient.ListReceivedByAddressCalls())
 func (mock *NodeClientMock) ListReceivedByAddressCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListReceivedBy
@@ -3822,7 +3878,8 @@ func (mock *NodeClientMock) ListSinceBlock(ctx context.Context, opts *models.Opt
 
 // ListSinceBlockCalls gets all the calls that were made to ListSinceBlock.
 // Check the length with:
-//     len(mockedNodeClient.ListSinceBlockCalls())
+//
+//	len(mockedNodeClient.ListSinceBlockCalls())
 func (mock *NodeClientMock) ListSinceBlockCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListSinceBlock
@@ -3857,7 +3914,8 @@ func (mock *NodeClientMock) ListTransactions(ctx context.Context, opts *models.O
 
 // ListTransactionsCalls gets all the calls that were made to ListTransactions.
 // Check the length with:
-//     len(mockedNodeClient.ListTransactionsCalls())
+//
+//	len(mockedNodeClient.ListTransactionsCalls())
 func (mock *NodeClientMock) ListTransactionsCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListTransactions
@@ -3892,7 +3950,8 @@ func (mock *NodeClientMock) ListUnspent(ctx context.Context, opts *models.OptsLi
 
 // ListUnspentCalls gets all the calls that were made to ListUnspent.
 // Check the length with:
-//     len(mockedNodeClient.ListUnspentCalls())
+//
+//	len(mockedNodeClient.ListUnspentCalls())
 func (mock *NodeClientMock) ListUnspentCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListUnspent
@@ -3925,7 +3984,8 @@ func (mock *NodeClientMock) ListWallets(ctx context.Context) ([]string, error) {
 
 // ListWalletsCalls gets all the calls that were made to ListWallets.
 // Check the length with:
-//     len(mockedNodeClient.ListWalletsCalls())
+//
+//	len(mockedNodeClient.ListWalletsCalls())
 func (mock *NodeClientMock) ListWalletsCalls() []struct {
 	Ctx context.Context
 } {
@@ -3960,7 +4020,8 @@ func (mock *NodeClientMock) LockUnspent(ctx context.Context, lock bool, opts *mo
 
 // LockUnspentCalls gets all the calls that were made to LockUnspent.
 // Check the length with:
-//     len(mockedNodeClient.LockUnspentCalls())
+//
+//	len(mockedNodeClient.LockUnspentCalls())
 func (mock *NodeClientMock) LockUnspentCalls() []struct {
 	Ctx  context.Context
 	Lock bool
@@ -3995,7 +4056,8 @@ func (mock *NodeClientMock) MemoryInfo(ctx context.Context) (*models.MemoryInfo,
 
 // MemoryInfoCalls gets all the calls that were made to MemoryInfo.
 // Check the length with:
-//     len(mockedNodeClient.MemoryInfoCalls())
+//
+//	len(mockedNodeClient.MemoryInfoCalls())
 func (mock *NodeClientMock) MemoryInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -4028,7 +4090,8 @@ func (mock *NodeClientMock) MempoolAncestorIDs(ctx context.Context, txID string)
 
 // MempoolAncestorIDsCalls gets all the calls that were made to MempoolAncestorIDs.
 // Check the length with:
-//     len(mockedNodeClient.MempoolAncestorIDsCalls())
+//
+//	len(mockedNodeClient.MempoolAncestorIDsCalls())
 func (mock *NodeClientMock) MempoolAncestorIDsCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -4063,7 +4126,8 @@ func (mock *NodeClientMock) MempoolAncestors(ctx context.Context, txID string) (
 
 // MempoolAncestorsCalls gets all the calls that were made to MempoolAncestors.
 // Check the length with:
-//     len(mockedNodeClient.MempoolAncestorsCalls())
+//
+//	len(mockedNodeClient.MempoolAncestorsCalls())
 func (mock *NodeClientMock) MempoolAncestorsCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -4098,7 +4162,8 @@ func (mock *NodeClientMock) MempoolDescendantIDs(ctx context.Context, txID strin
 
 // MempoolDescendantIDsCalls gets all the calls that were made to MempoolDescendantIDs.
 // Check the length with:
-//     len(mockedNodeClient.MempoolDescendantIDsCalls())
+//
+//	len(mockedNodeClient.MempoolDescendantIDsCalls())
 func (mock *NodeClientMock) MempoolDescendantIDsCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -4133,7 +4198,8 @@ func (mock *NodeClientMock) MempoolDescendants(ctx context.Context, txID string)
 
 // MempoolDescendantsCalls gets all the calls that were made to MempoolDescendants.
 // Check the length with:
-//     len(mockedNodeClient.MempoolDescendantsCalls())
+//
+//	len(mockedNodeClient.MempoolDescendantsCalls())
 func (mock *NodeClientMock) MempoolDescendantsCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -4168,7 +4234,8 @@ func (mock *NodeClientMock) MempoolEntry(ctx context.Context, txID string) (*mod
 
 // MempoolEntryCalls gets all the calls that were made to MempoolEntry.
 // Check the length with:
-//     len(mockedNodeClient.MempoolEntryCalls())
+//
+//	len(mockedNodeClient.MempoolEntryCalls())
 func (mock *NodeClientMock) MempoolEntryCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -4207,7 +4274,8 @@ func (mock *NodeClientMock) MerkleProof(ctx context.Context, blockHash string, t
 
 // MerkleProofCalls gets all the calls that were made to MerkleProof.
 // Check the length with:
-//     len(mockedNodeClient.MerkleProofCalls())
+//
+//	len(mockedNodeClient.MerkleProofCalls())
 func (mock *NodeClientMock) MerkleProofCalls() []struct {
 	Ctx       context.Context
 	BlockHash string
@@ -4246,7 +4314,8 @@ func (mock *NodeClientMock) MiningCandidate(ctx context.Context, opts *models.Op
 
 // MiningCandidateCalls gets all the calls that were made to MiningCandidate.
 // Check the length with:
-//     len(mockedNodeClient.MiningCandidateCalls())
+//
+//	len(mockedNodeClient.MiningCandidateCalls())
 func (mock *NodeClientMock) MiningCandidateCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsMiningCandidate
@@ -4279,7 +4348,8 @@ func (mock *NodeClientMock) MiningInfo(ctx context.Context) (*models.MiningInfo,
 
 // MiningInfoCalls gets all the calls that were made to MiningInfo.
 // Check the length with:
-//     len(mockedNodeClient.MiningInfoCalls())
+//
+//	len(mockedNodeClient.MiningInfoCalls())
 func (mock *NodeClientMock) MiningInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -4318,7 +4388,8 @@ func (mock *NodeClientMock) Move(ctx context.Context, from string, to string, am
 
 // MoveCalls gets all the calls that were made to Move.
 // Check the length with:
-//     len(mockedNodeClient.MoveCalls())
+//
+//	len(mockedNodeClient.MoveCalls())
 func (mock *NodeClientMock) MoveCalls() []struct {
 	Ctx    context.Context
 	From   string
@@ -4359,7 +4430,8 @@ func (mock *NodeClientMock) NetworkHashPS(ctx context.Context, opts *models.Opts
 
 // NetworkHashPSCalls gets all the calls that were made to NetworkHashPS.
 // Check the length with:
-//     len(mockedNodeClient.NetworkHashPSCalls())
+//
+//	len(mockedNodeClient.NetworkHashPSCalls())
 func (mock *NodeClientMock) NetworkHashPSCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsNetworkHashPS
@@ -4392,7 +4464,8 @@ func (mock *NodeClientMock) NetworkInfo(ctx context.Context) (*models.NetworkInf
 
 // NetworkInfoCalls gets all the calls that were made to NetworkInfo.
 // Check the length with:
-//     len(mockedNodeClient.NetworkInfoCalls())
+//
+//	len(mockedNodeClient.NetworkInfoCalls())
 func (mock *NodeClientMock) NetworkInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -4423,7 +4496,8 @@ func (mock *NodeClientMock) NetworkTotals(ctx context.Context) (*models.NetworkT
 
 // NetworkTotalsCalls gets all the calls that were made to NetworkTotals.
 // Check the length with:
-//     len(mockedNodeClient.NetworkTotalsCalls())
+//
+//	len(mockedNodeClient.NetworkTotalsCalls())
 func (mock *NodeClientMock) NetworkTotalsCalls() []struct {
 	Ctx context.Context
 } {
@@ -4456,7 +4530,8 @@ func (mock *NodeClientMock) NewAddress(ctx context.Context, opts *models.OptsNew
 
 // NewAddressCalls gets all the calls that were made to NewAddress.
 // Check the length with:
-//     len(mockedNodeClient.NewAddressCalls())
+//
+//	len(mockedNodeClient.NewAddressCalls())
 func (mock *NodeClientMock) NewAddressCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsNewAddress
@@ -4491,7 +4566,8 @@ func (mock *NodeClientMock) NodeInfo(ctx context.Context, opts *models.OptsNodeI
 
 // NodeInfoCalls gets all the calls that were made to NodeInfo.
 // Check the length with:
-//     len(mockedNodeClient.NodeInfoCalls())
+//
+//	len(mockedNodeClient.NodeInfoCalls())
 func (mock *NodeClientMock) NodeInfoCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsNodeInfo
@@ -4530,7 +4606,8 @@ func (mock *NodeClientMock) Output(ctx context.Context, txID string, n int, opts
 
 // OutputCalls gets all the calls that were made to Output.
 // Check the length with:
-//     len(mockedNodeClient.OutputCalls())
+//
+//	len(mockedNodeClient.OutputCalls())
 func (mock *NodeClientMock) OutputCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -4567,7 +4644,8 @@ func (mock *NodeClientMock) OutputSetInfo(ctx context.Context) (*models.OutputSe
 
 // OutputSetInfoCalls gets all the calls that were made to OutputSetInfo.
 // Check the length with:
-//     len(mockedNodeClient.OutputSetInfoCalls())
+//
+//	len(mockedNodeClient.OutputSetInfoCalls())
 func (mock *NodeClientMock) OutputSetInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -4598,7 +4676,8 @@ func (mock *NodeClientMock) PeerInfo(ctx context.Context) ([]*models.PeerInfo, e
 
 // PeerInfoCalls gets all the calls that were made to PeerInfo.
 // Check the length with:
-//     len(mockedNodeClient.PeerInfoCalls())
+//
+//	len(mockedNodeClient.PeerInfoCalls())
 func (mock *NodeClientMock) PeerInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -4629,7 +4708,8 @@ func (mock *NodeClientMock) Ping(ctx context.Context) error {
 
 // PingCalls gets all the calls that were made to Ping.
 // Check the length with:
-//     len(mockedNodeClient.PingCalls())
+//
+//	len(mockedNodeClient.PingCalls())
 func (mock *NodeClientMock) PingCalls() []struct {
 	Ctx context.Context
 } {
@@ -4662,7 +4742,8 @@ func (mock *NodeClientMock) PreciousBlock(ctx context.Context, blockHash string)
 
 // PreciousBlockCalls gets all the calls that were made to PreciousBlock.
 // Check the length with:
-//     len(mockedNodeClient.PreciousBlockCalls())
+//
+//	len(mockedNodeClient.PreciousBlockCalls())
 func (mock *NodeClientMock) PreciousBlockCalls() []struct {
 	Ctx       context.Context
 	BlockHash string
@@ -4699,7 +4780,8 @@ func (mock *NodeClientMock) PrioritiseTx(ctx context.Context, txID string, feeDe
 
 // PrioritiseTxCalls gets all the calls that were made to PrioritiseTx.
 // Check the length with:
-//     len(mockedNodeClient.PrioritiseTxCalls())
+//
+//	len(mockedNodeClient.PrioritiseTxCalls())
 func (mock *NodeClientMock) PrioritiseTxCalls() []struct {
 	Ctx      context.Context
 	TxID     string
@@ -4736,7 +4818,8 @@ func (mock *NodeClientMock) PruneChain(ctx context.Context, height int) (uint32,
 
 // PruneChainCalls gets all the calls that were made to PruneChain.
 // Check the length with:
-//     len(mockedNodeClient.PruneChainCalls())
+//
+//	len(mockedNodeClient.PruneChainCalls())
 func (mock *NodeClientMock) PruneChainCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -4769,7 +4852,8 @@ func (mock *NodeClientMock) RawChangeAddress(ctx context.Context) (string, error
 
 // RawChangeAddressCalls gets all the calls that were made to RawChangeAddress.
 // Check the length with:
-//     len(mockedNodeClient.RawChangeAddressCalls())
+//
+//	len(mockedNodeClient.RawChangeAddressCalls())
 func (mock *NodeClientMock) RawChangeAddressCalls() []struct {
 	Ctx context.Context
 } {
@@ -4800,7 +4884,8 @@ func (mock *NodeClientMock) RawMempool(ctx context.Context) (models.MempoolTxs, 
 
 // RawMempoolCalls gets all the calls that were made to RawMempool.
 // Check the length with:
-//     len(mockedNodeClient.RawMempoolCalls())
+//
+//	len(mockedNodeClient.RawMempoolCalls())
 func (mock *NodeClientMock) RawMempoolCalls() []struct {
 	Ctx context.Context
 } {
@@ -4831,7 +4916,8 @@ func (mock *NodeClientMock) RawMempoolIDs(ctx context.Context) ([]string, error)
 
 // RawMempoolIDsCalls gets all the calls that were made to RawMempoolIDs.
 // Check the length with:
-//     len(mockedNodeClient.RawMempoolIDsCalls())
+//
+//	len(mockedNodeClient.RawMempoolIDsCalls())
 func (mock *NodeClientMock) RawMempoolIDsCalls() []struct {
 	Ctx context.Context
 } {
@@ -4862,7 +4948,8 @@ func (mock *NodeClientMock) RawNonFinalMempool(ctx context.Context) ([]string, e
 
 // RawNonFinalMempoolCalls gets all the calls that were made to RawNonFinalMempool.
 // Check the length with:
-//     len(mockedNodeClient.RawNonFinalMempoolCalls())
+//
+//	len(mockedNodeClient.RawNonFinalMempoolCalls())
 func (mock *NodeClientMock) RawNonFinalMempoolCalls() []struct {
 	Ctx context.Context
 } {
@@ -4895,7 +4982,8 @@ func (mock *NodeClientMock) RawTransaction(ctx context.Context, txID string) (*b
 
 // RawTransactionCalls gets all the calls that were made to RawTransaction.
 // Check the length with:
-//     len(mockedNodeClient.RawTransactionCalls())
+//
+//	len(mockedNodeClient.RawTransactionCalls())
 func (mock *NodeClientMock) RawTransactionCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -4928,7 +5016,8 @@ func (mock *NodeClientMock) RebuildJournal(ctx context.Context) error {
 
 // RebuildJournalCalls gets all the calls that were made to RebuildJournal.
 // Check the length with:
-//     len(mockedNodeClient.RebuildJournalCalls())
+//
+//	len(mockedNodeClient.RebuildJournalCalls())
 func (mock *NodeClientMock) RebuildJournalCalls() []struct {
 	Ctx context.Context
 } {
@@ -4961,7 +5050,8 @@ func (mock *NodeClientMock) ReceivedByAddress(ctx context.Context, address strin
 
 // ReceivedByAddressCalls gets all the calls that were made to ReceivedByAddress.
 // Check the length with:
-//     len(mockedNodeClient.ReceivedByAddressCalls())
+//
+//	len(mockedNodeClient.ReceivedByAddressCalls())
 func (mock *NodeClientMock) ReceivedByAddressCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -4996,7 +5086,8 @@ func (mock *NodeClientMock) RemovePrunedFunds(ctx context.Context, txID string) 
 
 // RemovePrunedFundsCalls gets all the calls that were made to RemovePrunedFunds.
 // Check the length with:
-//     len(mockedNodeClient.RemovePrunedFundsCalls())
+//
+//	len(mockedNodeClient.RemovePrunedFundsCalls())
 func (mock *NodeClientMock) RemovePrunedFundsCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -5037,7 +5128,8 @@ func (mock *NodeClientMock) SendFrom(ctx context.Context, from string, to string
 
 // SendFromCalls gets all the calls that were made to SendFrom.
 // Check the length with:
-//     len(mockedNodeClient.SendFromCalls())
+//
+//	len(mockedNodeClient.SendFromCalls())
 func (mock *NodeClientMock) SendFromCalls() []struct {
 	Ctx    context.Context
 	From   string
@@ -5082,7 +5174,8 @@ func (mock *NodeClientMock) SendMany(ctx context.Context, from string, amounts m
 
 // SendManyCalls gets all the calls that were made to SendMany.
 // Check the length with:
-//     len(mockedNodeClient.SendManyCalls())
+//
+//	len(mockedNodeClient.SendManyCalls())
 func (mock *NodeClientMock) SendManyCalls() []struct {
 	Ctx     context.Context
 	From    string
@@ -5123,7 +5216,8 @@ func (mock *NodeClientMock) SendRawTransaction(ctx context.Context, tx *bt.Tx, o
 
 // SendRawTransactionCalls gets all the calls that were made to SendRawTransaction.
 // Check the length with:
-//     len(mockedNodeClient.SendRawTransactionCalls())
+//
+//	len(mockedNodeClient.SendRawTransactionCalls())
 func (mock *NodeClientMock) SendRawTransactionCalls() []struct {
 	Ctx  context.Context
 	Tx   *bt.Tx
@@ -5160,7 +5254,8 @@ func (mock *NodeClientMock) SendRawTransactions(ctx context.Context, params ...m
 
 // SendRawTransactionsCalls gets all the calls that were made to SendRawTransactions.
 // Check the length with:
-//     len(mockedNodeClient.SendRawTransactionsCalls())
+//
+//	len(mockedNodeClient.SendRawTransactionsCalls())
 func (mock *NodeClientMock) SendRawTransactionsCalls() []struct {
 	Ctx    context.Context
 	Params []models.ParamsSendRawTransactions
@@ -5199,7 +5294,8 @@ func (mock *NodeClientMock) SendToAddress(ctx context.Context, address string, a
 
 // SendToAddressCalls gets all the calls that were made to SendToAddress.
 // Check the length with:
-//     len(mockedNodeClient.SendToAddressCalls())
+//
+//	len(mockedNodeClient.SendToAddressCalls())
 func (mock *NodeClientMock) SendToAddressCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -5240,7 +5336,8 @@ func (mock *NodeClientMock) SetAccount(ctx context.Context, address string, acco
 
 // SetAccountCalls gets all the calls that were made to SetAccount.
 // Check the length with:
-//     len(mockedNodeClient.SetAccountCalls())
+//
+//	len(mockedNodeClient.SetAccountCalls())
 func (mock *NodeClientMock) SetAccountCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -5281,7 +5378,8 @@ func (mock *NodeClientMock) SetBan(ctx context.Context, subnet string, action in
 
 // SetBanCalls gets all the calls that were made to SetBan.
 // Check the length with:
-//     len(mockedNodeClient.SetBanCalls())
+//
+//	len(mockedNodeClient.SetBanCalls())
 func (mock *NodeClientMock) SetBanCalls() []struct {
 	Ctx    context.Context
 	Subnet string
@@ -5320,7 +5418,8 @@ func (mock *NodeClientMock) SetBlockMaxSize(ctx context.Context, size uint64) (s
 
 // SetBlockMaxSizeCalls gets all the calls that were made to SetBlockMaxSize.
 // Check the length with:
-//     len(mockedNodeClient.SetBlockMaxSizeCalls())
+//
+//	len(mockedNodeClient.SetBlockMaxSizeCalls())
 func (mock *NodeClientMock) SetBlockMaxSizeCalls() []struct {
 	Ctx  context.Context
 	Size uint64
@@ -5355,7 +5454,8 @@ func (mock *NodeClientMock) SetExcessiveBlock(ctx context.Context, size uint64) 
 
 // SetExcessiveBlockCalls gets all the calls that were made to SetExcessiveBlock.
 // Check the length with:
-//     len(mockedNodeClient.SetExcessiveBlockCalls())
+//
+//	len(mockedNodeClient.SetExcessiveBlockCalls())
 func (mock *NodeClientMock) SetExcessiveBlockCalls() []struct {
 	Ctx  context.Context
 	Size uint64
@@ -5390,7 +5490,8 @@ func (mock *NodeClientMock) SetNetworkActive(ctx context.Context, enabled bool) 
 
 // SetNetworkActiveCalls gets all the calls that were made to SetNetworkActive.
 // Check the length with:
-//     len(mockedNodeClient.SetNetworkActiveCalls())
+//
+//	len(mockedNodeClient.SetNetworkActiveCalls())
 func (mock *NodeClientMock) SetNetworkActiveCalls() []struct {
 	Ctx     context.Context
 	Enabled bool
@@ -5425,7 +5526,8 @@ func (mock *NodeClientMock) SetTxFee(ctx context.Context, amount uint64) (bool, 
 
 // SetTxFeeCalls gets all the calls that were made to SetTxFee.
 // Check the length with:
-//     len(mockedNodeClient.SetTxFeeCalls())
+//
+//	len(mockedNodeClient.SetTxFeeCalls())
 func (mock *NodeClientMock) SetTxFeeCalls() []struct {
 	Ctx    context.Context
 	Amount uint64
@@ -5460,7 +5562,8 @@ func (mock *NodeClientMock) SetTxPropagationFrequency(ctx context.Context, frequ
 
 // SetTxPropagationFrequencyCalls gets all the calls that were made to SetTxPropagationFrequency.
 // Check the length with:
-//     len(mockedNodeClient.SetTxPropagationFrequencyCalls())
+//
+//	len(mockedNodeClient.SetTxPropagationFrequencyCalls())
 func (mock *NodeClientMock) SetTxPropagationFrequencyCalls() []struct {
 	Ctx       context.Context
 	Frequency uint64
@@ -5493,7 +5596,8 @@ func (mock *NodeClientMock) Settings(ctx context.Context) (*models.Settings, err
 
 // SettingsCalls gets all the calls that were made to Settings.
 // Check the length with:
-//     len(mockedNodeClient.SettingsCalls())
+//
+//	len(mockedNodeClient.SettingsCalls())
 func (mock *NodeClientMock) SettingsCalls() []struct {
 	Ctx context.Context
 } {
@@ -5528,7 +5632,8 @@ func (mock *NodeClientMock) SignMessage(ctx context.Context, address string, mes
 
 // SignMessageCalls gets all the calls that were made to SignMessage.
 // Check the length with:
-//     len(mockedNodeClient.SignMessageCalls())
+//
+//	len(mockedNodeClient.SignMessageCalls())
 func (mock *NodeClientMock) SignMessageCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -5567,7 +5672,8 @@ func (mock *NodeClientMock) SignMessageWithPrivKey(ctx context.Context, w *wif.W
 
 // SignMessageWithPrivKeyCalls gets all the calls that were made to SignMessageWithPrivKey.
 // Check the length with:
-//     len(mockedNodeClient.SignMessageWithPrivKeyCalls())
+//
+//	len(mockedNodeClient.SignMessageWithPrivKeyCalls())
 func (mock *NodeClientMock) SignMessageWithPrivKeyCalls() []struct {
 	Ctx context.Context
 	W   *wif.WIF
@@ -5606,7 +5712,8 @@ func (mock *NodeClientMock) SignRawTransaction(ctx context.Context, tx *bt.Tx, o
 
 // SignRawTransactionCalls gets all the calls that were made to SignRawTransaction.
 // Check the length with:
-//     len(mockedNodeClient.SignRawTransactionCalls())
+//
+//	len(mockedNodeClient.SignRawTransactionCalls())
 func (mock *NodeClientMock) SignRawTransactionCalls() []struct {
 	Ctx  context.Context
 	Tx   *bt.Tx
@@ -5641,7 +5748,8 @@ func (mock *NodeClientMock) Stop(ctx context.Context) error {
 
 // StopCalls gets all the calls that were made to Stop.
 // Check the length with:
-//     len(mockedNodeClient.StopCalls())
+//
+//	len(mockedNodeClient.StopCalls())
 func (mock *NodeClientMock) StopCalls() []struct {
 	Ctx context.Context
 } {
@@ -5676,7 +5784,8 @@ func (mock *NodeClientMock) SubmitBlock(ctx context.Context, block *bc.Block, pa
 
 // SubmitBlockCalls gets all the calls that were made to SubmitBlock.
 // Check the length with:
-//     len(mockedNodeClient.SubmitBlockCalls())
+//
+//	len(mockedNodeClient.SubmitBlockCalls())
 func (mock *NodeClientMock) SubmitBlockCalls() []struct {
 	Ctx    context.Context
 	Block  *bc.Block
@@ -5713,7 +5822,8 @@ func (mock *NodeClientMock) SubmitMiningSolution(ctx context.Context, solution *
 
 // SubmitMiningSolutionCalls gets all the calls that were made to SubmitMiningSolution.
 // Check the length with:
-//     len(mockedNodeClient.SubmitMiningSolutionCalls())
+//
+//	len(mockedNodeClient.SubmitMiningSolutionCalls())
 func (mock *NodeClientMock) SubmitMiningSolutionCalls() []struct {
 	Ctx      context.Context
 	Solution *models.MiningSolution
@@ -5748,7 +5858,8 @@ func (mock *NodeClientMock) Transaction(ctx context.Context, txID string) (*mode
 
 // TransactionCalls gets all the calls that were made to Transaction.
 // Check the length with:
-//     len(mockedNodeClient.TransactionCalls())
+//
+//	len(mockedNodeClient.TransactionCalls())
 func (mock *NodeClientMock) TransactionCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -5781,7 +5892,8 @@ func (mock *NodeClientMock) UnconfirmedBalance(ctx context.Context) (uint64, err
 
 // UnconfirmedBalanceCalls gets all the calls that were made to UnconfirmedBalance.
 // Check the length with:
-//     len(mockedNodeClient.UnconfirmedBalanceCalls())
+//
+//	len(mockedNodeClient.UnconfirmedBalanceCalls())
 func (mock *NodeClientMock) UnconfirmedBalanceCalls() []struct {
 	Ctx context.Context
 } {
@@ -5812,7 +5924,8 @@ func (mock *NodeClientMock) Uptime(ctx context.Context) (time.Duration, error) {
 
 // UptimeCalls gets all the calls that were made to Uptime.
 // Check the length with:
-//     len(mockedNodeClient.UptimeCalls())
+//
+//	len(mockedNodeClient.UptimeCalls())
 func (mock *NodeClientMock) UptimeCalls() []struct {
 	Ctx context.Context
 } {
@@ -5845,7 +5958,8 @@ func (mock *NodeClientMock) ValidateAddress(ctx context.Context, address string)
 
 // ValidateAddressCalls gets all the calls that were made to ValidateAddress.
 // Check the length with:
-//     len(mockedNodeClient.ValidateAddressCalls())
+//
+//	len(mockedNodeClient.ValidateAddressCalls())
 func (mock *NodeClientMock) ValidateAddressCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -5882,7 +5996,8 @@ func (mock *NodeClientMock) VerifyBlockCandidate(ctx context.Context, block *bc.
 
 // VerifyBlockCandidateCalls gets all the calls that were made to VerifyBlockCandidate.
 // Check the length with:
-//     len(mockedNodeClient.VerifyBlockCandidateCalls())
+//
+//	len(mockedNodeClient.VerifyBlockCandidateCalls())
 func (mock *NodeClientMock) VerifyBlockCandidateCalls() []struct {
 	Ctx    context.Context
 	Block  *bc.Block
@@ -5917,7 +6032,8 @@ func (mock *NodeClientMock) VerifyChain(ctx context.Context) (bool, error) {
 
 // VerifyChainCalls gets all the calls that were made to VerifyChain.
 // Check the length with:
-//     len(mockedNodeClient.VerifyChainCalls())
+//
+//	len(mockedNodeClient.VerifyChainCalls())
 func (mock *NodeClientMock) VerifyChainCalls() []struct {
 	Ctx context.Context
 } {
@@ -5954,7 +6070,8 @@ func (mock *NodeClientMock) VerifySignedMessage(ctx context.Context, w *wif.WIF,
 
 // VerifySignedMessageCalls gets all the calls that were made to VerifySignedMessage.
 // Check the length with:
-//     len(mockedNodeClient.VerifySignedMessageCalls())
+//
+//	len(mockedNodeClient.VerifySignedMessageCalls())
 func (mock *NodeClientMock) VerifySignedMessageCalls() []struct {
 	Ctx       context.Context
 	W         *wif.WIF
@@ -5991,7 +6108,8 @@ func (mock *NodeClientMock) WalletInfo(ctx context.Context) (*models.WalletInfo,
 
 // WalletInfoCalls gets all the calls that were made to WalletInfo.
 // Check the length with:
-//     len(mockedNodeClient.WalletInfoCalls())
+//
+//	len(mockedNodeClient.WalletInfoCalls())
 func (mock *NodeClientMock) WalletInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -6022,7 +6140,8 @@ func (mock *NodeClientMock) WalletLock(ctx context.Context) error {
 
 // WalletLockCalls gets all the calls that were made to WalletLock.
 // Check the length with:
-//     len(mockedNodeClient.WalletLockCalls())
+//
+//	len(mockedNodeClient.WalletLockCalls())
 func (mock *NodeClientMock) WalletLockCalls() []struct {
 	Ctx context.Context
 } {
@@ -6057,7 +6176,8 @@ func (mock *NodeClientMock) WalletPhassphrase(ctx context.Context, passphrase st
 
 // WalletPhassphraseCalls gets all the calls that were made to WalletPhassphrase.
 // Check the length with:
-//     len(mockedNodeClient.WalletPhassphraseCalls())
+//
+//	len(mockedNodeClient.WalletPhassphraseCalls())
 func (mock *NodeClientMock) WalletPhassphraseCalls() []struct {
 	Ctx        context.Context
 	Passphrase string
@@ -6096,7 +6216,8 @@ func (mock *NodeClientMock) WalletPhassphraseChange(ctx context.Context, oldPass
 
 // WalletPhassphraseChangeCalls gets all the calls that were made to WalletPhassphraseChange.
 // Check the length with:
-//     len(mockedNodeClient.WalletPhassphraseChangeCalls())
+//
+//	len(mockedNodeClient.WalletPhassphraseChangeCalls())
 func (mock *NodeClientMock) WalletPhassphraseChangeCalls() []struct {
 	Ctx           context.Context
 	OldPassphrase string

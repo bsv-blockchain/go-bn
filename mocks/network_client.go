@@ -5,9 +5,9 @@ package mocks
 
 import (
 	"context"
-	"github.com/libsv/go-bn"
-	"github.com/libsv/go-bn/internal"
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bn"
+	"github.com/bsv-blockchain/go-bn/internal"
+	"github.com/bsv-blockchain/go-bn/models"
 	"sync"
 )
 
@@ -17,64 +17,64 @@ var _ bn.NetworkClient = &NetworkClientMock{}
 
 // NetworkClientMock is a mock implementation of bn.NetworkClient.
 //
-// 	func TestSomethingThatUsesNetworkClient(t *testing.T) {
+//	func TestSomethingThatUsesNetworkClient(t *testing.T) {
 //
-// 		// make and configure a mocked bn.NetworkClient
-// 		mockedNetworkClient := &NetworkClientMock{
-// 			AddNodeFunc: func(ctx context.Context, node string, command internal.NodeAddType) error {
-// 				panic("mock out the AddNode method")
-// 			},
-// 			ClearBannedFunc: func(ctx context.Context) error {
-// 				panic("mock out the ClearBanned method")
-// 			},
-// 			ConnectionCountFunc: func(ctx context.Context) (uint64, error) {
-// 				panic("mock out the ConnectionCount method")
-// 			},
-// 			DisconnectNodeFunc: func(ctx context.Context, params models.ParamsDisconnectNode) error {
-// 				panic("mock out the DisconnectNode method")
-// 			},
-// 			ExcessiveBlockFunc: func(ctx context.Context) (*models.ExcessiveBlock, error) {
-// 				panic("mock out the ExcessiveBlock method")
-// 			},
-// 			ListBannedFunc: func(ctx context.Context) ([]*models.BannedSubnet, error) {
-// 				panic("mock out the ListBanned method")
-// 			},
-// 			NetworkInfoFunc: func(ctx context.Context) (*models.NetworkInfo, error) {
-// 				panic("mock out the NetworkInfo method")
-// 			},
-// 			NetworkTotalsFunc: func(ctx context.Context) (*models.NetworkTotals, error) {
-// 				panic("mock out the NetworkTotals method")
-// 			},
-// 			NodeInfoFunc: func(ctx context.Context, opts *models.OptsNodeInfo) ([]*models.NodeInfo, error) {
-// 				panic("mock out the NodeInfo method")
-// 			},
-// 			PeerInfoFunc: func(ctx context.Context) ([]*models.PeerInfo, error) {
-// 				panic("mock out the PeerInfo method")
-// 			},
-// 			PingFunc: func(ctx context.Context) error {
-// 				panic("mock out the Ping method")
-// 			},
-// 			SetBanFunc: func(ctx context.Context, subnet string, action internal.BanAction, opts *models.OptsSetBan) error {
-// 				panic("mock out the SetBan method")
-// 			},
-// 			SetBlockMaxSizeFunc: func(ctx context.Context, size uint64) (string, error) {
-// 				panic("mock out the SetBlockMaxSize method")
-// 			},
-// 			SetExcessiveBlockFunc: func(ctx context.Context, size uint64) (string, error) {
-// 				panic("mock out the SetExcessiveBlock method")
-// 			},
-// 			SetNetworkActiveFunc: func(ctx context.Context, enabled bool) error {
-// 				panic("mock out the SetNetworkActive method")
-// 			},
-// 			SetTxPropagationFrequencyFunc: func(ctx context.Context, frequency uint64) error {
-// 				panic("mock out the SetTxPropagationFrequency method")
-// 			},
-// 		}
+//		// make and configure a mocked bn.NetworkClient
+//		mockedNetworkClient := &NetworkClientMock{
+//			AddNodeFunc: func(ctx context.Context, node string, command internal.NodeAddType) error {
+//				panic("mock out the AddNode method")
+//			},
+//			ClearBannedFunc: func(ctx context.Context) error {
+//				panic("mock out the ClearBanned method")
+//			},
+//			ConnectionCountFunc: func(ctx context.Context) (uint64, error) {
+//				panic("mock out the ConnectionCount method")
+//			},
+//			DisconnectNodeFunc: func(ctx context.Context, params models.ParamsDisconnectNode) error {
+//				panic("mock out the DisconnectNode method")
+//			},
+//			ExcessiveBlockFunc: func(ctx context.Context) (*models.ExcessiveBlock, error) {
+//				panic("mock out the ExcessiveBlock method")
+//			},
+//			ListBannedFunc: func(ctx context.Context) ([]*models.BannedSubnet, error) {
+//				panic("mock out the ListBanned method")
+//			},
+//			NetworkInfoFunc: func(ctx context.Context) (*models.NetworkInfo, error) {
+//				panic("mock out the NetworkInfo method")
+//			},
+//			NetworkTotalsFunc: func(ctx context.Context) (*models.NetworkTotals, error) {
+//				panic("mock out the NetworkTotals method")
+//			},
+//			NodeInfoFunc: func(ctx context.Context, opts *models.OptsNodeInfo) ([]*models.NodeInfo, error) {
+//				panic("mock out the NodeInfo method")
+//			},
+//			PeerInfoFunc: func(ctx context.Context) ([]*models.PeerInfo, error) {
+//				panic("mock out the PeerInfo method")
+//			},
+//			PingFunc: func(ctx context.Context) error {
+//				panic("mock out the Ping method")
+//			},
+//			SetBanFunc: func(ctx context.Context, subnet string, action internal.BanAction, opts *models.OptsSetBan) error {
+//				panic("mock out the SetBan method")
+//			},
+//			SetBlockMaxSizeFunc: func(ctx context.Context, size uint64) (string, error) {
+//				panic("mock out the SetBlockMaxSize method")
+//			},
+//			SetExcessiveBlockFunc: func(ctx context.Context, size uint64) (string, error) {
+//				panic("mock out the SetExcessiveBlock method")
+//			},
+//			SetNetworkActiveFunc: func(ctx context.Context, enabled bool) error {
+//				panic("mock out the SetNetworkActive method")
+//			},
+//			SetTxPropagationFrequencyFunc: func(ctx context.Context, frequency uint64) error {
+//				panic("mock out the SetTxPropagationFrequency method")
+//			},
+//		}
 //
-// 		// use mockedNetworkClient in code that requires bn.NetworkClient
-// 		// and then make assertions.
+//		// use mockedNetworkClient in code that requires bn.NetworkClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type NetworkClientMock struct {
 	// AddNodeFunc mocks the AddNode method.
 	AddNodeFunc func(ctx context.Context, node string, command internal.NodeAddType) error
@@ -269,7 +269,8 @@ func (mock *NetworkClientMock) AddNode(ctx context.Context, node string, command
 
 // AddNodeCalls gets all the calls that were made to AddNode.
 // Check the length with:
-//     len(mockedNetworkClient.AddNodeCalls())
+//
+//	len(mockedNetworkClient.AddNodeCalls())
 func (mock *NetworkClientMock) AddNodeCalls() []struct {
 	Ctx     context.Context
 	Node    string
@@ -304,7 +305,8 @@ func (mock *NetworkClientMock) ClearBanned(ctx context.Context) error {
 
 // ClearBannedCalls gets all the calls that were made to ClearBanned.
 // Check the length with:
-//     len(mockedNetworkClient.ClearBannedCalls())
+//
+//	len(mockedNetworkClient.ClearBannedCalls())
 func (mock *NetworkClientMock) ClearBannedCalls() []struct {
 	Ctx context.Context
 } {
@@ -335,7 +337,8 @@ func (mock *NetworkClientMock) ConnectionCount(ctx context.Context) (uint64, err
 
 // ConnectionCountCalls gets all the calls that were made to ConnectionCount.
 // Check the length with:
-//     len(mockedNetworkClient.ConnectionCountCalls())
+//
+//	len(mockedNetworkClient.ConnectionCountCalls())
 func (mock *NetworkClientMock) ConnectionCountCalls() []struct {
 	Ctx context.Context
 } {
@@ -368,7 +371,8 @@ func (mock *NetworkClientMock) DisconnectNode(ctx context.Context, params models
 
 // DisconnectNodeCalls gets all the calls that were made to DisconnectNode.
 // Check the length with:
-//     len(mockedNetworkClient.DisconnectNodeCalls())
+//
+//	len(mockedNetworkClient.DisconnectNodeCalls())
 func (mock *NetworkClientMock) DisconnectNodeCalls() []struct {
 	Ctx    context.Context
 	Params models.ParamsDisconnectNode
@@ -401,7 +405,8 @@ func (mock *NetworkClientMock) ExcessiveBlock(ctx context.Context) (*models.Exce
 
 // ExcessiveBlockCalls gets all the calls that were made to ExcessiveBlock.
 // Check the length with:
-//     len(mockedNetworkClient.ExcessiveBlockCalls())
+//
+//	len(mockedNetworkClient.ExcessiveBlockCalls())
 func (mock *NetworkClientMock) ExcessiveBlockCalls() []struct {
 	Ctx context.Context
 } {
@@ -432,7 +437,8 @@ func (mock *NetworkClientMock) ListBanned(ctx context.Context) ([]*models.Banned
 
 // ListBannedCalls gets all the calls that were made to ListBanned.
 // Check the length with:
-//     len(mockedNetworkClient.ListBannedCalls())
+//
+//	len(mockedNetworkClient.ListBannedCalls())
 func (mock *NetworkClientMock) ListBannedCalls() []struct {
 	Ctx context.Context
 } {
@@ -463,7 +469,8 @@ func (mock *NetworkClientMock) NetworkInfo(ctx context.Context) (*models.Network
 
 // NetworkInfoCalls gets all the calls that were made to NetworkInfo.
 // Check the length with:
-//     len(mockedNetworkClient.NetworkInfoCalls())
+//
+//	len(mockedNetworkClient.NetworkInfoCalls())
 func (mock *NetworkClientMock) NetworkInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -494,7 +501,8 @@ func (mock *NetworkClientMock) NetworkTotals(ctx context.Context) (*models.Netwo
 
 // NetworkTotalsCalls gets all the calls that were made to NetworkTotals.
 // Check the length with:
-//     len(mockedNetworkClient.NetworkTotalsCalls())
+//
+//	len(mockedNetworkClient.NetworkTotalsCalls())
 func (mock *NetworkClientMock) NetworkTotalsCalls() []struct {
 	Ctx context.Context
 } {
@@ -527,7 +535,8 @@ func (mock *NetworkClientMock) NodeInfo(ctx context.Context, opts *models.OptsNo
 
 // NodeInfoCalls gets all the calls that were made to NodeInfo.
 // Check the length with:
-//     len(mockedNetworkClient.NodeInfoCalls())
+//
+//	len(mockedNetworkClient.NodeInfoCalls())
 func (mock *NetworkClientMock) NodeInfoCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsNodeInfo
@@ -560,7 +569,8 @@ func (mock *NetworkClientMock) PeerInfo(ctx context.Context) ([]*models.PeerInfo
 
 // PeerInfoCalls gets all the calls that were made to PeerInfo.
 // Check the length with:
-//     len(mockedNetworkClient.PeerInfoCalls())
+//
+//	len(mockedNetworkClient.PeerInfoCalls())
 func (mock *NetworkClientMock) PeerInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -591,7 +601,8 @@ func (mock *NetworkClientMock) Ping(ctx context.Context) error {
 
 // PingCalls gets all the calls that were made to Ping.
 // Check the length with:
-//     len(mockedNetworkClient.PingCalls())
+//
+//	len(mockedNetworkClient.PingCalls())
 func (mock *NetworkClientMock) PingCalls() []struct {
 	Ctx context.Context
 } {
@@ -628,7 +639,8 @@ func (mock *NetworkClientMock) SetBan(ctx context.Context, subnet string, action
 
 // SetBanCalls gets all the calls that were made to SetBan.
 // Check the length with:
-//     len(mockedNetworkClient.SetBanCalls())
+//
+//	len(mockedNetworkClient.SetBanCalls())
 func (mock *NetworkClientMock) SetBanCalls() []struct {
 	Ctx    context.Context
 	Subnet string
@@ -667,7 +679,8 @@ func (mock *NetworkClientMock) SetBlockMaxSize(ctx context.Context, size uint64)
 
 // SetBlockMaxSizeCalls gets all the calls that were made to SetBlockMaxSize.
 // Check the length with:
-//     len(mockedNetworkClient.SetBlockMaxSizeCalls())
+//
+//	len(mockedNetworkClient.SetBlockMaxSizeCalls())
 func (mock *NetworkClientMock) SetBlockMaxSizeCalls() []struct {
 	Ctx  context.Context
 	Size uint64
@@ -702,7 +715,8 @@ func (mock *NetworkClientMock) SetExcessiveBlock(ctx context.Context, size uint6
 
 // SetExcessiveBlockCalls gets all the calls that were made to SetExcessiveBlock.
 // Check the length with:
-//     len(mockedNetworkClient.SetExcessiveBlockCalls())
+//
+//	len(mockedNetworkClient.SetExcessiveBlockCalls())
 func (mock *NetworkClientMock) SetExcessiveBlockCalls() []struct {
 	Ctx  context.Context
 	Size uint64
@@ -737,7 +751,8 @@ func (mock *NetworkClientMock) SetNetworkActive(ctx context.Context, enabled boo
 
 // SetNetworkActiveCalls gets all the calls that were made to SetNetworkActive.
 // Check the length with:
-//     len(mockedNetworkClient.SetNetworkActiveCalls())
+//
+//	len(mockedNetworkClient.SetNetworkActiveCalls())
 func (mock *NetworkClientMock) SetNetworkActiveCalls() []struct {
 	Ctx     context.Context
 	Enabled bool
@@ -772,7 +787,8 @@ func (mock *NetworkClientMock) SetTxPropagationFrequency(ctx context.Context, fr
 
 // SetTxPropagationFrequencyCalls gets all the calls that were made to SetTxPropagationFrequency.
 // Check the length with:
-//     len(mockedNetworkClient.SetTxPropagationFrequencyCalls())
+//
+//	len(mockedNetworkClient.SetTxPropagationFrequencyCalls())
 func (mock *NetworkClientMock) SetTxPropagationFrequencyCalls() []struct {
 	Ctx       context.Context
 	Frequency uint64

@@ -9,8 +9,8 @@ import (
 
 	"golang.org/x/sync/singleflight"
 
-	"github.com/libsv/go-bn/internal/config"
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bn/internal/config"
+	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/pkg/errors"
 )
 

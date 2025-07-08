@@ -3,7 +3,7 @@ package bn
 import (
 	"time"
 
-	"github.com/libsv/go-bn/internal/service"
+	"github.com/bsv-blockchain/go-bn/internal/service"
 )
 
 // BitcoinClientOptFunc for setting bitcoin client options.

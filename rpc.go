@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/libsv/go-bn/internal/config"
-	"github.com/libsv/go-bn/internal/service"
+	"github.com/bsv-blockchain/go-bn/internal/config"
+	"github.com/bsv-blockchain/go-bn/internal/service"
 )
 
 // NodeClient interfaces interacting with all commands on a bitcoin node.

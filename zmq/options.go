@@ -56,9 +56,10 @@ func WithHost(host string) NodeMQOptFunc {
 // unsubscribing.
 //
 // When set, the following no longer becomes an error scenario:
-//   z := zmq.NewZMQ(zmq.WithHost(...), zmq.WithSubscriptionOverwrite())
-//   if err := z.Subscribe(zmq.TopicHashTx, func([][]byte){}); err != nil {}
-//   if err := z.Subscribe(zmq.TopicHashTx, func([][]byte){}); err != nil {}
+//
+//	z := zmq.NewZMQ(zmq.WithHost(...), zmq.WithSubscriptionOverwrite())
+//	if err := z.Subscribe(zmq.TopicHashTx, func([][]byte){}); err != nil {}
+//	if err := z.Subscribe(zmq.TopicHashTx, func([][]byte){}); err != nil {}
 func WithSubscriptionOverwrite() NodeMQOptFunc {
 	return func(o *nodeMqCfg) {
 		o.allowOverwrite = true

@@ -5,10 +5,10 @@ package mocks
 
 import (
 	"context"
+	"github.com/bsv-blockchain/go-bn"
+	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/libsv/go-bk/wif"
-	"github.com/libsv/go-bn"
-	"github.com/libsv/go-bn/models"
-	"github.com/libsv/go-bt/v2"
+	"github.com/bsv-blockchain/go-bt/v2"
 	"sync"
 )
 
@@ -18,145 +18,145 @@ var _ bn.WalletClient = &WalletClientMock{}
 
 // WalletClientMock is a mock implementation of bn.WalletClient.
 //
-// 	func TestSomethingThatUsesWalletClient(t *testing.T) {
+//	func TestSomethingThatUsesWalletClient(t *testing.T) {
 //
-// 		// make and configure a mocked bn.WalletClient
-// 		mockedWalletClient := &WalletClientMock{
-// 			AbandonTransactionFunc: func(ctx context.Context, txID string) error {
-// 				panic("mock out the AbandonTransaction method")
-// 			},
-// 			AccountFunc: func(ctx context.Context, address string) (string, error) {
-// 				panic("mock out the Account method")
-// 			},
-// 			AccountAddressFunc: func(ctx context.Context, account string) (string, error) {
-// 				panic("mock out the AccountAddress method")
-// 			},
-// 			AccountAddressesFunc: func(ctx context.Context, account string) ([]string, error) {
-// 				panic("mock out the AccountAddresses method")
-// 			},
-// 			AddMultiSigAddressFunc: func(ctx context.Context, n int, keys ...string) (string, error) {
-// 				panic("mock out the AddMultiSigAddress method")
-// 			},
-// 			BackupWalletFunc: func(ctx context.Context, dest string) error {
-// 				panic("mock out the BackupWallet method")
-// 			},
-// 			BalanceFunc: func(ctx context.Context, opts *models.OptsBalance) (uint64, error) {
-// 				panic("mock out the Balance method")
-// 			},
-// 			DumpPrivateKeyFunc: func(ctx context.Context, address string) (*wif.WIF, error) {
-// 				panic("mock out the DumpPrivateKey method")
-// 			},
-// 			DumpWalletFunc: func(ctx context.Context, dest string) (*models.DumpWallet, error) {
-// 				panic("mock out the DumpWallet method")
-// 			},
-// 			EncryptWalletFunc: func(ctx context.Context, passphrase string) error {
-// 				panic("mock out the EncryptWallet method")
-// 			},
-// 			ImportAddressFunc: func(ctx context.Context, address string, opts *models.OptsImportAddress) error {
-// 				panic("mock out the ImportAddress method")
-// 			},
-// 			ImportMultiFunc: func(ctx context.Context, reqs []models.ImportMultiRequest, opts *models.OptsImportMulti) ([]*models.ImportMulti, error) {
-// 				panic("mock out the ImportMulti method")
-// 			},
-// 			ImportPrivateKeyFunc: func(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error {
-// 				panic("mock out the ImportPrivateKey method")
-// 			},
-// 			ImportPrunedFundsFunc: func(ctx context.Context, tx *bt.Tx, txOutProof string) error {
-// 				panic("mock out the ImportPrunedFunds method")
-// 			},
-// 			ImportPublicKeyFunc: func(ctx context.Context, publicKey string, opts *models.OptsImportPublicKey) error {
-// 				panic("mock out the ImportPublicKey method")
-// 			},
-// 			ImportWalletFunc: func(ctx context.Context, filename string) error {
-// 				panic("mock out the ImportWallet method")
-// 			},
-// 			KeypoolRefillFunc: func(ctx context.Context, opts *models.OptsKeypoolRefill) error {
-// 				panic("mock out the KeypoolRefill method")
-// 			},
-// 			ListAccountsFunc: func(ctx context.Context, opts *models.OptsListAccounts) (map[string]uint64, error) {
-// 				panic("mock out the ListAccounts method")
-// 			},
-// 			ListLockUnspentFunc: func(ctx context.Context) ([]*models.LockUnspent, error) {
-// 				panic("mock out the ListLockUnspent method")
-// 			},
-// 			ListReceivedByAccountFunc: func(ctx context.Context, opts *models.OptsListReceivedBy) ([]*models.ReceivedByAccount, error) {
-// 				panic("mock out the ListReceivedByAccount method")
-// 			},
-// 			ListReceivedByAddressFunc: func(ctx context.Context, opts *models.OptsListReceivedBy) ([]*models.ReceivedByAddress, error) {
-// 				panic("mock out the ListReceivedByAddress method")
-// 			},
-// 			ListSinceBlockFunc: func(ctx context.Context, opts *models.OptsListSinceBlock) (*models.SinceBlock, error) {
-// 				panic("mock out the ListSinceBlock method")
-// 			},
-// 			ListTransactionsFunc: func(ctx context.Context, opts *models.OptsListTransactions) ([]*models.Transaction, error) {
-// 				panic("mock out the ListTransactions method")
-// 			},
-// 			ListUnspentFunc: func(ctx context.Context, opts *models.OptsListUnspent) (bt.UTXOs, error) {
-// 				panic("mock out the ListUnspent method")
-// 			},
-// 			ListWalletsFunc: func(ctx context.Context) ([]string, error) {
-// 				panic("mock out the ListWallets method")
-// 			},
-// 			LockUnspentFunc: func(ctx context.Context, lock bool, opts *models.OptsLockUnspent) (bool, error) {
-// 				panic("mock out the LockUnspent method")
-// 			},
-// 			MoveFunc: func(ctx context.Context, from string, to string, amount uint64, opts *models.OptsMove) (bool, error) {
-// 				panic("mock out the Move method")
-// 			},
-// 			NewAddressFunc: func(ctx context.Context, opts *models.OptsNewAddress) (string, error) {
-// 				panic("mock out the NewAddress method")
-// 			},
-// 			RawChangeAddressFunc: func(ctx context.Context) (string, error) {
-// 				panic("mock out the RawChangeAddress method")
-// 			},
-// 			ReceivedByAddressFunc: func(ctx context.Context, address string) (uint64, error) {
-// 				panic("mock out the ReceivedByAddress method")
-// 			},
-// 			RemovePrunedFundsFunc: func(ctx context.Context, txID string) error {
-// 				panic("mock out the RemovePrunedFunds method")
-// 			},
-// 			SendFromFunc: func(ctx context.Context, from string, to string, amount uint64, opts *models.OptsSendFrom) (string, error) {
-// 				panic("mock out the SendFrom method")
-// 			},
-// 			SendManyFunc: func(ctx context.Context, from string, amounts map[string]uint64, opts *models.OptsSendMany) (string, error) {
-// 				panic("mock out the SendMany method")
-// 			},
-// 			SendToAddressFunc: func(ctx context.Context, address string, amount uint64, opts *models.OptsSendToAddress) (string, error) {
-// 				panic("mock out the SendToAddress method")
-// 			},
-// 			SetAccountFunc: func(ctx context.Context, address string, account string) error {
-// 				panic("mock out the SetAccount method")
-// 			},
-// 			SetTxFeeFunc: func(ctx context.Context, amount uint64) (bool, error) {
-// 				panic("mock out the SetTxFee method")
-// 			},
-// 			SignMessageFunc: func(ctx context.Context, address string, message string) (string, error) {
-// 				panic("mock out the SignMessage method")
-// 			},
-// 			TransactionFunc: func(ctx context.Context, txID string) (*models.Transaction, error) {
-// 				panic("mock out the Transaction method")
-// 			},
-// 			UnconfirmedBalanceFunc: func(ctx context.Context) (uint64, error) {
-// 				panic("mock out the UnconfirmedBalance method")
-// 			},
-// 			WalletInfoFunc: func(ctx context.Context) (*models.WalletInfo, error) {
-// 				panic("mock out the WalletInfo method")
-// 			},
-// 			WalletLockFunc: func(ctx context.Context) error {
-// 				panic("mock out the WalletLock method")
-// 			},
-// 			WalletPhassphraseFunc: func(ctx context.Context, passphrase string, timeout int) error {
-// 				panic("mock out the WalletPhassphrase method")
-// 			},
-// 			WalletPhassphraseChangeFunc: func(ctx context.Context, oldPassphrase string, newPassphrase string) error {
-// 				panic("mock out the WalletPhassphraseChange method")
-// 			},
-// 		}
+//		// make and configure a mocked bn.WalletClient
+//		mockedWalletClient := &WalletClientMock{
+//			AbandonTransactionFunc: func(ctx context.Context, txID string) error {
+//				panic("mock out the AbandonTransaction method")
+//			},
+//			AccountFunc: func(ctx context.Context, address string) (string, error) {
+//				panic("mock out the Account method")
+//			},
+//			AccountAddressFunc: func(ctx context.Context, account string) (string, error) {
+//				panic("mock out the AccountAddress method")
+//			},
+//			AccountAddressesFunc: func(ctx context.Context, account string) ([]string, error) {
+//				panic("mock out the AccountAddresses method")
+//			},
+//			AddMultiSigAddressFunc: func(ctx context.Context, n int, keys ...string) (string, error) {
+//				panic("mock out the AddMultiSigAddress method")
+//			},
+//			BackupWalletFunc: func(ctx context.Context, dest string) error {
+//				panic("mock out the BackupWallet method")
+//			},
+//			BalanceFunc: func(ctx context.Context, opts *models.OptsBalance) (uint64, error) {
+//				panic("mock out the Balance method")
+//			},
+//			DumpPrivateKeyFunc: func(ctx context.Context, address string) (*wif.WIF, error) {
+//				panic("mock out the DumpPrivateKey method")
+//			},
+//			DumpWalletFunc: func(ctx context.Context, dest string) (*models.DumpWallet, error) {
+//				panic("mock out the DumpWallet method")
+//			},
+//			EncryptWalletFunc: func(ctx context.Context, passphrase string) error {
+//				panic("mock out the EncryptWallet method")
+//			},
+//			ImportAddressFunc: func(ctx context.Context, address string, opts *models.OptsImportAddress) error {
+//				panic("mock out the ImportAddress method")
+//			},
+//			ImportMultiFunc: func(ctx context.Context, reqs []models.ImportMultiRequest, opts *models.OptsImportMulti) ([]*models.ImportMulti, error) {
+//				panic("mock out the ImportMulti method")
+//			},
+//			ImportPrivateKeyFunc: func(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error {
+//				panic("mock out the ImportPrivateKey method")
+//			},
+//			ImportPrunedFundsFunc: func(ctx context.Context, tx *bt.Tx, txOutProof string) error {
+//				panic("mock out the ImportPrunedFunds method")
+//			},
+//			ImportPublicKeyFunc: func(ctx context.Context, publicKey string, opts *models.OptsImportPublicKey) error {
+//				panic("mock out the ImportPublicKey method")
+//			},
+//			ImportWalletFunc: func(ctx context.Context, filename string) error {
+//				panic("mock out the ImportWallet method")
+//			},
+//			KeypoolRefillFunc: func(ctx context.Context, opts *models.OptsKeypoolRefill) error {
+//				panic("mock out the KeypoolRefill method")
+//			},
+//			ListAccountsFunc: func(ctx context.Context, opts *models.OptsListAccounts) (map[string]uint64, error) {
+//				panic("mock out the ListAccounts method")
+//			},
+//			ListLockUnspentFunc: func(ctx context.Context) ([]*models.LockUnspent, error) {
+//				panic("mock out the ListLockUnspent method")
+//			},
+//			ListReceivedByAccountFunc: func(ctx context.Context, opts *models.OptsListReceivedBy) ([]*models.ReceivedByAccount, error) {
+//				panic("mock out the ListReceivedByAccount method")
+//			},
+//			ListReceivedByAddressFunc: func(ctx context.Context, opts *models.OptsListReceivedBy) ([]*models.ReceivedByAddress, error) {
+//				panic("mock out the ListReceivedByAddress method")
+//			},
+//			ListSinceBlockFunc: func(ctx context.Context, opts *models.OptsListSinceBlock) (*models.SinceBlock, error) {
+//				panic("mock out the ListSinceBlock method")
+//			},
+//			ListTransactionsFunc: func(ctx context.Context, opts *models.OptsListTransactions) ([]*models.Transaction, error) {
+//				panic("mock out the ListTransactions method")
+//			},
+//			ListUnspentFunc: func(ctx context.Context, opts *models.OptsListUnspent) (bt.UTXOs, error) {
+//				panic("mock out the ListUnspent method")
+//			},
+//			ListWalletsFunc: func(ctx context.Context) ([]string, error) {
+//				panic("mock out the ListWallets method")
+//			},
+//			LockUnspentFunc: func(ctx context.Context, lock bool, opts *models.OptsLockUnspent) (bool, error) {
+//				panic("mock out the LockUnspent method")
+//			},
+//			MoveFunc: func(ctx context.Context, from string, to string, amount uint64, opts *models.OptsMove) (bool, error) {
+//				panic("mock out the Move method")
+//			},
+//			NewAddressFunc: func(ctx context.Context, opts *models.OptsNewAddress) (string, error) {
+//				panic("mock out the NewAddress method")
+//			},
+//			RawChangeAddressFunc: func(ctx context.Context) (string, error) {
+//				panic("mock out the RawChangeAddress method")
+//			},
+//			ReceivedByAddressFunc: func(ctx context.Context, address string) (uint64, error) {
+//				panic("mock out the ReceivedByAddress method")
+//			},
+//			RemovePrunedFundsFunc: func(ctx context.Context, txID string) error {
+//				panic("mock out the RemovePrunedFunds method")
+//			},
+//			SendFromFunc: func(ctx context.Context, from string, to string, amount uint64, opts *models.OptsSendFrom) (string, error) {
+//				panic("mock out the SendFrom method")
+//			},
+//			SendManyFunc: func(ctx context.Context, from string, amounts map[string]uint64, opts *models.OptsSendMany) (string, error) {
+//				panic("mock out the SendMany method")
+//			},
+//			SendToAddressFunc: func(ctx context.Context, address string, amount uint64, opts *models.OptsSendToAddress) (string, error) {
+//				panic("mock out the SendToAddress method")
+//			},
+//			SetAccountFunc: func(ctx context.Context, address string, account string) error {
+//				panic("mock out the SetAccount method")
+//			},
+//			SetTxFeeFunc: func(ctx context.Context, amount uint64) (bool, error) {
+//				panic("mock out the SetTxFee method")
+//			},
+//			SignMessageFunc: func(ctx context.Context, address string, message string) (string, error) {
+//				panic("mock out the SignMessage method")
+//			},
+//			TransactionFunc: func(ctx context.Context, txID string) (*models.Transaction, error) {
+//				panic("mock out the Transaction method")
+//			},
+//			UnconfirmedBalanceFunc: func(ctx context.Context) (uint64, error) {
+//				panic("mock out the UnconfirmedBalance method")
+//			},
+//			WalletInfoFunc: func(ctx context.Context) (*models.WalletInfo, error) {
+//				panic("mock out the WalletInfo method")
+//			},
+//			WalletLockFunc: func(ctx context.Context) error {
+//				panic("mock out the WalletLock method")
+//			},
+//			WalletPhassphraseFunc: func(ctx context.Context, passphrase string, timeout int) error {
+//				panic("mock out the WalletPhassphrase method")
+//			},
+//			WalletPhassphraseChangeFunc: func(ctx context.Context, oldPassphrase string, newPassphrase string) error {
+//				panic("mock out the WalletPhassphraseChange method")
+//			},
+//		}
 //
-// 		// use mockedWalletClient in code that requires bn.WalletClient
-// 		// and then make assertions.
+//		// use mockedWalletClient in code that requires bn.WalletClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type WalletClientMock struct {
 	// AbandonTransactionFunc mocks the AbandonTransaction method.
 	AbandonTransactionFunc func(ctx context.Context, txID string) error
@@ -686,7 +686,8 @@ func (mock *WalletClientMock) AbandonTransaction(ctx context.Context, txID strin
 
 // AbandonTransactionCalls gets all the calls that were made to AbandonTransaction.
 // Check the length with:
-//     len(mockedWalletClient.AbandonTransactionCalls())
+//
+//	len(mockedWalletClient.AbandonTransactionCalls())
 func (mock *WalletClientMock) AbandonTransactionCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -721,7 +722,8 @@ func (mock *WalletClientMock) Account(ctx context.Context, address string) (stri
 
 // AccountCalls gets all the calls that were made to Account.
 // Check the length with:
-//     len(mockedWalletClient.AccountCalls())
+//
+//	len(mockedWalletClient.AccountCalls())
 func (mock *WalletClientMock) AccountCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -756,7 +758,8 @@ func (mock *WalletClientMock) AccountAddress(ctx context.Context, account string
 
 // AccountAddressCalls gets all the calls that were made to AccountAddress.
 // Check the length with:
-//     len(mockedWalletClient.AccountAddressCalls())
+//
+//	len(mockedWalletClient.AccountAddressCalls())
 func (mock *WalletClientMock) AccountAddressCalls() []struct {
 	Ctx     context.Context
 	Account string
@@ -791,7 +794,8 @@ func (mock *WalletClientMock) AccountAddresses(ctx context.Context, account stri
 
 // AccountAddressesCalls gets all the calls that were made to AccountAddresses.
 // Check the length with:
-//     len(mockedWalletClient.AccountAddressesCalls())
+//
+//	len(mockedWalletClient.AccountAddressesCalls())
 func (mock *WalletClientMock) AccountAddressesCalls() []struct {
 	Ctx     context.Context
 	Account string
@@ -828,7 +832,8 @@ func (mock *WalletClientMock) AddMultiSigAddress(ctx context.Context, n int, key
 
 // AddMultiSigAddressCalls gets all the calls that were made to AddMultiSigAddress.
 // Check the length with:
-//     len(mockedWalletClient.AddMultiSigAddressCalls())
+//
+//	len(mockedWalletClient.AddMultiSigAddressCalls())
 func (mock *WalletClientMock) AddMultiSigAddressCalls() []struct {
 	Ctx  context.Context
 	N    int
@@ -865,7 +870,8 @@ func (mock *WalletClientMock) BackupWallet(ctx context.Context, dest string) err
 
 // BackupWalletCalls gets all the calls that were made to BackupWallet.
 // Check the length with:
-//     len(mockedWalletClient.BackupWalletCalls())
+//
+//	len(mockedWalletClient.BackupWalletCalls())
 func (mock *WalletClientMock) BackupWalletCalls() []struct {
 	Ctx  context.Context
 	Dest string
@@ -900,7 +906,8 @@ func (mock *WalletClientMock) Balance(ctx context.Context, opts *models.OptsBala
 
 // BalanceCalls gets all the calls that were made to Balance.
 // Check the length with:
-//     len(mockedWalletClient.BalanceCalls())
+//
+//	len(mockedWalletClient.BalanceCalls())
 func (mock *WalletClientMock) BalanceCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsBalance
@@ -935,7 +942,8 @@ func (mock *WalletClientMock) DumpPrivateKey(ctx context.Context, address string
 
 // DumpPrivateKeyCalls gets all the calls that were made to DumpPrivateKey.
 // Check the length with:
-//     len(mockedWalletClient.DumpPrivateKeyCalls())
+//
+//	len(mockedWalletClient.DumpPrivateKeyCalls())
 func (mock *WalletClientMock) DumpPrivateKeyCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -970,7 +978,8 @@ func (mock *WalletClientMock) DumpWallet(ctx context.Context, dest string) (*mod
 
 // DumpWalletCalls gets all the calls that were made to DumpWallet.
 // Check the length with:
-//     len(mockedWalletClient.DumpWalletCalls())
+//
+//	len(mockedWalletClient.DumpWalletCalls())
 func (mock *WalletClientMock) DumpWalletCalls() []struct {
 	Ctx  context.Context
 	Dest string
@@ -1005,7 +1014,8 @@ func (mock *WalletClientMock) EncryptWallet(ctx context.Context, passphrase stri
 
 // EncryptWalletCalls gets all the calls that were made to EncryptWallet.
 // Check the length with:
-//     len(mockedWalletClient.EncryptWalletCalls())
+//
+//	len(mockedWalletClient.EncryptWalletCalls())
 func (mock *WalletClientMock) EncryptWalletCalls() []struct {
 	Ctx        context.Context
 	Passphrase string
@@ -1042,7 +1052,8 @@ func (mock *WalletClientMock) ImportAddress(ctx context.Context, address string,
 
 // ImportAddressCalls gets all the calls that were made to ImportAddress.
 // Check the length with:
-//     len(mockedWalletClient.ImportAddressCalls())
+//
+//	len(mockedWalletClient.ImportAddressCalls())
 func (mock *WalletClientMock) ImportAddressCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -1081,7 +1092,8 @@ func (mock *WalletClientMock) ImportMulti(ctx context.Context, reqs []models.Imp
 
 // ImportMultiCalls gets all the calls that were made to ImportMulti.
 // Check the length with:
-//     len(mockedWalletClient.ImportMultiCalls())
+//
+//	len(mockedWalletClient.ImportMultiCalls())
 func (mock *WalletClientMock) ImportMultiCalls() []struct {
 	Ctx  context.Context
 	Reqs []models.ImportMultiRequest
@@ -1120,7 +1132,8 @@ func (mock *WalletClientMock) ImportPrivateKey(ctx context.Context, w *wif.WIF, 
 
 // ImportPrivateKeyCalls gets all the calls that were made to ImportPrivateKey.
 // Check the length with:
-//     len(mockedWalletClient.ImportPrivateKeyCalls())
+//
+//	len(mockedWalletClient.ImportPrivateKeyCalls())
 func (mock *WalletClientMock) ImportPrivateKeyCalls() []struct {
 	Ctx  context.Context
 	W    *wif.WIF
@@ -1159,7 +1172,8 @@ func (mock *WalletClientMock) ImportPrunedFunds(ctx context.Context, tx *bt.Tx, 
 
 // ImportPrunedFundsCalls gets all the calls that were made to ImportPrunedFunds.
 // Check the length with:
-//     len(mockedWalletClient.ImportPrunedFundsCalls())
+//
+//	len(mockedWalletClient.ImportPrunedFundsCalls())
 func (mock *WalletClientMock) ImportPrunedFundsCalls() []struct {
 	Ctx        context.Context
 	Tx         *bt.Tx
@@ -1198,7 +1212,8 @@ func (mock *WalletClientMock) ImportPublicKey(ctx context.Context, publicKey str
 
 // ImportPublicKeyCalls gets all the calls that were made to ImportPublicKey.
 // Check the length with:
-//     len(mockedWalletClient.ImportPublicKeyCalls())
+//
+//	len(mockedWalletClient.ImportPublicKeyCalls())
 func (mock *WalletClientMock) ImportPublicKeyCalls() []struct {
 	Ctx       context.Context
 	PublicKey string
@@ -1235,7 +1250,8 @@ func (mock *WalletClientMock) ImportWallet(ctx context.Context, filename string)
 
 // ImportWalletCalls gets all the calls that were made to ImportWallet.
 // Check the length with:
-//     len(mockedWalletClient.ImportWalletCalls())
+//
+//	len(mockedWalletClient.ImportWalletCalls())
 func (mock *WalletClientMock) ImportWalletCalls() []struct {
 	Ctx      context.Context
 	Filename string
@@ -1270,7 +1286,8 @@ func (mock *WalletClientMock) KeypoolRefill(ctx context.Context, opts *models.Op
 
 // KeypoolRefillCalls gets all the calls that were made to KeypoolRefill.
 // Check the length with:
-//     len(mockedWalletClient.KeypoolRefillCalls())
+//
+//	len(mockedWalletClient.KeypoolRefillCalls())
 func (mock *WalletClientMock) KeypoolRefillCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsKeypoolRefill
@@ -1305,7 +1322,8 @@ func (mock *WalletClientMock) ListAccounts(ctx context.Context, opts *models.Opt
 
 // ListAccountsCalls gets all the calls that were made to ListAccounts.
 // Check the length with:
-//     len(mockedWalletClient.ListAccountsCalls())
+//
+//	len(mockedWalletClient.ListAccountsCalls())
 func (mock *WalletClientMock) ListAccountsCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListAccounts
@@ -1338,7 +1356,8 @@ func (mock *WalletClientMock) ListLockUnspent(ctx context.Context) ([]*models.Lo
 
 // ListLockUnspentCalls gets all the calls that were made to ListLockUnspent.
 // Check the length with:
-//     len(mockedWalletClient.ListLockUnspentCalls())
+//
+//	len(mockedWalletClient.ListLockUnspentCalls())
 func (mock *WalletClientMock) ListLockUnspentCalls() []struct {
 	Ctx context.Context
 } {
@@ -1371,7 +1390,8 @@ func (mock *WalletClientMock) ListReceivedByAccount(ctx context.Context, opts *m
 
 // ListReceivedByAccountCalls gets all the calls that were made to ListReceivedByAccount.
 // Check the length with:
-//     len(mockedWalletClient.ListReceivedByAccountCalls())
+//
+//	len(mockedWalletClient.ListReceivedByAccountCalls())
 func (mock *WalletClientMock) ListReceivedByAccountCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListReceivedBy
@@ -1406,7 +1426,8 @@ func (mock *WalletClientMock) ListReceivedByAddress(ctx context.Context, opts *m
 
 // ListReceivedByAddressCalls gets all the calls that were made to ListReceivedByAddress.
 // Check the length with:
-//     len(mockedWalletClient.ListReceivedByAddressCalls())
+//
+//	len(mockedWalletClient.ListReceivedByAddressCalls())
 func (mock *WalletClientMock) ListReceivedByAddressCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListReceivedBy
@@ -1441,7 +1462,8 @@ func (mock *WalletClientMock) ListSinceBlock(ctx context.Context, opts *models.O
 
 // ListSinceBlockCalls gets all the calls that were made to ListSinceBlock.
 // Check the length with:
-//     len(mockedWalletClient.ListSinceBlockCalls())
+//
+//	len(mockedWalletClient.ListSinceBlockCalls())
 func (mock *WalletClientMock) ListSinceBlockCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListSinceBlock
@@ -1476,7 +1498,8 @@ func (mock *WalletClientMock) ListTransactions(ctx context.Context, opts *models
 
 // ListTransactionsCalls gets all the calls that were made to ListTransactions.
 // Check the length with:
-//     len(mockedWalletClient.ListTransactionsCalls())
+//
+//	len(mockedWalletClient.ListTransactionsCalls())
 func (mock *WalletClientMock) ListTransactionsCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListTransactions
@@ -1511,7 +1534,8 @@ func (mock *WalletClientMock) ListUnspent(ctx context.Context, opts *models.Opts
 
 // ListUnspentCalls gets all the calls that were made to ListUnspent.
 // Check the length with:
-//     len(mockedWalletClient.ListUnspentCalls())
+//
+//	len(mockedWalletClient.ListUnspentCalls())
 func (mock *WalletClientMock) ListUnspentCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsListUnspent
@@ -1544,7 +1568,8 @@ func (mock *WalletClientMock) ListWallets(ctx context.Context) ([]string, error)
 
 // ListWalletsCalls gets all the calls that were made to ListWallets.
 // Check the length with:
-//     len(mockedWalletClient.ListWalletsCalls())
+//
+//	len(mockedWalletClient.ListWalletsCalls())
 func (mock *WalletClientMock) ListWalletsCalls() []struct {
 	Ctx context.Context
 } {
@@ -1579,7 +1604,8 @@ func (mock *WalletClientMock) LockUnspent(ctx context.Context, lock bool, opts *
 
 // LockUnspentCalls gets all the calls that were made to LockUnspent.
 // Check the length with:
-//     len(mockedWalletClient.LockUnspentCalls())
+//
+//	len(mockedWalletClient.LockUnspentCalls())
 func (mock *WalletClientMock) LockUnspentCalls() []struct {
 	Ctx  context.Context
 	Lock bool
@@ -1622,7 +1648,8 @@ func (mock *WalletClientMock) Move(ctx context.Context, from string, to string, 
 
 // MoveCalls gets all the calls that were made to Move.
 // Check the length with:
-//     len(mockedWalletClient.MoveCalls())
+//
+//	len(mockedWalletClient.MoveCalls())
 func (mock *WalletClientMock) MoveCalls() []struct {
 	Ctx    context.Context
 	From   string
@@ -1663,7 +1690,8 @@ func (mock *WalletClientMock) NewAddress(ctx context.Context, opts *models.OptsN
 
 // NewAddressCalls gets all the calls that were made to NewAddress.
 // Check the length with:
-//     len(mockedWalletClient.NewAddressCalls())
+//
+//	len(mockedWalletClient.NewAddressCalls())
 func (mock *WalletClientMock) NewAddressCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsNewAddress
@@ -1696,7 +1724,8 @@ func (mock *WalletClientMock) RawChangeAddress(ctx context.Context) (string, err
 
 // RawChangeAddressCalls gets all the calls that were made to RawChangeAddress.
 // Check the length with:
-//     len(mockedWalletClient.RawChangeAddressCalls())
+//
+//	len(mockedWalletClient.RawChangeAddressCalls())
 func (mock *WalletClientMock) RawChangeAddressCalls() []struct {
 	Ctx context.Context
 } {
@@ -1729,7 +1758,8 @@ func (mock *WalletClientMock) ReceivedByAddress(ctx context.Context, address str
 
 // ReceivedByAddressCalls gets all the calls that were made to ReceivedByAddress.
 // Check the length with:
-//     len(mockedWalletClient.ReceivedByAddressCalls())
+//
+//	len(mockedWalletClient.ReceivedByAddressCalls())
 func (mock *WalletClientMock) ReceivedByAddressCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -1764,7 +1794,8 @@ func (mock *WalletClientMock) RemovePrunedFunds(ctx context.Context, txID string
 
 // RemovePrunedFundsCalls gets all the calls that were made to RemovePrunedFunds.
 // Check the length with:
-//     len(mockedWalletClient.RemovePrunedFundsCalls())
+//
+//	len(mockedWalletClient.RemovePrunedFundsCalls())
 func (mock *WalletClientMock) RemovePrunedFundsCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -1805,7 +1836,8 @@ func (mock *WalletClientMock) SendFrom(ctx context.Context, from string, to stri
 
 // SendFromCalls gets all the calls that were made to SendFrom.
 // Check the length with:
-//     len(mockedWalletClient.SendFromCalls())
+//
+//	len(mockedWalletClient.SendFromCalls())
 func (mock *WalletClientMock) SendFromCalls() []struct {
 	Ctx    context.Context
 	From   string
@@ -1850,7 +1882,8 @@ func (mock *WalletClientMock) SendMany(ctx context.Context, from string, amounts
 
 // SendManyCalls gets all the calls that were made to SendMany.
 // Check the length with:
-//     len(mockedWalletClient.SendManyCalls())
+//
+//	len(mockedWalletClient.SendManyCalls())
 func (mock *WalletClientMock) SendManyCalls() []struct {
 	Ctx     context.Context
 	From    string
@@ -1893,7 +1926,8 @@ func (mock *WalletClientMock) SendToAddress(ctx context.Context, address string,
 
 // SendToAddressCalls gets all the calls that were made to SendToAddress.
 // Check the length with:
-//     len(mockedWalletClient.SendToAddressCalls())
+//
+//	len(mockedWalletClient.SendToAddressCalls())
 func (mock *WalletClientMock) SendToAddressCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -1934,7 +1968,8 @@ func (mock *WalletClientMock) SetAccount(ctx context.Context, address string, ac
 
 // SetAccountCalls gets all the calls that were made to SetAccount.
 // Check the length with:
-//     len(mockedWalletClient.SetAccountCalls())
+//
+//	len(mockedWalletClient.SetAccountCalls())
 func (mock *WalletClientMock) SetAccountCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -1971,7 +2006,8 @@ func (mock *WalletClientMock) SetTxFee(ctx context.Context, amount uint64) (bool
 
 // SetTxFeeCalls gets all the calls that were made to SetTxFee.
 // Check the length with:
-//     len(mockedWalletClient.SetTxFeeCalls())
+//
+//	len(mockedWalletClient.SetTxFeeCalls())
 func (mock *WalletClientMock) SetTxFeeCalls() []struct {
 	Ctx    context.Context
 	Amount uint64
@@ -2008,7 +2044,8 @@ func (mock *WalletClientMock) SignMessage(ctx context.Context, address string, m
 
 // SignMessageCalls gets all the calls that were made to SignMessage.
 // Check the length with:
-//     len(mockedWalletClient.SignMessageCalls())
+//
+//	len(mockedWalletClient.SignMessageCalls())
 func (mock *WalletClientMock) SignMessageCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -2045,7 +2082,8 @@ func (mock *WalletClientMock) Transaction(ctx context.Context, txID string) (*mo
 
 // TransactionCalls gets all the calls that were made to Transaction.
 // Check the length with:
-//     len(mockedWalletClient.TransactionCalls())
+//
+//	len(mockedWalletClient.TransactionCalls())
 func (mock *WalletClientMock) TransactionCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -2078,7 +2116,8 @@ func (mock *WalletClientMock) UnconfirmedBalance(ctx context.Context) (uint64, e
 
 // UnconfirmedBalanceCalls gets all the calls that were made to UnconfirmedBalance.
 // Check the length with:
-//     len(mockedWalletClient.UnconfirmedBalanceCalls())
+//
+//	len(mockedWalletClient.UnconfirmedBalanceCalls())
 func (mock *WalletClientMock) UnconfirmedBalanceCalls() []struct {
 	Ctx context.Context
 } {
@@ -2109,7 +2148,8 @@ func (mock *WalletClientMock) WalletInfo(ctx context.Context) (*models.WalletInf
 
 // WalletInfoCalls gets all the calls that were made to WalletInfo.
 // Check the length with:
-//     len(mockedWalletClient.WalletInfoCalls())
+//
+//	len(mockedWalletClient.WalletInfoCalls())
 func (mock *WalletClientMock) WalletInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -2140,7 +2180,8 @@ func (mock *WalletClientMock) WalletLock(ctx context.Context) error {
 
 // WalletLockCalls gets all the calls that were made to WalletLock.
 // Check the length with:
-//     len(mockedWalletClient.WalletLockCalls())
+//
+//	len(mockedWalletClient.WalletLockCalls())
 func (mock *WalletClientMock) WalletLockCalls() []struct {
 	Ctx context.Context
 } {
@@ -2175,7 +2216,8 @@ func (mock *WalletClientMock) WalletPhassphrase(ctx context.Context, passphrase 
 
 // WalletPhassphraseCalls gets all the calls that were made to WalletPhassphrase.
 // Check the length with:
-//     len(mockedWalletClient.WalletPhassphraseCalls())
+//
+//	len(mockedWalletClient.WalletPhassphraseCalls())
 func (mock *WalletClientMock) WalletPhassphraseCalls() []struct {
 	Ctx        context.Context
 	Passphrase string
@@ -2214,7 +2256,8 @@ func (mock *WalletClientMock) WalletPhassphraseChange(ctx context.Context, oldPa
 
 // WalletPhassphraseChangeCalls gets all the calls that were made to WalletPhassphraseChange.
 // Check the length with:
-//     len(mockedWalletClient.WalletPhassphraseChangeCalls())
+//
+//	len(mockedWalletClient.WalletPhassphraseChangeCalls())
 func (mock *WalletClientMock) WalletPhassphraseChangeCalls() []struct {
 	Ctx           context.Context
 	OldPassphrase string

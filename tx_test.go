@@ -6,14 +6,14 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/libsv/go-bn"
-	"github.com/libsv/go-bn/internal/config"
-	"github.com/libsv/go-bn/internal/mocks"
-	"github.com/libsv/go-bn/internal/service"
-	"github.com/libsv/go-bn/models"
-	"github.com/libsv/go-bn/testing/util"
-	"github.com/libsv/go-bt/v2"
-	"github.com/libsv/go-bt/v2/sighash"
+	"github.com/bsv-blockchain/go-bn"
+	"github.com/bsv-blockchain/go-bn/internal/config"
+	"github.com/bsv-blockchain/go-bn/internal/mocks"
+	"github.com/bsv-blockchain/go-bn/internal/service"
+	"github.com/bsv-blockchain/go-bn/models"
+	"github.com/bsv-blockchain/go-bn/testing/util"
+	"github.com/bsv-blockchain/go-bt/v2"
+	"github.com/bsv-blockchain/go-bt/v2/sighash"
 	"github.com/stretchr/testify/assert"
 )
 

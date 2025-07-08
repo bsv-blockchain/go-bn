@@ -5,9 +5,9 @@ package mocks
 
 import (
 	"context"
+	"github.com/bsv-blockchain/go-bn"
+	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/libsv/go-bk/wif"
-	"github.com/libsv/go-bn"
-	"github.com/libsv/go-bn/models"
 	"sync"
 )
 
@@ -17,31 +17,31 @@ var _ bn.UtilClient = &UtilClientMock{}
 
 // UtilClientMock is a mock implementation of bn.UtilClient.
 //
-// 	func TestSomethingThatUsesUtilClient(t *testing.T) {
+//	func TestSomethingThatUsesUtilClient(t *testing.T) {
 //
-// 		// make and configure a mocked bn.UtilClient
-// 		mockedUtilClient := &UtilClientMock{
-// 			ClearInvalidTransactionsFunc: func(ctx context.Context) (uint64, error) {
-// 				panic("mock out the ClearInvalidTransactions method")
-// 			},
-// 			CreateMultiSigFunc: func(ctx context.Context, n int, keys ...string) (*models.MultiSig, error) {
-// 				panic("mock out the CreateMultiSig method")
-// 			},
-// 			SignMessageWithPrivKeyFunc: func(ctx context.Context, w *wif.WIF, msg string) (string, error) {
-// 				panic("mock out the SignMessageWithPrivKey method")
-// 			},
-// 			ValidateAddressFunc: func(ctx context.Context, address string) (*models.ValidateAddress, error) {
-// 				panic("mock out the ValidateAddress method")
-// 			},
-// 			VerifySignedMessageFunc: func(ctx context.Context, w *wif.WIF, signature string, message string) (bool, error) {
-// 				panic("mock out the VerifySignedMessage method")
-// 			},
-// 		}
+//		// make and configure a mocked bn.UtilClient
+//		mockedUtilClient := &UtilClientMock{
+//			ClearInvalidTransactionsFunc: func(ctx context.Context) (uint64, error) {
+//				panic("mock out the ClearInvalidTransactions method")
+//			},
+//			CreateMultiSigFunc: func(ctx context.Context, n int, keys ...string) (*models.MultiSig, error) {
+//				panic("mock out the CreateMultiSig method")
+//			},
+//			SignMessageWithPrivKeyFunc: func(ctx context.Context, w *wif.WIF, msg string) (string, error) {
+//				panic("mock out the SignMessageWithPrivKey method")
+//			},
+//			ValidateAddressFunc: func(ctx context.Context, address string) (*models.ValidateAddress, error) {
+//				panic("mock out the ValidateAddress method")
+//			},
+//			VerifySignedMessageFunc: func(ctx context.Context, w *wif.WIF, signature string, message string) (bool, error) {
+//				panic("mock out the VerifySignedMessage method")
+//			},
+//		}
 //
-// 		// use mockedUtilClient in code that requires bn.UtilClient
-// 		// and then make assertions.
+//		// use mockedUtilClient in code that requires bn.UtilClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type UtilClientMock struct {
 	// ClearInvalidTransactionsFunc mocks the ClearInvalidTransactions method.
 	ClearInvalidTransactionsFunc func(ctx context.Context) (uint64, error)
@@ -127,7 +127,8 @@ func (mock *UtilClientMock) ClearInvalidTransactions(ctx context.Context) (uint6
 
 // ClearInvalidTransactionsCalls gets all the calls that were made to ClearInvalidTransactions.
 // Check the length with:
-//     len(mockedUtilClient.ClearInvalidTransactionsCalls())
+//
+//	len(mockedUtilClient.ClearInvalidTransactionsCalls())
 func (mock *UtilClientMock) ClearInvalidTransactionsCalls() []struct {
 	Ctx context.Context
 } {
@@ -162,7 +163,8 @@ func (mock *UtilClientMock) CreateMultiSig(ctx context.Context, n int, keys ...s
 
 // CreateMultiSigCalls gets all the calls that were made to CreateMultiSig.
 // Check the length with:
-//     len(mockedUtilClient.CreateMultiSigCalls())
+//
+//	len(mockedUtilClient.CreateMultiSigCalls())
 func (mock *UtilClientMock) CreateMultiSigCalls() []struct {
 	Ctx  context.Context
 	N    int
@@ -201,7 +203,8 @@ func (mock *UtilClientMock) SignMessageWithPrivKey(ctx context.Context, w *wif.W
 
 // SignMessageWithPrivKeyCalls gets all the calls that were made to SignMessageWithPrivKey.
 // Check the length with:
-//     len(mockedUtilClient.SignMessageWithPrivKeyCalls())
+//
+//	len(mockedUtilClient.SignMessageWithPrivKeyCalls())
 func (mock *UtilClientMock) SignMessageWithPrivKeyCalls() []struct {
 	Ctx context.Context
 	W   *wif.WIF
@@ -238,7 +241,8 @@ func (mock *UtilClientMock) ValidateAddress(ctx context.Context, address string)
 
 // ValidateAddressCalls gets all the calls that were made to ValidateAddress.
 // Check the length with:
-//     len(mockedUtilClient.ValidateAddressCalls())
+//
+//	len(mockedUtilClient.ValidateAddressCalls())
 func (mock *UtilClientMock) ValidateAddressCalls() []struct {
 	Ctx     context.Context
 	Address string
@@ -277,7 +281,8 @@ func (mock *UtilClientMock) VerifySignedMessage(ctx context.Context, w *wif.WIF,
 
 // VerifySignedMessageCalls gets all the calls that were made to VerifySignedMessage.
 // Check the length with:
-//     len(mockedUtilClient.VerifySignedMessageCalls())
+//
+//	len(mockedUtilClient.VerifySignedMessageCalls())
 func (mock *UtilClientMock) VerifySignedMessageCalls() []struct {
 	Ctx       context.Context
 	W         *wif.WIF

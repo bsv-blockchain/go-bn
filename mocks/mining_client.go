@@ -5,9 +5,9 @@ package mocks
 
 import (
 	"context"
-	"github.com/libsv/go-bc"
-	"github.com/libsv/go-bn"
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bn"
+	"github.com/bsv-blockchain/go-bn/models"
+	"github.com/bsv-blockchain/go-bc"
 	"sync"
 )
 
@@ -17,40 +17,40 @@ var _ bn.MiningClient = &MiningClientMock{}
 
 // MiningClientMock is a mock implementation of bn.MiningClient.
 //
-// 	func TestSomethingThatUsesMiningClient(t *testing.T) {
+//	func TestSomethingThatUsesMiningClient(t *testing.T) {
 //
-// 		// make and configure a mocked bn.MiningClient
-// 		mockedMiningClient := &MiningClientMock{
-// 			BlockTemplateFunc: func(ctx context.Context, opts *models.BlockTemplateRequest) (*models.BlockTemplate, error) {
-// 				panic("mock out the BlockTemplate method")
-// 			},
-// 			MiningCandidateFunc: func(ctx context.Context, opts *models.OptsMiningCandidate) (*models.MiningCandidate, error) {
-// 				panic("mock out the MiningCandidate method")
-// 			},
-// 			MiningInfoFunc: func(ctx context.Context) (*models.MiningInfo, error) {
-// 				panic("mock out the MiningInfo method")
-// 			},
-// 			NetworkHashPSFunc: func(ctx context.Context, opts *models.OptsNetworkHashPS) (uint64, error) {
-// 				panic("mock out the NetworkHashPS method")
-// 			},
-// 			PrioritiseTxFunc: func(ctx context.Context, txID string, feeDelta int64) (bool, error) {
-// 				panic("mock out the PrioritiseTx method")
-// 			},
-// 			SubmitBlockFunc: func(ctx context.Context, block *bc.Block, params *models.OptsSubmitBlock) (string, error) {
-// 				panic("mock out the SubmitBlock method")
-// 			},
-// 			SubmitMiningSolutionFunc: func(ctx context.Context, solution *models.MiningSolution) (string, error) {
-// 				panic("mock out the SubmitMiningSolution method")
-// 			},
-// 			VerifyBlockCandidateFunc: func(ctx context.Context, block *bc.Block, params *models.OptsSubmitBlock) (string, error) {
-// 				panic("mock out the VerifyBlockCandidate method")
-// 			},
-// 		}
+//		// make and configure a mocked bn.MiningClient
+//		mockedMiningClient := &MiningClientMock{
+//			BlockTemplateFunc: func(ctx context.Context, opts *models.BlockTemplateRequest) (*models.BlockTemplate, error) {
+//				panic("mock out the BlockTemplate method")
+//			},
+//			MiningCandidateFunc: func(ctx context.Context, opts *models.OptsMiningCandidate) (*models.MiningCandidate, error) {
+//				panic("mock out the MiningCandidate method")
+//			},
+//			MiningInfoFunc: func(ctx context.Context) (*models.MiningInfo, error) {
+//				panic("mock out the MiningInfo method")
+//			},
+//			NetworkHashPSFunc: func(ctx context.Context, opts *models.OptsNetworkHashPS) (uint64, error) {
+//				panic("mock out the NetworkHashPS method")
+//			},
+//			PrioritiseTxFunc: func(ctx context.Context, txID string, feeDelta int64) (bool, error) {
+//				panic("mock out the PrioritiseTx method")
+//			},
+//			SubmitBlockFunc: func(ctx context.Context, block *bc.Block, params *models.OptsSubmitBlock) (string, error) {
+//				panic("mock out the SubmitBlock method")
+//			},
+//			SubmitMiningSolutionFunc: func(ctx context.Context, solution *models.MiningSolution) (string, error) {
+//				panic("mock out the SubmitMiningSolution method")
+//			},
+//			VerifyBlockCandidateFunc: func(ctx context.Context, block *bc.Block, params *models.OptsSubmitBlock) (string, error) {
+//				panic("mock out the VerifyBlockCandidate method")
+//			},
+//		}
 //
-// 		// use mockedMiningClient in code that requires bn.MiningClient
-// 		// and then make assertions.
+//		// use mockedMiningClient in code that requires bn.MiningClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type MiningClientMock struct {
 	// BlockTemplateFunc mocks the BlockTemplate method.
 	BlockTemplateFunc func(ctx context.Context, opts *models.BlockTemplateRequest) (*models.BlockTemplate, error)
@@ -169,7 +169,8 @@ func (mock *MiningClientMock) BlockTemplate(ctx context.Context, opts *models.Bl
 
 // BlockTemplateCalls gets all the calls that were made to BlockTemplate.
 // Check the length with:
-//     len(mockedMiningClient.BlockTemplateCalls())
+//
+//	len(mockedMiningClient.BlockTemplateCalls())
 func (mock *MiningClientMock) BlockTemplateCalls() []struct {
 	Ctx  context.Context
 	Opts *models.BlockTemplateRequest
@@ -204,7 +205,8 @@ func (mock *MiningClientMock) MiningCandidate(ctx context.Context, opts *models.
 
 // MiningCandidateCalls gets all the calls that were made to MiningCandidate.
 // Check the length with:
-//     len(mockedMiningClient.MiningCandidateCalls())
+//
+//	len(mockedMiningClient.MiningCandidateCalls())
 func (mock *MiningClientMock) MiningCandidateCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsMiningCandidate
@@ -237,7 +239,8 @@ func (mock *MiningClientMock) MiningInfo(ctx context.Context) (*models.MiningInf
 
 // MiningInfoCalls gets all the calls that were made to MiningInfo.
 // Check the length with:
-//     len(mockedMiningClient.MiningInfoCalls())
+//
+//	len(mockedMiningClient.MiningInfoCalls())
 func (mock *MiningClientMock) MiningInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -270,7 +273,8 @@ func (mock *MiningClientMock) NetworkHashPS(ctx context.Context, opts *models.Op
 
 // NetworkHashPSCalls gets all the calls that were made to NetworkHashPS.
 // Check the length with:
-//     len(mockedMiningClient.NetworkHashPSCalls())
+//
+//	len(mockedMiningClient.NetworkHashPSCalls())
 func (mock *MiningClientMock) NetworkHashPSCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsNetworkHashPS
@@ -307,7 +311,8 @@ func (mock *MiningClientMock) PrioritiseTx(ctx context.Context, txID string, fee
 
 // PrioritiseTxCalls gets all the calls that were made to PrioritiseTx.
 // Check the length with:
-//     len(mockedMiningClient.PrioritiseTxCalls())
+//
+//	len(mockedMiningClient.PrioritiseTxCalls())
 func (mock *MiningClientMock) PrioritiseTxCalls() []struct {
 	Ctx      context.Context
 	TxID     string
@@ -346,7 +351,8 @@ func (mock *MiningClientMock) SubmitBlock(ctx context.Context, block *bc.Block, 
 
 // SubmitBlockCalls gets all the calls that were made to SubmitBlock.
 // Check the length with:
-//     len(mockedMiningClient.SubmitBlockCalls())
+//
+//	len(mockedMiningClient.SubmitBlockCalls())
 func (mock *MiningClientMock) SubmitBlockCalls() []struct {
 	Ctx    context.Context
 	Block  *bc.Block
@@ -383,7 +389,8 @@ func (mock *MiningClientMock) SubmitMiningSolution(ctx context.Context, solution
 
 // SubmitMiningSolutionCalls gets all the calls that were made to SubmitMiningSolution.
 // Check the length with:
-//     len(mockedMiningClient.SubmitMiningSolutionCalls())
+//
+//	len(mockedMiningClient.SubmitMiningSolutionCalls())
 func (mock *MiningClientMock) SubmitMiningSolutionCalls() []struct {
 	Ctx      context.Context
 	Solution *models.MiningSolution
@@ -420,7 +427,8 @@ func (mock *MiningClientMock) VerifyBlockCandidate(ctx context.Context, block *b
 
 // VerifyBlockCandidateCalls gets all the calls that were made to VerifyBlockCandidate.
 // Check the length with:
-//     len(mockedMiningClient.VerifyBlockCandidateCalls())
+//
+//	len(mockedMiningClient.VerifyBlockCandidateCalls())
 func (mock *MiningClientMock) VerifyBlockCandidateCalls() []struct {
 	Ctx    context.Context
 	Block  *bc.Block

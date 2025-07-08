@@ -5,9 +5,9 @@ package mocks
 
 import (
 	"context"
-	"github.com/libsv/go-bc"
-	"github.com/libsv/go-bn"
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bc"
+	"github.com/bsv-blockchain/go-bn"
+	"github.com/bsv-blockchain/go-bn/models"
 	"sync"
 )
 
@@ -17,124 +17,124 @@ var _ bn.BlockChainClient = &BlockChainClientMock{}
 
 // BlockChainClientMock is a mock implementation of bn.BlockChainClient.
 //
-// 	func TestSomethingThatUsesBlockChainClient(t *testing.T) {
+//	func TestSomethingThatUsesBlockChainClient(t *testing.T) {
 //
-// 		// make and configure a mocked bn.BlockChainClient
-// 		mockedBlockChainClient := &BlockChainClientMock{
-// 			BestBlockHashFunc: func(ctx context.Context) (string, error) {
-// 				panic("mock out the BestBlockHash method")
-// 			},
-// 			BlockFunc: func(ctx context.Context, hash string) (*models.Block, error) {
-// 				panic("mock out the Block method")
-// 			},
-// 			BlockByHeightFunc: func(ctx context.Context, height int) (*models.Block, error) {
-// 				panic("mock out the BlockByHeight method")
-// 			},
-// 			BlockCountFunc: func(ctx context.Context) (uint32, error) {
-// 				panic("mock out the BlockCount method")
-// 			},
-// 			BlockDecodeHeaderFunc: func(ctx context.Context, hash string) (*models.BlockDecodeHeader, error) {
-// 				panic("mock out the BlockDecodeHeader method")
-// 			},
-// 			BlockDecodeHeaderByHeightFunc: func(ctx context.Context, height int) (*models.BlockDecodeHeader, error) {
-// 				panic("mock out the BlockDecodeHeaderByHeight method")
-// 			},
-// 			BlockHashFunc: func(ctx context.Context, height int) (string, error) {
-// 				panic("mock out the BlockHash method")
-// 			},
-// 			BlockHeaderFunc: func(ctx context.Context, hash string) (*models.BlockHeader, error) {
-// 				panic("mock out the BlockHeader method")
-// 			},
-// 			BlockHeaderHexFunc: func(ctx context.Context, hash string) (string, error) {
-// 				panic("mock out the BlockHeaderHex method")
-// 			},
-// 			BlockHexFunc: func(ctx context.Context, hash string) (string, error) {
-// 				panic("mock out the BlockHex method")
-// 			},
-// 			BlockHexByHeightFunc: func(ctx context.Context, height int) (string, error) {
-// 				panic("mock out the BlockHexByHeight method")
-// 			},
-// 			BlockStatsFunc: func(ctx context.Context, hash string, fields ...string) (*models.BlockStats, error) {
-// 				panic("mock out the BlockStats method")
-// 			},
-// 			BlockStatsByHeightFunc: func(ctx context.Context, height int, fields ...string) (*models.BlockStats, error) {
-// 				panic("mock out the BlockStatsByHeight method")
-// 			},
-// 			ChainInfoFunc: func(ctx context.Context) (*models.ChainInfo, error) {
-// 				panic("mock out the ChainInfo method")
-// 			},
-// 			ChainTipsFunc: func(ctx context.Context) ([]*models.ChainTip, error) {
-// 				panic("mock out the ChainTips method")
-// 			},
-// 			ChainTxStatsFunc: func(ctx context.Context, opts *models.OptsChainTxStats) (*models.ChainTxStats, error) {
-// 				panic("mock out the ChainTxStats method")
-// 			},
-// 			CheckJournalFunc: func(ctx context.Context) (*models.JournalStatus, error) {
-// 				panic("mock out the CheckJournal method")
-// 			},
-// 			DifficultyFunc: func(ctx context.Context) (float64, error) {
-// 				panic("mock out the Difficulty method")
-// 			},
-// 			GenerateFunc: func(ctx context.Context, n int, opts *models.OptsGenerate) ([]string, error) {
-// 				panic("mock out the Generate method")
-// 			},
-// 			GenerateToAddressFunc: func(ctx context.Context, n int, addr string, opts *models.OptsGenerate) ([]string, error) {
-// 				panic("mock out the GenerateToAddress method")
-// 			},
-// 			LegacyMerkleProofFunc: func(ctx context.Context, txID string, opts *models.OptsLegacyMerkleProof) (*models.LegacyMerkleProof, error) {
-// 				panic("mock out the LegacyMerkleProof method")
-// 			},
-// 			MempoolAncestorIDsFunc: func(ctx context.Context, txID string) ([]string, error) {
-// 				panic("mock out the MempoolAncestorIDs method")
-// 			},
-// 			MempoolAncestorsFunc: func(ctx context.Context, txID string) (models.MempoolTxs, error) {
-// 				panic("mock out the MempoolAncestors method")
-// 			},
-// 			MempoolDescendantIDsFunc: func(ctx context.Context, txID string) ([]string, error) {
-// 				panic("mock out the MempoolDescendantIDs method")
-// 			},
-// 			MempoolDescendantsFunc: func(ctx context.Context, txID string) (models.MempoolTxs, error) {
-// 				panic("mock out the MempoolDescendants method")
-// 			},
-// 			MempoolEntryFunc: func(ctx context.Context, txID string) (*models.MempoolEntry, error) {
-// 				panic("mock out the MempoolEntry method")
-// 			},
-// 			MerkleProofFunc: func(ctx context.Context, blockHash string, txID string, opts *models.OptsMerkleProof) (*bc.MerkleProof, error) {
-// 				panic("mock out the MerkleProof method")
-// 			},
-// 			OutputFunc: func(ctx context.Context, txID string, n int, opts *models.OptsOutput) (*models.Output, error) {
-// 				panic("mock out the Output method")
-// 			},
-// 			OutputSetInfoFunc: func(ctx context.Context) (*models.OutputSetInfo, error) {
-// 				panic("mock out the OutputSetInfo method")
-// 			},
-// 			PreciousBlockFunc: func(ctx context.Context, blockHash string) error {
-// 				panic("mock out the PreciousBlock method")
-// 			},
-// 			PruneChainFunc: func(ctx context.Context, height int) (uint32, error) {
-// 				panic("mock out the PruneChain method")
-// 			},
-// 			RawMempoolFunc: func(ctx context.Context) (models.MempoolTxs, error) {
-// 				panic("mock out the RawMempool method")
-// 			},
-// 			RawMempoolIDsFunc: func(ctx context.Context) ([]string, error) {
-// 				panic("mock out the RawMempoolIDs method")
-// 			},
-// 			RawNonFinalMempoolFunc: func(ctx context.Context) ([]string, error) {
-// 				panic("mock out the RawNonFinalMempool method")
-// 			},
-// 			RebuildJournalFunc: func(ctx context.Context) error {
-// 				panic("mock out the RebuildJournal method")
-// 			},
-// 			VerifyChainFunc: func(ctx context.Context) (bool, error) {
-// 				panic("mock out the VerifyChain method")
-// 			},
-// 		}
+//		// make and configure a mocked bn.BlockChainClient
+//		mockedBlockChainClient := &BlockChainClientMock{
+//			BestBlockHashFunc: func(ctx context.Context) (string, error) {
+//				panic("mock out the BestBlockHash method")
+//			},
+//			BlockFunc: func(ctx context.Context, hash string) (*models.Block, error) {
+//				panic("mock out the Block method")
+//			},
+//			BlockByHeightFunc: func(ctx context.Context, height int) (*models.Block, error) {
+//				panic("mock out the BlockByHeight method")
+//			},
+//			BlockCountFunc: func(ctx context.Context) (uint32, error) {
+//				panic("mock out the BlockCount method")
+//			},
+//			BlockDecodeHeaderFunc: func(ctx context.Context, hash string) (*models.BlockDecodeHeader, error) {
+//				panic("mock out the BlockDecodeHeader method")
+//			},
+//			BlockDecodeHeaderByHeightFunc: func(ctx context.Context, height int) (*models.BlockDecodeHeader, error) {
+//				panic("mock out the BlockDecodeHeaderByHeight method")
+//			},
+//			BlockHashFunc: func(ctx context.Context, height int) (string, error) {
+//				panic("mock out the BlockHash method")
+//			},
+//			BlockHeaderFunc: func(ctx context.Context, hash string) (*models.BlockHeader, error) {
+//				panic("mock out the BlockHeader method")
+//			},
+//			BlockHeaderHexFunc: func(ctx context.Context, hash string) (string, error) {
+//				panic("mock out the BlockHeaderHex method")
+//			},
+//			BlockHexFunc: func(ctx context.Context, hash string) (string, error) {
+//				panic("mock out the BlockHex method")
+//			},
+//			BlockHexByHeightFunc: func(ctx context.Context, height int) (string, error) {
+//				panic("mock out the BlockHexByHeight method")
+//			},
+//			BlockStatsFunc: func(ctx context.Context, hash string, fields ...string) (*models.BlockStats, error) {
+//				panic("mock out the BlockStats method")
+//			},
+//			BlockStatsByHeightFunc: func(ctx context.Context, height int, fields ...string) (*models.BlockStats, error) {
+//				panic("mock out the BlockStatsByHeight method")
+//			},
+//			ChainInfoFunc: func(ctx context.Context) (*models.ChainInfo, error) {
+//				panic("mock out the ChainInfo method")
+//			},
+//			ChainTipsFunc: func(ctx context.Context) ([]*models.ChainTip, error) {
+//				panic("mock out the ChainTips method")
+//			},
+//			ChainTxStatsFunc: func(ctx context.Context, opts *models.OptsChainTxStats) (*models.ChainTxStats, error) {
+//				panic("mock out the ChainTxStats method")
+//			},
+//			CheckJournalFunc: func(ctx context.Context) (*models.JournalStatus, error) {
+//				panic("mock out the CheckJournal method")
+//			},
+//			DifficultyFunc: func(ctx context.Context) (float64, error) {
+//				panic("mock out the Difficulty method")
+//			},
+//			GenerateFunc: func(ctx context.Context, n int, opts *models.OptsGenerate) ([]string, error) {
+//				panic("mock out the Generate method")
+//			},
+//			GenerateToAddressFunc: func(ctx context.Context, n int, addr string, opts *models.OptsGenerate) ([]string, error) {
+//				panic("mock out the GenerateToAddress method")
+//			},
+//			LegacyMerkleProofFunc: func(ctx context.Context, txID string, opts *models.OptsLegacyMerkleProof) (*models.LegacyMerkleProof, error) {
+//				panic("mock out the LegacyMerkleProof method")
+//			},
+//			MempoolAncestorIDsFunc: func(ctx context.Context, txID string) ([]string, error) {
+//				panic("mock out the MempoolAncestorIDs method")
+//			},
+//			MempoolAncestorsFunc: func(ctx context.Context, txID string) (models.MempoolTxs, error) {
+//				panic("mock out the MempoolAncestors method")
+//			},
+//			MempoolDescendantIDsFunc: func(ctx context.Context, txID string) ([]string, error) {
+//				panic("mock out the MempoolDescendantIDs method")
+//			},
+//			MempoolDescendantsFunc: func(ctx context.Context, txID string) (models.MempoolTxs, error) {
+//				panic("mock out the MempoolDescendants method")
+//			},
+//			MempoolEntryFunc: func(ctx context.Context, txID string) (*models.MempoolEntry, error) {
+//				panic("mock out the MempoolEntry method")
+//			},
+//			MerkleProofFunc: func(ctx context.Context, blockHash string, txID string, opts *models.OptsMerkleProof) (*bc.MerkleProof, error) {
+//				panic("mock out the MerkleProof method")
+//			},
+//			OutputFunc: func(ctx context.Context, txID string, n int, opts *models.OptsOutput) (*models.Output, error) {
+//				panic("mock out the Output method")
+//			},
+//			OutputSetInfoFunc: func(ctx context.Context) (*models.OutputSetInfo, error) {
+//				panic("mock out the OutputSetInfo method")
+//			},
+//			PreciousBlockFunc: func(ctx context.Context, blockHash string) error {
+//				panic("mock out the PreciousBlock method")
+//			},
+//			PruneChainFunc: func(ctx context.Context, height int) (uint32, error) {
+//				panic("mock out the PruneChain method")
+//			},
+//			RawMempoolFunc: func(ctx context.Context) (models.MempoolTxs, error) {
+//				panic("mock out the RawMempool method")
+//			},
+//			RawMempoolIDsFunc: func(ctx context.Context) ([]string, error) {
+//				panic("mock out the RawMempoolIDs method")
+//			},
+//			RawNonFinalMempoolFunc: func(ctx context.Context) ([]string, error) {
+//				panic("mock out the RawNonFinalMempool method")
+//			},
+//			RebuildJournalFunc: func(ctx context.Context) error {
+//				panic("mock out the RebuildJournal method")
+//			},
+//			VerifyChainFunc: func(ctx context.Context) (bool, error) {
+//				panic("mock out the VerifyChain method")
+//			},
+//		}
 //
-// 		// use mockedBlockChainClient in code that requires bn.BlockChainClient
-// 		// and then make assertions.
+//		// use mockedBlockChainClient in code that requires bn.BlockChainClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type BlockChainClientMock struct {
 	// BestBlockHashFunc mocks the BestBlockHash method.
 	BestBlockHashFunc func(ctx context.Context) (string, error)
@@ -525,7 +525,7 @@ type BlockChainClientMock struct {
 	lockDifficulty                sync.RWMutex
 	lockGenerate                  sync.RWMutex
 	lockGenerateToAddress         sync.RWMutex
-	lockInvalidateBlock sync.RWMutex
+	lockInvalidateBlock           sync.RWMutex
 	lockLegacyMerkleProof         sync.RWMutex
 	lockMempoolAncestorIDs        sync.RWMutex
 	lockMempoolAncestors          sync.RWMutex
@@ -562,7 +562,8 @@ func (mock *BlockChainClientMock) BestBlockHash(ctx context.Context) (string, er
 
 // BestBlockHashCalls gets all the calls that were made to BestBlockHash.
 // Check the length with:
-//     len(mockedBlockChainClient.BestBlockHashCalls())
+//
+//	len(mockedBlockChainClient.BestBlockHashCalls())
 func (mock *BlockChainClientMock) BestBlockHashCalls() []struct {
 	Ctx context.Context
 } {
@@ -595,7 +596,8 @@ func (mock *BlockChainClientMock) Block(ctx context.Context, hash string) (*mode
 
 // BlockCalls gets all the calls that were made to Block.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockCalls())
+//
+//	len(mockedBlockChainClient.BlockCalls())
 func (mock *BlockChainClientMock) BlockCalls() []struct {
 	Ctx  context.Context
 	Hash string
@@ -630,7 +632,8 @@ func (mock *BlockChainClientMock) BlockByHeight(ctx context.Context, height int)
 
 // BlockByHeightCalls gets all the calls that were made to BlockByHeight.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockByHeightCalls())
+//
+//	len(mockedBlockChainClient.BlockByHeightCalls())
 func (mock *BlockChainClientMock) BlockByHeightCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -663,7 +666,8 @@ func (mock *BlockChainClientMock) BlockCount(ctx context.Context) (uint32, error
 
 // BlockCountCalls gets all the calls that were made to BlockCount.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockCountCalls())
+//
+//	len(mockedBlockChainClient.BlockCountCalls())
 func (mock *BlockChainClientMock) BlockCountCalls() []struct {
 	Ctx context.Context
 } {
@@ -696,7 +700,8 @@ func (mock *BlockChainClientMock) BlockDecodeHeader(ctx context.Context, hash st
 
 // BlockDecodeHeaderCalls gets all the calls that were made to BlockDecodeHeader.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockDecodeHeaderCalls())
+//
+//	len(mockedBlockChainClient.BlockDecodeHeaderCalls())
 func (mock *BlockChainClientMock) BlockDecodeHeaderCalls() []struct {
 	Ctx  context.Context
 	Hash string
@@ -731,7 +736,8 @@ func (mock *BlockChainClientMock) BlockDecodeHeaderByHeight(ctx context.Context,
 
 // BlockDecodeHeaderByHeightCalls gets all the calls that were made to BlockDecodeHeaderByHeight.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockDecodeHeaderByHeightCalls())
+//
+//	len(mockedBlockChainClient.BlockDecodeHeaderByHeightCalls())
 func (mock *BlockChainClientMock) BlockDecodeHeaderByHeightCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -766,7 +772,8 @@ func (mock *BlockChainClientMock) BlockHash(ctx context.Context, height int) (st
 
 // BlockHashCalls gets all the calls that were made to BlockHash.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockHashCalls())
+//
+//	len(mockedBlockChainClient.BlockHashCalls())
 func (mock *BlockChainClientMock) BlockHashCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -801,7 +808,8 @@ func (mock *BlockChainClientMock) BlockHeader(ctx context.Context, hash string) 
 
 // BlockHeaderCalls gets all the calls that were made to BlockHeader.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockHeaderCalls())
+//
+//	len(mockedBlockChainClient.BlockHeaderCalls())
 func (mock *BlockChainClientMock) BlockHeaderCalls() []struct {
 	Ctx  context.Context
 	Hash string
@@ -836,7 +844,8 @@ func (mock *BlockChainClientMock) BlockHeaderHex(ctx context.Context, hash strin
 
 // BlockHeaderHexCalls gets all the calls that were made to BlockHeaderHex.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockHeaderHexCalls())
+//
+//	len(mockedBlockChainClient.BlockHeaderHexCalls())
 func (mock *BlockChainClientMock) BlockHeaderHexCalls() []struct {
 	Ctx  context.Context
 	Hash string
@@ -871,7 +880,8 @@ func (mock *BlockChainClientMock) BlockHex(ctx context.Context, hash string) (st
 
 // BlockHexCalls gets all the calls that were made to BlockHex.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockHexCalls())
+//
+//	len(mockedBlockChainClient.BlockHexCalls())
 func (mock *BlockChainClientMock) BlockHexCalls() []struct {
 	Ctx  context.Context
 	Hash string
@@ -906,7 +916,8 @@ func (mock *BlockChainClientMock) BlockHexByHeight(ctx context.Context, height i
 
 // BlockHexByHeightCalls gets all the calls that were made to BlockHexByHeight.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockHexByHeightCalls())
+//
+//	len(mockedBlockChainClient.BlockHexByHeightCalls())
 func (mock *BlockChainClientMock) BlockHexByHeightCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -943,7 +954,8 @@ func (mock *BlockChainClientMock) BlockStats(ctx context.Context, hash string, f
 
 // BlockStatsCalls gets all the calls that were made to BlockStats.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockStatsCalls())
+//
+//	len(mockedBlockChainClient.BlockStatsCalls())
 func (mock *BlockChainClientMock) BlockStatsCalls() []struct {
 	Ctx    context.Context
 	Hash   string
@@ -982,7 +994,8 @@ func (mock *BlockChainClientMock) BlockStatsByHeight(ctx context.Context, height
 
 // BlockStatsByHeightCalls gets all the calls that were made to BlockStatsByHeight.
 // Check the length with:
-//     len(mockedBlockChainClient.BlockStatsByHeightCalls())
+//
+//	len(mockedBlockChainClient.BlockStatsByHeightCalls())
 func (mock *BlockChainClientMock) BlockStatsByHeightCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -1017,7 +1030,8 @@ func (mock *BlockChainClientMock) ChainInfo(ctx context.Context) (*models.ChainI
 
 // ChainInfoCalls gets all the calls that were made to ChainInfo.
 // Check the length with:
-//     len(mockedBlockChainClient.ChainInfoCalls())
+//
+//	len(mockedBlockChainClient.ChainInfoCalls())
 func (mock *BlockChainClientMock) ChainInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -1048,7 +1062,8 @@ func (mock *BlockChainClientMock) ChainTips(ctx context.Context) ([]*models.Chai
 
 // ChainTipsCalls gets all the calls that were made to ChainTips.
 // Check the length with:
-//     len(mockedBlockChainClient.ChainTipsCalls())
+//
+//	len(mockedBlockChainClient.ChainTipsCalls())
 func (mock *BlockChainClientMock) ChainTipsCalls() []struct {
 	Ctx context.Context
 } {
@@ -1081,7 +1096,8 @@ func (mock *BlockChainClientMock) ChainTxStats(ctx context.Context, opts *models
 
 // ChainTxStatsCalls gets all the calls that were made to ChainTxStats.
 // Check the length with:
-//     len(mockedBlockChainClient.ChainTxStatsCalls())
+//
+//	len(mockedBlockChainClient.ChainTxStatsCalls())
 func (mock *BlockChainClientMock) ChainTxStatsCalls() []struct {
 	Ctx  context.Context
 	Opts *models.OptsChainTxStats
@@ -1114,7 +1130,8 @@ func (mock *BlockChainClientMock) CheckJournal(ctx context.Context) (*models.Jou
 
 // CheckJournalCalls gets all the calls that were made to CheckJournal.
 // Check the length with:
-//     len(mockedBlockChainClient.CheckJournalCalls())
+//
+//	len(mockedBlockChainClient.CheckJournalCalls())
 func (mock *BlockChainClientMock) CheckJournalCalls() []struct {
 	Ctx context.Context
 } {
@@ -1145,7 +1162,8 @@ func (mock *BlockChainClientMock) Difficulty(ctx context.Context) (float64, erro
 
 // DifficultyCalls gets all the calls that were made to Difficulty.
 // Check the length with:
-//     len(mockedBlockChainClient.DifficultyCalls())
+//
+//	len(mockedBlockChainClient.DifficultyCalls())
 func (mock *BlockChainClientMock) DifficultyCalls() []struct {
 	Ctx context.Context
 } {
@@ -1180,7 +1198,8 @@ func (mock *BlockChainClientMock) Generate(ctx context.Context, n int, opts *mod
 
 // GenerateCalls gets all the calls that were made to Generate.
 // Check the length with:
-//     len(mockedBlockChainClient.GenerateCalls())
+//
+//	len(mockedBlockChainClient.GenerateCalls())
 func (mock *BlockChainClientMock) GenerateCalls() []struct {
 	Ctx  context.Context
 	N    int
@@ -1221,7 +1240,8 @@ func (mock *BlockChainClientMock) GenerateToAddress(ctx context.Context, n int, 
 
 // GenerateToAddressCalls gets all the calls that were made to GenerateToAddress.
 // Check the length with:
-//     len(mockedBlockChainClient.GenerateToAddressCalls())
+//
+//	len(mockedBlockChainClient.GenerateToAddressCalls())
 func (mock *BlockChainClientMock) GenerateToAddressCalls() []struct {
 	Ctx  context.Context
 	N    int
@@ -1246,10 +1266,10 @@ func (mock *BlockChainClientMock) InvalidateBlock(ctx context.Context, hash stri
 		panic("BlockChainClientMock.InvalidateBlockFunc: method is nil but BlockChainClient.InvalidateBlock was just called")
 	}
 	callInfo := struct {
-		Ctx  context.Context
+		Ctx       context.Context
 		BlockHash string
 	}{
-		Ctx:  ctx,
+		Ctx:       ctx,
 		BlockHash: hash,
 	}
 	mock.lockInvalidateBlock.Lock()
@@ -1280,7 +1300,8 @@ func (mock *BlockChainClientMock) LegacyMerkleProof(ctx context.Context, txID st
 
 // LegacyMerkleProofCalls gets all the calls that were made to LegacyMerkleProof.
 // Check the length with:
-//     len(mockedBlockChainClient.LegacyMerkleProofCalls())
+//
+//	len(mockedBlockChainClient.LegacyMerkleProofCalls())
 func (mock *BlockChainClientMock) LegacyMerkleProofCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -1317,7 +1338,8 @@ func (mock *BlockChainClientMock) MempoolAncestorIDs(ctx context.Context, txID s
 
 // MempoolAncestorIDsCalls gets all the calls that were made to MempoolAncestorIDs.
 // Check the length with:
-//     len(mockedBlockChainClient.MempoolAncestorIDsCalls())
+//
+//	len(mockedBlockChainClient.MempoolAncestorIDsCalls())
 func (mock *BlockChainClientMock) MempoolAncestorIDsCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -1352,7 +1374,8 @@ func (mock *BlockChainClientMock) MempoolAncestors(ctx context.Context, txID str
 
 // MempoolAncestorsCalls gets all the calls that were made to MempoolAncestors.
 // Check the length with:
-//     len(mockedBlockChainClient.MempoolAncestorsCalls())
+//
+//	len(mockedBlockChainClient.MempoolAncestorsCalls())
 func (mock *BlockChainClientMock) MempoolAncestorsCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -1387,7 +1410,8 @@ func (mock *BlockChainClientMock) MempoolDescendantIDs(ctx context.Context, txID
 
 // MempoolDescendantIDsCalls gets all the calls that were made to MempoolDescendantIDs.
 // Check the length with:
-//     len(mockedBlockChainClient.MempoolDescendantIDsCalls())
+//
+//	len(mockedBlockChainClient.MempoolDescendantIDsCalls())
 func (mock *BlockChainClientMock) MempoolDescendantIDsCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -1422,7 +1446,8 @@ func (mock *BlockChainClientMock) MempoolDescendants(ctx context.Context, txID s
 
 // MempoolDescendantsCalls gets all the calls that were made to MempoolDescendants.
 // Check the length with:
-//     len(mockedBlockChainClient.MempoolDescendantsCalls())
+//
+//	len(mockedBlockChainClient.MempoolDescendantsCalls())
 func (mock *BlockChainClientMock) MempoolDescendantsCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -1457,7 +1482,8 @@ func (mock *BlockChainClientMock) MempoolEntry(ctx context.Context, txID string)
 
 // MempoolEntryCalls gets all the calls that were made to MempoolEntry.
 // Check the length with:
-//     len(mockedBlockChainClient.MempoolEntryCalls())
+//
+//	len(mockedBlockChainClient.MempoolEntryCalls())
 func (mock *BlockChainClientMock) MempoolEntryCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -1496,7 +1522,8 @@ func (mock *BlockChainClientMock) MerkleProof(ctx context.Context, blockHash str
 
 // MerkleProofCalls gets all the calls that were made to MerkleProof.
 // Check the length with:
-//     len(mockedBlockChainClient.MerkleProofCalls())
+//
+//	len(mockedBlockChainClient.MerkleProofCalls())
 func (mock *BlockChainClientMock) MerkleProofCalls() []struct {
 	Ctx       context.Context
 	BlockHash string
@@ -1539,7 +1566,8 @@ func (mock *BlockChainClientMock) Output(ctx context.Context, txID string, n int
 
 // OutputCalls gets all the calls that were made to Output.
 // Check the length with:
-//     len(mockedBlockChainClient.OutputCalls())
+//
+//	len(mockedBlockChainClient.OutputCalls())
 func (mock *BlockChainClientMock) OutputCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -1576,7 +1604,8 @@ func (mock *BlockChainClientMock) OutputSetInfo(ctx context.Context) (*models.Ou
 
 // OutputSetInfoCalls gets all the calls that were made to OutputSetInfo.
 // Check the length with:
-//     len(mockedBlockChainClient.OutputSetInfoCalls())
+//
+//	len(mockedBlockChainClient.OutputSetInfoCalls())
 func (mock *BlockChainClientMock) OutputSetInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -1609,7 +1638,8 @@ func (mock *BlockChainClientMock) PreciousBlock(ctx context.Context, blockHash s
 
 // PreciousBlockCalls gets all the calls that were made to PreciousBlock.
 // Check the length with:
-//     len(mockedBlockChainClient.PreciousBlockCalls())
+//
+//	len(mockedBlockChainClient.PreciousBlockCalls())
 func (mock *BlockChainClientMock) PreciousBlockCalls() []struct {
 	Ctx       context.Context
 	BlockHash string
@@ -1644,7 +1674,8 @@ func (mock *BlockChainClientMock) PruneChain(ctx context.Context, height int) (u
 
 // PruneChainCalls gets all the calls that were made to PruneChain.
 // Check the length with:
-//     len(mockedBlockChainClient.PruneChainCalls())
+//
+//	len(mockedBlockChainClient.PruneChainCalls())
 func (mock *BlockChainClientMock) PruneChainCalls() []struct {
 	Ctx    context.Context
 	Height int
@@ -1677,7 +1708,8 @@ func (mock *BlockChainClientMock) RawMempool(ctx context.Context) (models.Mempoo
 
 // RawMempoolCalls gets all the calls that were made to RawMempool.
 // Check the length with:
-//     len(mockedBlockChainClient.RawMempoolCalls())
+//
+//	len(mockedBlockChainClient.RawMempoolCalls())
 func (mock *BlockChainClientMock) RawMempoolCalls() []struct {
 	Ctx context.Context
 } {
@@ -1708,7 +1740,8 @@ func (mock *BlockChainClientMock) RawMempoolIDs(ctx context.Context) ([]string, 
 
 // RawMempoolIDsCalls gets all the calls that were made to RawMempoolIDs.
 // Check the length with:
-//     len(mockedBlockChainClient.RawMempoolIDsCalls())
+//
+//	len(mockedBlockChainClient.RawMempoolIDsCalls())
 func (mock *BlockChainClientMock) RawMempoolIDsCalls() []struct {
 	Ctx context.Context
 } {
@@ -1739,7 +1772,8 @@ func (mock *BlockChainClientMock) RawNonFinalMempool(ctx context.Context) ([]str
 
 // RawNonFinalMempoolCalls gets all the calls that were made to RawNonFinalMempool.
 // Check the length with:
-//     len(mockedBlockChainClient.RawNonFinalMempoolCalls())
+//
+//	len(mockedBlockChainClient.RawNonFinalMempoolCalls())
 func (mock *BlockChainClientMock) RawNonFinalMempoolCalls() []struct {
 	Ctx context.Context
 } {
@@ -1770,7 +1804,8 @@ func (mock *BlockChainClientMock) RebuildJournal(ctx context.Context) error {
 
 // RebuildJournalCalls gets all the calls that were made to RebuildJournal.
 // Check the length with:
-//     len(mockedBlockChainClient.RebuildJournalCalls())
+//
+//	len(mockedBlockChainClient.RebuildJournalCalls())
 func (mock *BlockChainClientMock) RebuildJournalCalls() []struct {
 	Ctx context.Context
 } {
@@ -1801,7 +1836,8 @@ func (mock *BlockChainClientMock) VerifyChain(ctx context.Context) (bool, error)
 
 // VerifyChainCalls gets all the calls that were made to VerifyChain.
 // Check the length with:
-//     len(mockedBlockChainClient.VerifyChainCalls())
+//
+//	len(mockedBlockChainClient.VerifyChainCalls())
 func (mock *BlockChainClientMock) VerifyChainCalls() []struct {
 	Ctx context.Context
 } {

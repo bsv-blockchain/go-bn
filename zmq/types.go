@@ -3,8 +3,8 @@ package zmq
 import (
 	"context"
 
-	"github.com/libsv/go-bc"
-	"github.com/libsv/go-bt/v2"
+	"github.com/bsv-blockchain/go-bc"
+	"github.com/bsv-blockchain/go-bt/v2"
 )
 
 // MessageFunc a func in which the message is passed to.
