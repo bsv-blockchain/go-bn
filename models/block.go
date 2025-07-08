@@ -56,16 +56,16 @@ type BlockHeader struct {
 	Hash          string `json:"hash"`
 	Confirmations uint64 `json:"confirmations"`
 	Height        uint64 `json:"height"`
-	//Version           uint64  `json:"version"`
+	// Version           uint64  `json:"version"`
 	VersionHex string `json:"versionHex"`
 	NumTx      uint64 `json:"num_tx"`
-	//Time              uint64  `json:"time"`
+	// Time              uint64  `json:"time"`
 	MedianTime uint64 `json:"mediantime"`
-	//Nonce             uint64  `json:"nonce"`
-	//Bits       string  `json:"bits"`
+	// Nonce             uint64  `json:"nonce"`
+	// Bits       string  `json:"bits"`
 	Difficulty float64 `json:"difficulty"`
 	Chainwork  string  `json:"chainwork"`
-	//PreviousBlockHash string  `json:"previousblockhash"`
+	// PreviousBlockHash string  `json:"previousblockhash"`
 	NextBlockHash string `json:"nextblockhash"`
 }
 

@@ -5,8 +5,8 @@ import (
 
 	"github.com/bsv-blockchain/go-bn/internal/util"
 	"github.com/bsv-blockchain/go-bn/models"
-	"github.com/libsv/go-bk/wif"
 	"github.com/bsv-blockchain/go-bt/v2"
+	"github.com/libsv/go-bk/wif"
 )
 
 // InternalDumpPrivateKey the true to form dumpprivkey response from the bitcoin node.

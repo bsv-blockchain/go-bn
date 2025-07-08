@@ -7,11 +7,11 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/bsv-blockchain/go-bc"
 	"github.com/bsv-blockchain/go-bn/mocks"
 	"github.com/bsv-blockchain/go-bn/zmq"
-	"github.com/go-zeromq/zmq4"
-	"github.com/bsv-blockchain/go-bc"
 	"github.com/bsv-blockchain/go-bt/v2"
+	"github.com/go-zeromq/zmq4"
 	"github.com/stretchr/testify/assert"
 )
 

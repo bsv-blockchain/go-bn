@@ -20,10 +20,8 @@ const (
 	JSONRpc = "1.0"
 )
 
-var (
-	// ErrRPCQuery error when rpc query fails.
-	ErrRPCQuery = errors.New("failed to perform rpc query")
-)
+// ErrRPCQuery error when rpc query fails.
+var ErrRPCQuery = errors.New("failed to perform rpc query")
 
 type rpc struct {
 	c   *http.Client

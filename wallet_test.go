@@ -51,7 +51,6 @@ func TestWalletClient_Balance(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-
 			svr, cls := util.TestServer(t, &test.expRequest, test.testFile)
 			defer cls()
 
@@ -107,7 +106,6 @@ func TestWalletClient_UnconfirmedBalance(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-
 			svr, cls := util.TestServer(t, &test.expRequest, test.testFile)
 			defer cls()
 
@@ -162,7 +160,6 @@ func TestWalletClient_ReceivedByAddress(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-
 			svr, cls := util.TestServer(t, &test.expRequest, test.testFile)
 			defer cls()
 
@@ -224,7 +221,6 @@ func TestWalletClient_DumpPrivateKey(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-
 			svr, cls := util.TestServer(t, &test.expRequest, test.testFile)
 			defer cls()
 

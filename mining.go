@@ -3,8 +3,8 @@ package bn
 import (
 	"context"
 
-	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bc"
+	"github.com/bsv-blockchain/go-bn/models"
 )
 
 // MiningClient interfaces interaction with the mining sub commands on a bitcoin node.
@@ -30,7 +30,8 @@ func (c *client) BlockTemplate(ctx context.Context, opts *models.BlockTemplateRe
 }
 
 func (c *client) MiningCandidate(ctx context.Context,
-	opts *models.OptsMiningCandidate) (*models.MiningCandidate, error) {
+	opts *models.OptsMiningCandidate,
+) (*models.MiningCandidate, error) {
 	var resp models.MiningCandidate
 	return &resp, c.rpc.Do(ctx, "getminingcandidate", &resp, c.argsFor(opts)...)
 }
@@ -62,7 +63,8 @@ func (c *client) SubmitMiningSolution(ctx context.Context, solution *models.Mini
 }
 
 func (c *client) VerifyBlockCandidate(ctx context.Context, block *bc.Block,
-	params *models.OptsSubmitBlock) (string, error) {
+	params *models.OptsSubmitBlock,
+) (string, error) {
 	var resp string
 	return resp, c.rpc.Do(ctx, "verifyblockcandidate", &resp, c.argsFor(params, block.String())...)
 }

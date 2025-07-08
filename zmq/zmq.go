@@ -9,9 +9,9 @@ import (
 	"os"
 	"sync"
 
-	"github.com/go-zeromq/zmq4"
 	"github.com/bsv-blockchain/go-bc"
 	"github.com/bsv-blockchain/go-bt/v2"
+	"github.com/go-zeromq/zmq4"
 )
 
 // Topic a subscription topic.

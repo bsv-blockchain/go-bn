@@ -6,8 +6,8 @@ import (
 	imodels "github.com/bsv-blockchain/go-bn/internal/models"
 	"github.com/bsv-blockchain/go-bn/internal/util"
 	"github.com/bsv-blockchain/go-bn/models"
-	"github.com/libsv/go-bk/wif"
 	"github.com/bsv-blockchain/go-bt/v2"
+	"github.com/libsv/go-bk/wif"
 )
 
 // WalletClient interfaces interaction with the wallet sub commands on a bitcoin node.
@@ -150,7 +150,8 @@ func (c *client) WalletInfo(ctx context.Context) (*models.WalletInfo, error) {
 }
 
 func (c *client) ImportMulti(ctx context.Context, reqs []models.ImportMultiRequest,
-	opts *models.OptsImportMulti) ([]*models.ImportMulti, error) {
+	opts *models.OptsImportMulti,
+) ([]*models.ImportMulti, error) {
 	var resp []*models.ImportMulti
 	return resp, c.rpc.Do(ctx, "importmulti", &resp, c.argsFor(opts, reqs)...)
 }
@@ -188,13 +189,15 @@ func (c *client) ListLockUnspent(ctx context.Context) ([]*models.LockUnspent, er
 }
 
 func (c *client) ListReceivedByAccount(ctx context.Context,
-	opts *models.OptsListReceivedBy) ([]*models.ReceivedByAccount, error) {
+	opts *models.OptsListReceivedBy,
+) ([]*models.ReceivedByAccount, error) {
 	var resp []*models.ReceivedByAccount
 	return resp, c.rpc.Do(ctx, "listreceivedbyaccount", &resp, c.argsFor(opts)...)
 }
 
 func (c *client) ListReceivedByAddress(ctx context.Context,
-	opts *models.OptsListReceivedBy) ([]*models.ReceivedByAddress, error) {
+	opts *models.OptsListReceivedBy,
+) ([]*models.ReceivedByAddress, error) {
 	var resp []*models.ReceivedByAddress
 	return resp, c.rpc.Do(ctx, "listreceivedbyaddress", &resp, c.argsFor(opts)...)
 }
@@ -205,7 +208,8 @@ func (c *client) ListSinceBlock(ctx context.Context, opts *models.OptsListSinceB
 }
 
 func (c *client) ListTransactions(ctx context.Context,
-	opts *models.OptsListTransactions) ([]*models.Transaction, error) {
+	opts *models.OptsListTransactions,
+) ([]*models.Transaction, error) {
 	var resp []*models.Transaction
 	return resp, c.rpc.Do(ctx, "listtransactions", &resp, c.argsFor(opts)...)
 }
@@ -236,19 +240,22 @@ func (c *client) RemovePrunedFunds(ctx context.Context, txID string) error {
 }
 
 func (c *client) SendFrom(ctx context.Context, from, to string, amount uint64,
-	opts *models.OptsSendFrom) (string, error) {
+	opts *models.OptsSendFrom,
+) (string, error) {
 	var resp string
 	return resp, c.rpc.Do(ctx, "sendfrom", &resp, c.argsFor(opts, from, to, util.SatoshisToBSV(int64(amount)))...)
 }
 
 func (c *client) SendMany(ctx context.Context, from string, amounts map[string]uint64,
-	opts *models.OptsSendMany) (string, error) {
+	opts *models.OptsSendMany,
+) (string, error) {
 	var resp string
 	return resp, c.rpc.Do(ctx, "sendmany", &resp, c.argsFor(opts, from, util.MapSatoshisToBSV(amounts))...)
 }
 
 func (c *client) SendToAddress(ctx context.Context, address string, amount uint64,
-	opts *models.OptsSendToAddress) (string, error) {
+	opts *models.OptsSendToAddress,
+) (string, error) {
 	var resp string
 	return resp, c.rpc.Do(ctx, "sendtoaddress", &resp, c.argsFor(opts, address, util.SatoshisToBSV(int64(amount)))...)
 }
