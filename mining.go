@@ -3,8 +3,8 @@ package bn
 import (
 	"context"
 
-	"github.com/libsv/go-bc"
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bn/models"
+	"github.com/bsv-blockchain/go-bc"
 )
 
 // MiningClient interfaces interaction with the mining sub commands on a bitcoin node.

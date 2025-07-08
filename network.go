@@ -3,8 +3,8 @@ package bn
 import (
 	"context"
 
-	"github.com/libsv/go-bn/internal"
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bn/internal"
+	"github.com/bsv-blockchain/go-bn/models"
 )
 
 // NodeAdd enums.

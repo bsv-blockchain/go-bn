@@ -8,7 +8,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/stretchr/testify/assert"
 )
 

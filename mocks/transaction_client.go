@@ -5,9 +5,9 @@ package mocks
 
 import (
 	"context"
-	"github.com/libsv/go-bn"
-	"github.com/libsv/go-bn/models"
-	"github.com/libsv/go-bt/v2"
+	"github.com/bsv-blockchain/go-bn"
+	"github.com/bsv-blockchain/go-bn/models"
+	"github.com/bsv-blockchain/go-bt/v2"
 	"sync"
 )
 
@@ -17,34 +17,34 @@ var _ bn.TransactionClient = &TransactionClientMock{}
 
 // TransactionClientMock is a mock implementation of bn.TransactionClient.
 //
-// 	func TestSomethingThatUsesTransactionClient(t *testing.T) {
+//	func TestSomethingThatUsesTransactionClient(t *testing.T) {
 //
-// 		// make and configure a mocked bn.TransactionClient
-// 		mockedTransactionClient := &TransactionClientMock{
-// 			CreateRawTransactionFunc: func(ctx context.Context, utxos bt.UTXOs, params models.ParamsCreateRawTransaction) (*bt.Tx, error) {
-// 				panic("mock out the CreateRawTransaction method")
-// 			},
-// 			FundRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsFundRawTransaction) (*models.FundRawTransaction, error) {
-// 				panic("mock out the FundRawTransaction method")
-// 			},
-// 			RawTransactionFunc: func(ctx context.Context, txID string) (*bt.Tx, error) {
-// 				panic("mock out the RawTransaction method")
-// 			},
-// 			SendRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsSendRawTransaction) (string, error) {
-// 				panic("mock out the SendRawTransaction method")
-// 			},
-// 			SendRawTransactionsFunc: func(ctx context.Context, params ...models.ParamsSendRawTransactions) (*models.SendRawTransactionsResponse, error) {
-// 				panic("mock out the SendRawTransactions method")
-// 			},
-// 			SignRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsSignRawTransaction) (*models.SignedRawTransaction, error) {
-// 				panic("mock out the SignRawTransaction method")
-// 			},
-// 		}
+//		// make and configure a mocked bn.TransactionClient
+//		mockedTransactionClient := &TransactionClientMock{
+//			CreateRawTransactionFunc: func(ctx context.Context, utxos bt.UTXOs, params models.ParamsCreateRawTransaction) (*bt.Tx, error) {
+//				panic("mock out the CreateRawTransaction method")
+//			},
+//			FundRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsFundRawTransaction) (*models.FundRawTransaction, error) {
+//				panic("mock out the FundRawTransaction method")
+//			},
+//			RawTransactionFunc: func(ctx context.Context, txID string) (*bt.Tx, error) {
+//				panic("mock out the RawTransaction method")
+//			},
+//			SendRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsSendRawTransaction) (string, error) {
+//				panic("mock out the SendRawTransaction method")
+//			},
+//			SendRawTransactionsFunc: func(ctx context.Context, params ...models.ParamsSendRawTransactions) (*models.SendRawTransactionsResponse, error) {
+//				panic("mock out the SendRawTransactions method")
+//			},
+//			SignRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsSignRawTransaction) (*models.SignedRawTransaction, error) {
+//				panic("mock out the SignRawTransaction method")
+//			},
+//		}
 //
-// 		// use mockedTransactionClient in code that requires bn.TransactionClient
-// 		// and then make assertions.
+//		// use mockedTransactionClient in code that requires bn.TransactionClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type TransactionClientMock struct {
 	// AddToConfiscationTransactionWhitelist mocks the AddToConfiscationTransactionWhitelist method
 	AddToConfiscationTransactionWhitelistFunc func(ctx context.Context, confiscationTransactions []models.ConfiscationTransactionDetails) (*models.AddToConfiscationTransactionWhitelistResponse, error)
@@ -137,14 +137,14 @@ type TransactionClientMock struct {
 			Opts *models.OptsSignRawTransaction
 		}
 	}
-	lockAddToConsensusBlacklist sync.RWMutex
+	lockAddToConsensusBlacklist               sync.RWMutex
 	lockAddToConfiscationTransactionWhitelist sync.RWMutex
-	lockCreateRawTransaction sync.RWMutex
-	lockFundRawTransaction   sync.RWMutex
-	lockRawTransaction       sync.RWMutex
-	lockSendRawTransaction   sync.RWMutex
-	lockSendRawTransactions  sync.RWMutex
-	lockSignRawTransaction   sync.RWMutex
+	lockCreateRawTransaction                  sync.RWMutex
+	lockFundRawTransaction                    sync.RWMutex
+	lockRawTransaction                        sync.RWMutex
+	lockSendRawTransaction                    sync.RWMutex
+	lockSendRawTransactions                   sync.RWMutex
+	lockSignRawTransaction                    sync.RWMutex
 }
 
 // AddToConsensusBlacklist calls AddToConsensusBlacklistFunc
@@ -156,7 +156,7 @@ func (mock *TransactionClientMock) AddToConsensusBlacklist(ctx context.Context, 
 		Ctx   context.Context
 		Funds []models.Fund
 	}{
-		Ctx: ctx,
+		Ctx:   ctx,
 		Funds: funds,
 	}
 	mock.lockAddToConsensusBlacklist.Lock()
@@ -171,10 +171,10 @@ func (mock *TransactionClientMock) AddToConfiscationTransactionWhitelist(ctx con
 		panic("TransactionClientMock.AddToConfiscationTransactionWhitelistFunc: method is nil but TransactionClient.AddToConfiscationTransactionWhitelist was just called")
 	}
 	callInfo := struct {
-		Ctx   context.Context
+		Ctx                      context.Context
 		ConfiscationTransactions []models.ConfiscationTransactionDetails
 	}{
-		Ctx: ctx,
+		Ctx:                      ctx,
 		ConfiscationTransactions: confiscationTxs,
 	}
 	mock.lockAddToConfiscationTransactionWhitelist.Lock()
@@ -205,7 +205,8 @@ func (mock *TransactionClientMock) CreateRawTransaction(ctx context.Context, utx
 
 // CreateRawTransactionCalls gets all the calls that were made to CreateRawTransaction.
 // Check the length with:
-//     len(mockedTransactionClient.CreateRawTransactionCalls())
+//
+//	len(mockedTransactionClient.CreateRawTransactionCalls())
 func (mock *TransactionClientMock) CreateRawTransactionCalls() []struct {
 	Ctx    context.Context
 	Utxos  bt.UTXOs
@@ -244,7 +245,8 @@ func (mock *TransactionClientMock) FundRawTransaction(ctx context.Context, tx *b
 
 // FundRawTransactionCalls gets all the calls that were made to FundRawTransaction.
 // Check the length with:
-//     len(mockedTransactionClient.FundRawTransactionCalls())
+//
+//	len(mockedTransactionClient.FundRawTransactionCalls())
 func (mock *TransactionClientMock) FundRawTransactionCalls() []struct {
 	Ctx  context.Context
 	Tx   *bt.Tx
@@ -281,7 +283,8 @@ func (mock *TransactionClientMock) RawTransaction(ctx context.Context, txID stri
 
 // RawTransactionCalls gets all the calls that were made to RawTransaction.
 // Check the length with:
-//     len(mockedTransactionClient.RawTransactionCalls())
+//
+//	len(mockedTransactionClient.RawTransactionCalls())
 func (mock *TransactionClientMock) RawTransactionCalls() []struct {
 	Ctx  context.Context
 	TxID string
@@ -318,7 +321,8 @@ func (mock *TransactionClientMock) SendRawTransaction(ctx context.Context, tx *b
 
 // SendRawTransactionCalls gets all the calls that were made to SendRawTransaction.
 // Check the length with:
-//     len(mockedTransactionClient.SendRawTransactionCalls())
+//
+//	len(mockedTransactionClient.SendRawTransactionCalls())
 func (mock *TransactionClientMock) SendRawTransactionCalls() []struct {
 	Ctx  context.Context
 	Tx   *bt.Tx
@@ -355,7 +359,8 @@ func (mock *TransactionClientMock) SendRawTransactions(ctx context.Context, para
 
 // SendRawTransactionsCalls gets all the calls that were made to SendRawTransactions.
 // Check the length with:
-//     len(mockedTransactionClient.SendRawTransactionsCalls())
+//
+//	len(mockedTransactionClient.SendRawTransactionsCalls())
 func (mock *TransactionClientMock) SendRawTransactionsCalls() []struct {
 	Ctx    context.Context
 	Params []models.ParamsSendRawTransactions
@@ -392,7 +397,8 @@ func (mock *TransactionClientMock) SignRawTransaction(ctx context.Context, tx *b
 
 // SignRawTransactionCalls gets all the calls that were made to SignRawTransaction.
 // Check the length with:
-//     len(mockedTransactionClient.SignRawTransactionCalls())
+//
+//	len(mockedTransactionClient.SignRawTransactionCalls())
 func (mock *TransactionClientMock) SignRawTransactionCalls() []struct {
 	Ctx  context.Context
 	Tx   *bt.Tx

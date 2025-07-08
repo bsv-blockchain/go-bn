@@ -4,8 +4,8 @@ import (
 	"encoding/hex"
 	"encoding/json"
 
-	"github.com/libsv/go-bc"
-	"github.com/libsv/go-bt/v2"
+	"github.com/bsv-blockchain/go-bc"
+	"github.com/bsv-blockchain/go-bt/v2"
 )
 
 // BlockDecodeHeader model.

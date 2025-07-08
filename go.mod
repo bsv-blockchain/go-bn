@@ -1,23 +1,26 @@
-module github.com/libsv/go-bn
+module github.com/bsv-blockchain/go-bn
 
-go 1.23.0
+go 1.24.3
+
+toolchain go1.24.4
 
 require (
+	github.com/bsv-blockchain/go-bc v1.0.2
+	github.com/bsv-blockchain/go-bt/v2 v2.4.3
 	github.com/go-zeromq/zmq4 v0.15.0
-	github.com/libsv/go-bc v0.1.11
 	github.com/libsv/go-bk v0.1.6
-	github.com/libsv/go-bt/v2 v2.1.0-beta.4
 	github.com/pkg/errors v0.9.1
-	github.com/stretchr/testify v1.8.0
-	golang.org/x/sync v0.11.0
+	github.com/stretchr/testify v1.10.0
+	golang.org/x/sync v0.15.0
 )
 
 require (
+	github.com/bsv-blockchain/go-sdk v1.2.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-zeromq/goczmq/v4 v4.2.2 // indirect
-	github.com/kr/text v0.2.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/crypto v0.35.0 // indirect
-	golang.org/x/text v0.22.0 // indirect
+	golang.org/x/crypto v0.39.0 // indirect
+	golang.org/x/text v0.26.0 // indirect
+	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

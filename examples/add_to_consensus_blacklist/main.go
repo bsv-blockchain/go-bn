@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bn/models"
 
-	"github.com/libsv/go-bn"
+	"github.com/bsv-blockchain/go-bn"
 )
 
 func main() {

@@ -15,46 +15,46 @@ var _ zmq4.Socket = &SocketMock{}
 
 // SocketMock is a mock implementation of zmq4.Socket.
 //
-// 	func TestSomethingThatUsesSocket(t *testing.T) {
+//	func TestSomethingThatUsesSocket(t *testing.T) {
 //
-// 		// make and configure a mocked zmq4.Socket
-// 		mockedSocket := &SocketMock{
-// 			AddrFunc: func() net.Addr {
-// 				panic("mock out the Addr method")
-// 			},
-// 			CloseFunc: func() error {
-// 				panic("mock out the Close method")
-// 			},
-// 			DialFunc: func(ep string) error {
-// 				panic("mock out the Dial method")
-// 			},
-// 			GetOptionFunc: func(name string) (interface{}, error) {
-// 				panic("mock out the GetOption method")
-// 			},
-// 			ListenFunc: func(ep string) error {
-// 				panic("mock out the Listen method")
-// 			},
-// 			RecvFunc: func() (zmq4.Msg, error) {
-// 				panic("mock out the Recv method")
-// 			},
-// 			SendFunc: func(msg zmq4.Msg) error {
-// 				panic("mock out the Send method")
-// 			},
-// 			SendMultiFunc: func(msg zmq4.Msg) error {
-// 				panic("mock out the SendMulti method")
-// 			},
-// 			SetOptionFunc: func(name string, value interface{}) error {
-// 				panic("mock out the SetOption method")
-// 			},
-// 			TypeFunc: func() zmq4.SocketType {
-// 				panic("mock out the Type method")
-// 			},
-// 		}
+//		// make and configure a mocked zmq4.Socket
+//		mockedSocket := &SocketMock{
+//			AddrFunc: func() net.Addr {
+//				panic("mock out the Addr method")
+//			},
+//			CloseFunc: func() error {
+//				panic("mock out the Close method")
+//			},
+//			DialFunc: func(ep string) error {
+//				panic("mock out the Dial method")
+//			},
+//			GetOptionFunc: func(name string) (interface{}, error) {
+//				panic("mock out the GetOption method")
+//			},
+//			ListenFunc: func(ep string) error {
+//				panic("mock out the Listen method")
+//			},
+//			RecvFunc: func() (zmq4.Msg, error) {
+//				panic("mock out the Recv method")
+//			},
+//			SendFunc: func(msg zmq4.Msg) error {
+//				panic("mock out the Send method")
+//			},
+//			SendMultiFunc: func(msg zmq4.Msg) error {
+//				panic("mock out the SendMulti method")
+//			},
+//			SetOptionFunc: func(name string, value interface{}) error {
+//				panic("mock out the SetOption method")
+//			},
+//			TypeFunc: func() zmq4.SocketType {
+//				panic("mock out the Type method")
+//			},
+//		}
 //
-// 		// use mockedSocket in code that requires zmq4.Socket
-// 		// and then make assertions.
+//		// use mockedSocket in code that requires zmq4.Socket
+//		// and then make assertions.
 //
-// 	}
+//	}
 type SocketMock struct {
 	// AddrFunc mocks the Addr method.
 	AddrFunc func() net.Addr
@@ -160,7 +160,8 @@ func (mock *SocketMock) Addr() net.Addr {
 
 // AddrCalls gets all the calls that were made to Addr.
 // Check the length with:
-//     len(mockedSocket.AddrCalls())
+//
+//	len(mockedSocket.AddrCalls())
 func (mock *SocketMock) AddrCalls() []struct {
 } {
 	var calls []struct {
@@ -186,7 +187,8 @@ func (mock *SocketMock) Close() error {
 
 // CloseCalls gets all the calls that were made to Close.
 // Check the length with:
-//     len(mockedSocket.CloseCalls())
+//
+//	len(mockedSocket.CloseCalls())
 func (mock *SocketMock) CloseCalls() []struct {
 } {
 	var calls []struct {
@@ -215,7 +217,8 @@ func (mock *SocketMock) Dial(ep string) error {
 
 // DialCalls gets all the calls that were made to Dial.
 // Check the length with:
-//     len(mockedSocket.DialCalls())
+//
+//	len(mockedSocket.DialCalls())
 func (mock *SocketMock) DialCalls() []struct {
 	Ep string
 } {
@@ -246,7 +249,8 @@ func (mock *SocketMock) GetOption(name string) (interface{}, error) {
 
 // GetOptionCalls gets all the calls that were made to GetOption.
 // Check the length with:
-//     len(mockedSocket.GetOptionCalls())
+//
+//	len(mockedSocket.GetOptionCalls())
 func (mock *SocketMock) GetOptionCalls() []struct {
 	Name string
 } {
@@ -277,7 +281,8 @@ func (mock *SocketMock) Listen(ep string) error {
 
 // ListenCalls gets all the calls that were made to Listen.
 // Check the length with:
-//     len(mockedSocket.ListenCalls())
+//
+//	len(mockedSocket.ListenCalls())
 func (mock *SocketMock) ListenCalls() []struct {
 	Ep string
 } {
@@ -305,7 +310,8 @@ func (mock *SocketMock) Recv() (zmq4.Msg, error) {
 
 // RecvCalls gets all the calls that were made to Recv.
 // Check the length with:
-//     len(mockedSocket.RecvCalls())
+//
+//	len(mockedSocket.RecvCalls())
 func (mock *SocketMock) RecvCalls() []struct {
 } {
 	var calls []struct {
@@ -334,7 +340,8 @@ func (mock *SocketMock) Send(msg zmq4.Msg) error {
 
 // SendCalls gets all the calls that were made to Send.
 // Check the length with:
-//     len(mockedSocket.SendCalls())
+//
+//	len(mockedSocket.SendCalls())
 func (mock *SocketMock) SendCalls() []struct {
 	Msg zmq4.Msg
 } {
@@ -365,7 +372,8 @@ func (mock *SocketMock) SendMulti(msg zmq4.Msg) error {
 
 // SendMultiCalls gets all the calls that were made to SendMulti.
 // Check the length with:
-//     len(mockedSocket.SendMultiCalls())
+//
+//	len(mockedSocket.SendMultiCalls())
 func (mock *SocketMock) SendMultiCalls() []struct {
 	Msg zmq4.Msg
 } {
@@ -398,7 +406,8 @@ func (mock *SocketMock) SetOption(name string, value interface{}) error {
 
 // SetOptionCalls gets all the calls that were made to SetOption.
 // Check the length with:
-//     len(mockedSocket.SetOptionCalls())
+//
+//	len(mockedSocket.SetOptionCalls())
 func (mock *SocketMock) SetOptionCalls() []struct {
 	Name  string
 	Value interface{}
@@ -428,7 +437,8 @@ func (mock *SocketMock) Type() zmq4.SocketType {
 
 // TypeCalls gets all the calls that were made to Type.
 // Check the length with:
-//     len(mockedSocket.TypeCalls())
+//
+//	len(mockedSocket.TypeCalls())
 func (mock *SocketMock) TypeCalls() []struct {
 } {
 	var calls []struct {

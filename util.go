@@ -3,8 +3,8 @@ package bn
 import (
 	"context"
 
+	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/libsv/go-bk/wif"
-	"github.com/libsv/go-bn/models"
 )
 
 // UtilClient interfaces interaction with the util sub commands on a bitcoin node.

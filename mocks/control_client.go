@@ -5,8 +5,8 @@ package mocks
 
 import (
 	"context"
-	"github.com/libsv/go-bn"
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bn"
+	"github.com/bsv-blockchain/go-bn/models"
 	"sync"
 	"time"
 )
@@ -17,37 +17,37 @@ var _ bn.ControlClient = &ControlClientMock{}
 
 // ControlClientMock is a mock implementation of bn.ControlClient.
 //
-// 	func TestSomethingThatUsesControlClient(t *testing.T) {
+//	func TestSomethingThatUsesControlClient(t *testing.T) {
 //
-// 		// make and configure a mocked bn.ControlClient
-// 		mockedControlClient := &ControlClientMock{
-// 			ActiveZMQNotificationsFunc: func(ctx context.Context) ([]*models.ZMQNotification, error) {
-// 				panic("mock out the ActiveZMQNotifications method")
-// 			},
-// 			DumpParamsFunc: func(ctx context.Context) ([]string, error) {
-// 				panic("mock out the DumpParams method")
-// 			},
-// 			InfoFunc: func(ctx context.Context) (*models.Info, error) {
-// 				panic("mock out the Info method")
-// 			},
-// 			MemoryInfoFunc: func(ctx context.Context) (*models.MemoryInfo, error) {
-// 				panic("mock out the MemoryInfo method")
-// 			},
-// 			SettingsFunc: func(ctx context.Context) (*models.Settings, error) {
-// 				panic("mock out the Settings method")
-// 			},
-// 			StopFunc: func(ctx context.Context) error {
-// 				panic("mock out the Stop method")
-// 			},
-// 			UptimeFunc: func(ctx context.Context) (time.Duration, error) {
-// 				panic("mock out the Uptime method")
-// 			},
-// 		}
+//		// make and configure a mocked bn.ControlClient
+//		mockedControlClient := &ControlClientMock{
+//			ActiveZMQNotificationsFunc: func(ctx context.Context) ([]*models.ZMQNotification, error) {
+//				panic("mock out the ActiveZMQNotifications method")
+//			},
+//			DumpParamsFunc: func(ctx context.Context) ([]string, error) {
+//				panic("mock out the DumpParams method")
+//			},
+//			InfoFunc: func(ctx context.Context) (*models.Info, error) {
+//				panic("mock out the Info method")
+//			},
+//			MemoryInfoFunc: func(ctx context.Context) (*models.MemoryInfo, error) {
+//				panic("mock out the MemoryInfo method")
+//			},
+//			SettingsFunc: func(ctx context.Context) (*models.Settings, error) {
+//				panic("mock out the Settings method")
+//			},
+//			StopFunc: func(ctx context.Context) error {
+//				panic("mock out the Stop method")
+//			},
+//			UptimeFunc: func(ctx context.Context) (time.Duration, error) {
+//				panic("mock out the Uptime method")
+//			},
+//		}
 //
-// 		// use mockedControlClient in code that requires bn.ControlClient
-// 		// and then make assertions.
+//		// use mockedControlClient in code that requires bn.ControlClient
+//		// and then make assertions.
 //
-// 	}
+//	}
 type ControlClientMock struct {
 	// ActiveZMQNotificationsFunc mocks the ActiveZMQNotifications method.
 	ActiveZMQNotificationsFunc func(ctx context.Context) ([]*models.ZMQNotification, error)
@@ -135,7 +135,8 @@ func (mock *ControlClientMock) ActiveZMQNotifications(ctx context.Context) ([]*m
 
 // ActiveZMQNotificationsCalls gets all the calls that were made to ActiveZMQNotifications.
 // Check the length with:
-//     len(mockedControlClient.ActiveZMQNotificationsCalls())
+//
+//	len(mockedControlClient.ActiveZMQNotificationsCalls())
 func (mock *ControlClientMock) ActiveZMQNotificationsCalls() []struct {
 	Ctx context.Context
 } {
@@ -166,7 +167,8 @@ func (mock *ControlClientMock) DumpParams(ctx context.Context) ([]string, error)
 
 // DumpParamsCalls gets all the calls that were made to DumpParams.
 // Check the length with:
-//     len(mockedControlClient.DumpParamsCalls())
+//
+//	len(mockedControlClient.DumpParamsCalls())
 func (mock *ControlClientMock) DumpParamsCalls() []struct {
 	Ctx context.Context
 } {
@@ -197,7 +199,8 @@ func (mock *ControlClientMock) Info(ctx context.Context) (*models.Info, error) {
 
 // InfoCalls gets all the calls that were made to Info.
 // Check the length with:
-//     len(mockedControlClient.InfoCalls())
+//
+//	len(mockedControlClient.InfoCalls())
 func (mock *ControlClientMock) InfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -228,7 +231,8 @@ func (mock *ControlClientMock) MemoryInfo(ctx context.Context) (*models.MemoryIn
 
 // MemoryInfoCalls gets all the calls that were made to MemoryInfo.
 // Check the length with:
-//     len(mockedControlClient.MemoryInfoCalls())
+//
+//	len(mockedControlClient.MemoryInfoCalls())
 func (mock *ControlClientMock) MemoryInfoCalls() []struct {
 	Ctx context.Context
 } {
@@ -259,7 +263,8 @@ func (mock *ControlClientMock) Settings(ctx context.Context) (*models.Settings, 
 
 // SettingsCalls gets all the calls that were made to Settings.
 // Check the length with:
-//     len(mockedControlClient.SettingsCalls())
+//
+//	len(mockedControlClient.SettingsCalls())
 func (mock *ControlClientMock) SettingsCalls() []struct {
 	Ctx context.Context
 } {
@@ -290,7 +295,8 @@ func (mock *ControlClientMock) Stop(ctx context.Context) error {
 
 // StopCalls gets all the calls that were made to Stop.
 // Check the length with:
-//     len(mockedControlClient.StopCalls())
+//
+//	len(mockedControlClient.StopCalls())
 func (mock *ControlClientMock) StopCalls() []struct {
 	Ctx context.Context
 } {
@@ -321,7 +327,8 @@ func (mock *ControlClientMock) Uptime(ctx context.Context) (time.Duration, error
 
 // UptimeCalls gets all the calls that were made to Uptime.
 // Check the length with:
-//     len(mockedControlClient.UptimeCalls())
+//
+//	len(mockedControlClient.UptimeCalls())
 func (mock *ControlClientMock) UptimeCalls() []struct {
 	Ctx context.Context
 } {

@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/libsv/go-bn/internal/config"
-	"github.com/libsv/go-bn/internal/service"
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bn/internal/config"
+	"github.com/bsv-blockchain/go-bn/internal/service"
+	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/sync/errgroup"
 )

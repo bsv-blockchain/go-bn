@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/libsv/go-bn/models"
+	"github.com/bsv-blockchain/go-bn/models"
 )
 
 // ControlClient interfaces interaction with the control sub commands on a bitcoin node.
