@@ -167,7 +167,7 @@ func TestNodeMQ_Unsubscribe(t *testing.T) {
 				require.NoError(t, z.Subscribe(topic, func(context.Context, [][]byte) {}))
 			}
 
-			assert.Positive(t, len(test.unsubscribeFrom) > 0, "test %s has not declare a topic to unsub from")
+			assert.NotEmpty(t, test.unsubscribeFrom, "test %s has not declare a topic to unsub from")
 
 			err := func() error {
 				for _, topic := range test.unsubscribeFrom {
