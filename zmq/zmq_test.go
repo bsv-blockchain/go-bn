@@ -7,11 +7,11 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/bsv-blockchain/go-bc"
 	"github.com/bsv-blockchain/go-bn/mocks"
 	"github.com/bsv-blockchain/go-bn/zmq"
-	"github.com/go-zeromq/zmq4"
-	"github.com/bsv-blockchain/go-bc"
 	"github.com/bsv-blockchain/go-bt/v2"
+	"github.com/go-zeromq/zmq4"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -960,7 +960,7 @@ func TestNodeMQ_SubscribeRawBlock(t *testing.T) {
 				"000000201690a0f7650650aa3ba965f9703b94dcb471307dcffe2c2cc116f4f8e5360b54a4066d10b4bf88e9f4d95df3c788bc024e005fb79cce357f1701b8a7a4fdbe124d2e9261ffff7f20000000000102000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0401690101ffffffff0100f2052a01000000232103c3a2396bdfa58e93f8bb80f252aabf591d827a701988119f3e6c947c230d25d3ac00000000",
 			},
 			expErrs: []string{
-				"input length too short < 8 + script",
+				"lockingScript(35): got 22 bytes: unexpected EOF",
 			},
 		},
 	}

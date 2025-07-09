@@ -2,6 +2,7 @@ package bn
 
 import (
 	"context"
+
 	imodels "github.com/bsv-blockchain/go-bn/internal/models"
 	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bt/v2"
@@ -29,7 +30,8 @@ func NewTransactionClient(oo ...BitcoinClientOptFunc) TransactionClient {
 }
 
 func (c *client) CreateRawTransaction(ctx context.Context, utxos bt.UTXOs,
-	params models.ParamsCreateRawTransaction) (*bt.Tx, error) {
+	params models.ParamsCreateRawTransaction,
+) (*bt.Tx, error) {
 	params.SetIsMainnet(c.isMainnet)
 	var resp string
 	if err := c.rpc.Do(ctx, "createrawtransaction", &resp, c.argsFor(&params, utxos.NodeJSON())...); err != nil {
@@ -39,7 +41,8 @@ func (c *client) CreateRawTransaction(ctx context.Context, utxos bt.UTXOs,
 }
 
 func (c *client) FundRawTransaction(ctx context.Context, tx *bt.Tx,
-	opts *models.OptsFundRawTransaction) (*models.FundRawTransaction, error) {
+	opts *models.OptsFundRawTransaction,
+) (*models.FundRawTransaction, error) {
 	resp := imodels.InternalFundRawTransaction{FundRawTransaction: &models.FundRawTransaction{}}
 	return resp.FundRawTransaction, c.rpc.Do(ctx, "fundrawtransaction", &resp, c.argsFor(opts, tx.String())...)
 }
@@ -50,19 +53,22 @@ func (c *client) RawTransaction(ctx context.Context, txID string) (*bt.Tx, error
 }
 
 func (c *client) SignRawTransaction(ctx context.Context, tx *bt.Tx,
-	opts *models.OptsSignRawTransaction) (*models.SignedRawTransaction, error) {
+	opts *models.OptsSignRawTransaction,
+) (*models.SignedRawTransaction, error) {
 	var resp imodels.InternalSignRawTransaction
 	return resp.SignedRawTransaction, c.rpc.Do(ctx, "signrawtransaction", &resp, c.argsFor(opts, tx.String())...)
 }
 
 func (c *client) SendRawTransaction(ctx context.Context, tx *bt.Tx,
-	opts *models.OptsSendRawTransaction) (string, error) {
+	opts *models.OptsSendRawTransaction,
+) (string, error) {
 	var resp string
 	return resp, c.rpc.Do(ctx, "sendrawtransaction", &resp, c.argsFor(opts, tx.String())...)
 }
 
 func (c *client) SendRawTransactions(ctx context.Context,
-	params ...models.ParamsSendRawTransactions) (*models.SendRawTransactionsResponse, error) {
+	params ...models.ParamsSendRawTransactions,
+) (*models.SendRawTransactionsResponse, error) {
 	var resp models.SendRawTransactionsResponse
 	return &resp, c.rpc.Do(ctx, "sendrawtransactions", &resp, params)
 }

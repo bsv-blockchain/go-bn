@@ -7,8 +7,8 @@ import (
 	"context"
 	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bn/models"
-	"github.com/libsv/go-bk/wif"
 	"github.com/bsv-blockchain/go-bt/v2"
+	"github.com/libsv/go-bk/wif"
 	"sync"
 )
 

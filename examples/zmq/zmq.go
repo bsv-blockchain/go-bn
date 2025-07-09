@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bsv-blockchain/go-bn/zmq"
 	"github.com/bsv-blockchain/go-bc"
+	"github.com/bsv-blockchain/go-bn/zmq"
 	"github.com/bsv-blockchain/go-bt/v2"
 )
 

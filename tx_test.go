@@ -118,7 +118,8 @@ func TestTxClient_FundRawTransaction(t *testing.T) {
 						"feeRate":          5.0,
 						"includeWatching":  true,
 						"reserveChangeKey": true,
-					}},
+					},
+				},
 			},
 			expResponse: &models.FundRawTransaction{
 				Fee:            226,
@@ -299,7 +300,9 @@ func TestTxClient_SignRawTransaction(t *testing.T) {
 				Method:  "signrawtransaction",
 				Params: []interface{}{
 					"0200000001fbb877c83aaf682f74611628b0088254c8094fff9cf6328ed969c587112b8fc90000000000feffffff025e2e1a1e010000001976a91401becd83278806a62cd87bed129faa72af38a0d588ac00e1f505000000001976a91467e701e630adaee761583a894b53d4356028ca0b88ac00000000",
-					[]interface{}{}, []interface{}{"myprivkey"}, "ALL|FORKID|ANYONECANPAY",
+					[]interface{}{},
+					[]interface{}{"myprivkey"},
+					"ALL|FORKID|ANYONECANPAY",
 				},
 			},
 			expResponse: &models.SignedRawTransaction{

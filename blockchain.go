@@ -3,8 +3,8 @@ package bn
 import (
 	"context"
 
-	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bc"
+	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bt/v2"
 )
 
@@ -185,13 +185,15 @@ func (c *client) MempoolDescendantIDs(ctx context.Context, txID string) ([]strin
 }
 
 func (c *client) MerkleProof(ctx context.Context, blockHash, txID string,
-	opts *models.OptsMerkleProof) (*bc.MerkleProof, error) {
+	opts *models.OptsMerkleProof,
+) (*bc.MerkleProof, error) {
 	var resp bc.MerkleProof
 	return &resp, c.rpc.Do(ctx, "getmerkleproof2", &resp, c.argsFor(opts, blockHash, txID)...)
 }
 
 func (c *client) LegacyMerkleProof(ctx context.Context, txID string,
-	opts *models.OptsLegacyMerkleProof) (*models.LegacyMerkleProof, error) {
+	opts *models.OptsLegacyMerkleProof,
+) (*models.LegacyMerkleProof, error) {
 	var resp models.LegacyMerkleProof
 	return &resp, c.rpc.Do(ctx, "getmerkleproof", &resp, c.argsFor(opts, txID)...)
 }
@@ -235,7 +237,8 @@ func (c *client) Generate(ctx context.Context, n int, opts *models.OptsGenerate)
 }
 
 func (c *client) GenerateToAddress(ctx context.Context, n int, addr string,
-	opts *models.OptsGenerate) ([]string, error) {
+	opts *models.OptsGenerate,
+) ([]string, error) {
 	var resp []string
 	return resp, c.rpc.Do(ctx, "generatetoaddress", &resp, c.argsFor(opts, n, addr)...)
 }
