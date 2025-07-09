@@ -20,6 +20,7 @@ type NodeClient interface {
 	WalletClient
 }
 
+// positionalOptionalArgs is an interface for types that can provide additional positional arguments.
 type positionalOptionalArgs interface {
 	Args() []interface{}
 }
@@ -64,6 +65,7 @@ func NewNodeClient(oo ...BitcoinClientOptFunc) NodeClient {
 	}
 }
 
+// argsFor appends optional positional arguments to the provided args slice.
 func (c *client) argsFor(p positionalOptionalArgs, args ...interface{}) []interface{} {
 	if reflect.ValueOf(p).IsNil() {
 		return args

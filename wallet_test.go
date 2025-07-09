@@ -16,7 +16,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestWalletClient_Balance(t *testing.T) {
+// TestWalletClientBalance tests the Balance method of the WalletClient.
+func TestWalletClientBalance(t *testing.T) {
 	tests := map[string]struct {
 		testFile   string
 		opts       *models.OptsBalance
@@ -87,7 +88,8 @@ func TestWalletClient_Balance(t *testing.T) {
 	}
 }
 
-func TestWalletClient_UnconfirmedBalance(t *testing.T) {
+// TestWalletClientUnconfirmedBalance tests the UnconfirmedBalance method of the WalletClient.
+func TestWalletClientUnconfirmedBalance(t *testing.T) {
 	tests := map[string]struct {
 		testFile   string
 		expBalance uint64
@@ -138,7 +140,8 @@ func TestWalletClient_UnconfirmedBalance(t *testing.T) {
 	}
 }
 
-func TestWalletClient_ReceivedByAddress(t *testing.T) {
+// TestWalletClientReceivedByAddress tests the ReceivedByAddress method of the WalletClient.
+func TestWalletClientReceivedByAddress(t *testing.T) {
 	tests := map[string]struct {
 		testFile    string
 		address     string
@@ -193,7 +196,8 @@ func TestWalletClient_ReceivedByAddress(t *testing.T) {
 	}
 }
 
-func TestWalletClient_DumpPrivateKey(t *testing.T) {
+// TestWalletClientDumpPrivateKey tests the DumpPrivateKey method of the WalletClient.
+func TestWalletClientDumpPrivateKey(t *testing.T) {
 	t.Parallel()
 
 	tests := map[string]struct {
@@ -213,9 +217,9 @@ func TestWalletClient_DumpPrivateKey(t *testing.T) {
 				Params:  []interface{}{"mzcEDt2d7QwHazAwD11WWSn8eSCb4gtpSY"},
 			},
 			expWif: func() *wif.WIF {
-				wif, err := wif.DecodeWIF("cW9n4pgq9MqqGD8Ux5cwpgJAJ1VzPvZgskbCEmK1QmWUicejRFQn")
+				wifKey, err := wif.DecodeWIF("cW9n4pgq9MqqGD8Ux5cwpgJAJ1VzPvZgskbCEmK1QmWUicejRFQn")
 				assert.NoError(t, err)
-				return wif
+				return wifKey
 			}(),
 		},
 	}
@@ -254,7 +258,8 @@ func TestWalletClient_DumpPrivateKey(t *testing.T) {
 	}
 }
 
-func TestWalletClient_NewAddress(t *testing.T) {
+// TestWalletClientNewAddress tests the NewAddress method of the WalletClient.
+func TestWalletClientNewAddress(t *testing.T) {
 	tests := map[string]struct {
 		testFile   string
 		opts       *models.OptsNewAddress
@@ -325,7 +330,8 @@ func TestWalletClient_NewAddress(t *testing.T) {
 	}
 }
 
-func TestWalletClient_ListAccounts(t *testing.T) {
+// TestWalletClientListAccounts tests the ListAccounts method of the WalletClient.
+func TestWalletClientListAccounts(t *testing.T) {
 	tests := map[string]struct {
 		testFile    string
 		opts        *models.OptsListAccounts
@@ -406,7 +412,8 @@ func TestWalletClient_ListAccounts(t *testing.T) {
 	}
 }
 
-func TestWalletClient_Move(t *testing.T) {
+// TestWalletClientMove tests the Move method of the WalletClient.
+func TestWalletClientMove(t *testing.T) {
 	tests := map[string]struct {
 		testFile   string
 		opts       *models.OptsMove

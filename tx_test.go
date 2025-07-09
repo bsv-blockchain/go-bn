@@ -18,7 +18,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestTxClient_CreateRawTransaction(t *testing.T) {
+// TestTxClientCreateRawTransaction tests the CreateRawTransaction method of the TransactionClient.
+func TestTxClientCreateRawTransaction(t *testing.T) {
 	t.Parallel()
 
 	tests := map[string]struct {
@@ -88,7 +89,8 @@ func TestTxClient_CreateRawTransaction(t *testing.T) {
 	}
 }
 
-func TestTxClient_FundRawTransaction(t *testing.T) {
+// TestTxClientFundRawTransaction tests the FundRawTransaction method of the TransactionClient.
+func TestTxClientFundRawTransaction(t *testing.T) {
 	t.Parallel()
 
 	tests := map[string]struct {
@@ -207,7 +209,8 @@ func TestTxClient_FundRawTransaction(t *testing.T) {
 	}
 }
 
-func TestTxClient_RawTransaction(t *testing.T) {
+// TestTxClientRawTransaction tests the RawTransaction method of the TransactionClient.
+func TestTxClientRawTransaction(t *testing.T) {
 	t.Parallel()
 
 	tests := map[string]struct {
@@ -276,7 +279,8 @@ func TestTxClient_RawTransaction(t *testing.T) {
 	}
 }
 
-func TestTxClient_SignRawTransaction(t *testing.T) {
+// TestTxClientSignRawTransaction tests the SignRawTransaction method of the TransactionClient.
+func TestTxClientSignRawTransaction(t *testing.T) {
 	t.Parallel()
 
 	tests := map[string]struct {

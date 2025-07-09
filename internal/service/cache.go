@@ -24,6 +24,7 @@ func (c *cache) Do(ctx context.Context, method string, out interface{}, args ...
 	return c.do(ctx, request{method: method, args: args}, out)
 }
 
+// do executes the RPC request, checking the cache first.
 func (c *cache) do(ctx context.Context, r request, out interface{}) error {
 	if v, ok := c.cache[r.Key()]; ok && out != nil {
 		return c.write(v, out)
@@ -36,6 +37,7 @@ func (c *cache) do(ctx context.Context, r request, out interface{}) error {
 	return nil
 }
 
+// write writes the source value to the destination value.
 func (c *cache) write(dest, src interface{}) error {
 	drv := reflect.ValueOf(dest)
 	if drv.Kind() != reflect.Ptr || drv.IsNil() {

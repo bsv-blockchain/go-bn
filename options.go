@@ -9,6 +9,7 @@ import (
 // BitcoinClientOptFunc for setting bitcoin client options.
 type BitcoinClientOptFunc func(c *clientOpts)
 
+// clientOpts contains options for the Bitcoin client.
 type clientOpts struct {
 	timeout   time.Duration
 	host      string
@@ -48,7 +49,7 @@ func WithCreds(username, password string) BitcoinClientOptFunc {
 	}
 }
 
-// WithMainnet set whether or not the node is a mainnet node.
+// WithMainnet set whether the node is a mainnet node.
 func WithMainnet() BitcoinClientOptFunc {
 	return func(c *clientOpts) {
 		c.isMainnet = true

@@ -16,7 +16,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestUtilClient_SignMessageWithPrivKey(t *testing.T) {
+// TestUtilClientSignMessageWithPrivKey tests the SignMessageWithPrivKey method of the UtilClient.
+func TestUtilClientSignMessageWithPrivKey(t *testing.T) {
 	t.Parallel()
 
 	tests := map[string]struct {
@@ -30,9 +31,9 @@ func TestUtilClient_SignMessageWithPrivKey(t *testing.T) {
 		"successful request": {
 			testFile: "signmessagewithprivkey",
 			wif: func() *wif.WIF {
-				wif, err := wif.DecodeWIF("cW9n4pgq9MqqGD8Ux5cwpgJAJ1VzPvZgskbCEmK1QmWUicejRFQn")
+				wifKey, err := wif.DecodeWIF("cW9n4pgq9MqqGD8Ux5cwpgJAJ1VzPvZgskbCEmK1QmWUicejRFQn")
 				assert.NoError(t, err)
-				return wif
+				return wifKey
 			}(),
 			expRequest: models.Request{
 				JSONRpc: "1.0",
