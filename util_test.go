@@ -13,6 +13,7 @@ import (
 	"github.com/bsv-blockchain/go-bn/testing/util"
 	"github.com/libsv/go-bk/wif"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestUtilClient_SignMessageWithPrivKey(t *testing.T) {
@@ -58,7 +59,7 @@ func TestUtilClient_SignMessageWithPrivKey(t *testing.T) {
 				bn.WithCustomRPC(&mocks.MockRPC{
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "signmessagewithprivkey", method)
-						assert.Equal(t, len(args), 2)
+						assert.Len(t, args, 2)
 						assert.Equal(t, test.wif.String(), args[0])
 						assert.Equal(t, test.msg, args[1])
 
@@ -69,10 +70,10 @@ func TestUtilClient_SignMessageWithPrivKey(t *testing.T) {
 
 			signedMsg, err := c.SignMessageWithPrivKey(context.TODO(), test.wif, test.msg)
 			if test.expErr != nil {
-				assert.Error(t, err)
+				require.Error(t, err)
 				assert.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expMsg, signedMsg)
 			}
 		})

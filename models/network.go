@@ -75,7 +75,7 @@ type NetworkInfo struct {
 		Limited                   bool   `json:"limited"`
 		Reachable                 bool   `json:"reachable"`
 		Proxy                     string `json:"proxy"`
-		ProxyRandomiseCredentials bool   `json:"proxy_randomize_credentials"` // nolint:misspell // in response
+		ProxyRandomiseCredentials bool   `json:"proxy_randomize_credentials"`
 	} `json:"networks"`
 	RelayFee                        float64 `json:"relayfee"`
 	MinConsolidationFactor          uint64  `json:"minconsolidationfactor"`

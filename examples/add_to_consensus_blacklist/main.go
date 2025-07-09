@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
+	"log"
 
 	"github.com/bsv-blockchain/go-bn/models"
 
@@ -31,9 +31,10 @@ func main() {
 		panic(err)
 	}
 
-	bb, err := json.MarshalIndent(resp, "", "  ")
+	var bb []byte
+	bb, err = json.MarshalIndent(resp, "", "  ")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(bb))
+	log.Println(string(bb))
 }

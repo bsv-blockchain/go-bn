@@ -15,6 +15,7 @@ import (
 	"github.com/bsv-blockchain/go-bt/v2"
 	"github.com/bsv-blockchain/go-bt/v2/sighash"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestTxClient_CreateRawTransaction(t *testing.T) {
@@ -66,9 +67,9 @@ func TestTxClient_CreateRawTransaction(t *testing.T) {
 				bn.WithCustomRPC(&mocks.MockRPC{
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "createrawtransaction", method)
-						assert.Equal(t, 2, len(args))
+						assert.Len(t, args, 2)
 						assert.Equal(t, args[0], test.utxos.NodeJSON())
-						assert.Equal(t, args[1], test.expParams)
+						assert.Equal(t, test.expParams, args[1])
 
 						return r.Do(ctx, method, out, args...)
 					},
@@ -77,10 +78,10 @@ func TestTxClient_CreateRawTransaction(t *testing.T) {
 
 			tx, err := c.CreateRawTransaction(context.TODO(), test.utxos, test.params)
 			if test.expErr != nil {
-				assert.Error(t, err)
+				require.Error(t, err)
 				assert.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expTx, tx.String())
 			}
 		})
@@ -181,9 +182,9 @@ func TestTxClient_FundRawTransaction(t *testing.T) {
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "fundrawtransaction", method)
 						if test.opts == nil {
-							assert.Equal(t, 1, len(args))
+							assert.Len(t, args, 1)
 						} else {
-							assert.Equal(t, 2, len(args))
+							assert.Len(t, args, 2)
 							assert.Equal(t, test.opts, args[1])
 						}
 
@@ -196,10 +197,10 @@ func TestTxClient_FundRawTransaction(t *testing.T) {
 
 			fundedTx, err := c.FundRawTransaction(context.TODO(), test.tx, test.opts)
 			if test.expErr != nil {
-				assert.Error(t, err)
+				require.Error(t, err)
 				assert.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expResponse, fundedTx)
 			}
 		})
@@ -254,9 +255,9 @@ func TestTxClient_RawTransaction(t *testing.T) {
 				bn.WithCustomRPC(&mocks.MockRPC{
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "getrawtransaction", method)
-						assert.Equal(t, 2, len(args))
+						assert.Len(t, args, 2)
 						assert.Equal(t, args[0], test.txID)
-						assert.Equal(t, args[1], true)
+						assert.Equal(t, true, args[1])
 
 						return r.Do(ctx, method, out, args...)
 					},
@@ -265,10 +266,10 @@ func TestTxClient_RawTransaction(t *testing.T) {
 
 			tx, err := c.RawTransaction(context.TODO(), test.txID)
 			if test.expErr != nil {
-				assert.Error(t, err)
+				require.Error(t, err)
 				assert.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expTx, tx.String())
 			}
 		})
@@ -361,9 +362,9 @@ func TestTxClient_SignRawTransaction(t *testing.T) {
 						assert.Equal(t, "signrawtransaction", method)
 						assert.Equal(t, test.tx.String(), args[0])
 						if test.opts == nil {
-							assert.Equal(t, 1, len(args))
+							assert.Len(t, args, 1)
 						} else {
-							assert.Equal(t, 4, len(args))
+							assert.Len(t, args, 4)
 							assert.Equal(t, test.opts.From.NodeJSON(), args[1])
 							assert.Equal(t, test.opts.PrivateKeys, args[2])
 							assert.Equal(t, test.opts.SigHashType.String(), args[3])
@@ -376,10 +377,10 @@ func TestTxClient_SignRawTransaction(t *testing.T) {
 
 			signedTx, err := c.SignRawTransaction(context.TODO(), test.tx, test.opts)
 			if test.expErr != nil {
-				assert.Error(t, err)
-				assert.EqualError(t, err, test.expErr.Error())
+				require.Error(t, err)
+				require.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expResponse, signedTx)
 			}
 		})

@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"github.com/bsv-blockchain/go-bc"
@@ -21,12 +20,12 @@ func main() {
 		zmq.WithHost("tcp://localhost:28332"),
 		zmq.WithRaw(),
 		zmq.WithErrorHandler(func(_ context.Context, err error) {
-			fmt.Println("OH NO", err)
+			log.Println("error found", err)
 		}),
 	)
 
 	if err := z.Subscribe(zmq.TopicInvalidTx, func(_ context.Context, bb [][]byte) {
-		fmt.Println("invalid tx", hex.EncodeToString(bb[1]))
+		log.Println("invalid tx", hex.EncodeToString(bb[1]))
 	}); err != nil {
 		panic(err)
 	}
@@ -37,7 +36,7 @@ func main() {
 			panic(err)
 		}
 
-		fmt.Println("TX:", string(bb))
+		log.Println("TX:", string(bb))
 	}); err != nil {
 		panic(err)
 	}
@@ -48,13 +47,13 @@ func main() {
 			panic(err)
 		}
 
-		fmt.Println("Block:", string(bb))
+		log.Println("Block:", string(bb))
 	}); err != nil {
 		panic(err)
 	}
 
 	if err := z.SubscribeHashBlock(func(_ context.Context, hash string) {
-		fmt.Println("BLOCK HASH", hash)
+		log.Println("BLOCK HASH", hash)
 	}); err != nil {
 		panic(err)
 	}

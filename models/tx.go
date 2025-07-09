@@ -91,7 +91,7 @@ type OutputSetInfo struct {
 	Transactions   uint32  `json:"transactions"`
 	OutputCount    uint32  `json:"txouts"`
 	BogoSize       uint32  `json:"bogosize"`
-	HashSerialised string  `json:"hash_serialized"` //nolint:misspell // in json response
+	HashSerialised string  `json:"hash_serialized"`
 	DiskSize       uint32  `json:"disk_size"`
 	TotalAmount    float64 `json:"total_amount"`
 }

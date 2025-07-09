@@ -14,15 +14,14 @@ import (
 
 type closeFunc func()
 
-// nolint: revive // test code
 // TestServer creates a test server for testing.
-func TestServer(t *testing.T, expReq *models.Request, testFile string) (*httptest.Server, closeFunc) {
+func TestServer(t *testing.T, expReq *models.Request, testFile string) (*httptest.Server, closeFunc) { //nolint: revive // test code
 	svr := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var req models.Request
 		assert.NoError(t, json.NewDecoder(r.Body).Decode(&req))
 		assert.Equal(t, *expReq, req)
 
-		// nolint:gosec // test code
+		//nolint:gosec // test code
 		response, err := ioutil.ReadFile(path.Join("./testing/data", testFile+".json"))
 		assert.NoError(t, err)
 

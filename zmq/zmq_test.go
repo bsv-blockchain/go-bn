@@ -13,6 +13,7 @@ import (
 	"github.com/bsv-blockchain/go-bt/v2"
 	"github.com/go-zeromq/zmq4"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestNodeMQ_Subscribe(t *testing.T) {
@@ -121,10 +122,10 @@ func TestNodeMQ_Subscribe(t *testing.T) {
 				return nil
 			}()
 			if test.expErr != nil {
-				assert.Error(t, err)
+				require.Error(t, err)
 				assert.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			}
 		})
 	}
@@ -163,10 +164,10 @@ func TestNodeMQ_Unsubscribe(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			z := zmq.NewNodeMQ(append(test.opts, zmq.WithCustomZMQSocket(&mocks.SocketMock{}))...)
 			for _, topic := range test.subscribedTo {
-				assert.NoError(t, z.Subscribe(topic, func(context.Context, [][]byte) {}))
+				require.NoError(t, z.Subscribe(topic, func(context.Context, [][]byte) {}))
 			}
 
-			assert.True(t, len(test.unsubscribeFrom) > 0, "test %s has not declare a topic to unsub from")
+			assert.Positive(t, len(test.unsubscribeFrom) > 0, "test %s has not declare a topic to unsub from")
 
 			err := func() error {
 				for _, topic := range test.unsubscribeFrom {
@@ -177,10 +178,10 @@ func TestNodeMQ_Unsubscribe(t *testing.T) {
 				return nil
 			}()
 			if test.expErr != nil {
-				assert.Error(t, err)
-				assert.EqualError(t, err, test.expErr.Error())
+				require.Error(t, err)
+				require.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			}
 		})
 	}
@@ -457,8 +458,7 @@ func TestNodeMQ_Connect(t *testing.T) {
 			var wg sync.WaitGroup
 			wg.Add(total)
 			for _, topic := range test.topics {
-				topic := topic
-				assert.NoError(t, z.Subscribe(topic, func(_ context.Context, msg [][]byte) {
+				require.NoError(t, z.Subscribe(topic, func(_ context.Context, msg [][]byte) {
 					defer wg.Done()
 					mu.Lock()
 					defer mu.Unlock()
@@ -468,10 +468,10 @@ func TestNodeMQ_Connect(t *testing.T) {
 
 			err := z.Connect()
 			if test.expConnectError != nil {
-				assert.Error(t, err)
-				assert.EqualError(t, err, test.expConnectError.Error())
+				require.Error(t, err)
+				require.EqualError(t, err, test.expConnectError.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			}
 			wg.Wait()
 
@@ -579,17 +579,17 @@ func TestNodeMQ_SubscribeHashTx(t *testing.T) {
 			var wg sync.WaitGroup
 			wg.Add(len(test.expHashes))
 			hashes := make(map[string]bool)
-			c.SubscribeHashTx(func(ctx context.Context, hash string) {
+			_ = c.SubscribeHashTx(func(ctx context.Context, hash string) {
 				defer wg.Done()
 				defer mu.Unlock()
 				mu.Lock()
 				hashes[hash] = true
 			})
 
-			assert.NoError(t, c.Connect())
+			require.NoError(t, c.Connect())
 			wg.Wait()
 
-			assert.Equal(t, len(test.expHashes), len(hashes))
+			assert.Len(t, hashes, len(test.expHashes))
 			for _, hash := range test.expHashes {
 				assert.True(t, hashes[hash])
 			}
@@ -704,7 +704,7 @@ func TestNodeMQ_SubscribeHashBlock(t *testing.T) {
 			assert.NoError(t, c.Connect())
 			wg.Wait()
 
-			assert.Equal(t, len(test.expHashes), len(hashes))
+			assert.Len(t, hashes, len(test.expHashes))
 			for _, hash := range test.expHashes {
 				assert.True(t, hashes[hash])
 			}
@@ -858,7 +858,7 @@ func TestNodeMQ_SubscribeRawTx(t *testing.T) {
 			assert.NoError(t, c.Connect())
 			wg.Wait()
 
-			assert.Equal(t, len(test.expTxs), len(txs))
+			assert.Len(t, txs, len(test.expTxs))
 			for _, tx := range test.expTxs {
 				assert.True(t, txs[tx])
 			}
@@ -1013,7 +1013,7 @@ func TestNodeMQ_SubscribeRawBlock(t *testing.T) {
 			assert.NoError(t, c.Connect())
 			wg.Wait()
 
-			assert.Equal(t, len(test.expBlocks), len(blocks))
+			assert.Len(t, blocks, len(test.expBlocks))
 			for _, blk := range test.expBlocks {
 				assert.True(t, blocks[blk])
 			}
@@ -1161,7 +1161,7 @@ func TestNodeMQ_SubscribeDiscardFromMempool(t *testing.T) {
 			assert.NoError(t, c.Connect())
 			wg.Wait()
 
-			assert.Equal(t, len(test.expDiscards), len(discards))
+			assert.Len(t, discards, len(test.expDiscards))
 			for _, discard := range test.expDiscards {
 				assert.True(t, discards[discard])
 			}
@@ -1309,7 +1309,7 @@ func TestNodeMQ_SubscribeRemovedFromMempoolBlock(t *testing.T) {
 			assert.NoError(t, c.Connect())
 			wg.Wait()
 
-			assert.Equal(t, len(test.expRemovals), len(discards))
+			assert.Len(t, discards, len(test.expRemovals))
 			for _, discard := range test.expRemovals {
 				assert.True(t, discards[discard])
 			}

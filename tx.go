@@ -82,7 +82,7 @@ func (c *client) AddToConsensusBlacklist(ctx context.Context, funds []models.Fun
 func (c *client) AddToConfiscationTransactionWhitelist(ctx context.Context, confiscationTransactions []models.ConfiscationTransactionDetails) (*models.AddToConfiscationTransactionWhitelistResponse, error) {
 	var resp models.AddToConfiscationTransactionWhitelistResponse
 	req := models.AddToConfiscationTxIdWhitelistArgs{
-		confiscationTransactions,
+		ConfiscationTransactions: confiscationTransactions,
 	}
 	return &resp, c.rpc.Do(ctx, "addToConfiscationTxidWhitelist", &resp, req)
 }

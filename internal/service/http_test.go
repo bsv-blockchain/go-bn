@@ -13,6 +13,7 @@ import (
 	"github.com/bsv-blockchain/go-bn/internal/service"
 	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -95,7 +96,6 @@ func TestRPC_Do_SingleFlight(t *testing.T) {
 
 			g, ctx := errgroup.WithContext(context.TODO())
 			for _, inv := range test.invocations {
-				inv := inv
 				g.Go(func() error {
 					for i := 0; i < int(inv.timesCalled); i++ {
 						g.Go(func() error { return c.Do(ctx, inv.method, nil, inv.args...) })
@@ -106,10 +106,10 @@ func TestRPC_Do_SingleFlight(t *testing.T) {
 
 			err := g.Wait()
 			if test.expErr != nil {
-				assert.Error(t, err)
-				assert.EqualError(t, err, test.expErr.Error())
+				require.Error(t, err)
+				require.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			}
 
 			assert.Equal(t, test.expCalls, timesCalled)

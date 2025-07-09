@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
+	"log"
 
 	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bt/v2"
@@ -45,5 +45,5 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(bb))
+	log.Println(string(bb))
 }

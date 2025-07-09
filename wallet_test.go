@@ -13,6 +13,7 @@ import (
 	"github.com/bsv-blockchain/go-bn/testing/util"
 	"github.com/libsv/go-bk/wif"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestWalletClient_Balance(t *testing.T) {
@@ -64,9 +65,9 @@ func TestWalletClient_Balance(t *testing.T) {
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "getbalance", method)
 						if test.opts != nil {
-							assert.Equal(t, 3, len(args))
+							assert.Len(t, args, 3)
 						} else {
-							assert.Equal(t, 0, len(args))
+							assert.Empty(t, args)
 						}
 
 						return r.Do(ctx, method, out, args...)
@@ -76,10 +77,10 @@ func TestWalletClient_Balance(t *testing.T) {
 
 			balance, err := c.Balance(context.TODO(), test.opts)
 			if test.expErr != nil {
-				assert.Error(t, err)
-				assert.EqualError(t, err, test.expErr.Error())
+				require.Error(t, err)
+				require.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expBalance, balance)
 			}
 		})
@@ -118,7 +119,7 @@ func TestWalletClient_UnconfirmedBalance(t *testing.T) {
 				bn.WithCustomRPC(&mocks.MockRPC{
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "getunconfirmedbalance", method)
-						assert.Equal(t, 0, len(args))
+						assert.Empty(t, args)
 
 						return r.Do(ctx, method, out, args...)
 					},
@@ -127,10 +128,10 @@ func TestWalletClient_UnconfirmedBalance(t *testing.T) {
 
 			balance, err := c.UnconfirmedBalance(context.TODO())
 			if test.expErr != nil {
-				assert.Error(t, err)
+				require.Error(t, err)
 				assert.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expBalance, balance)
 			}
 		})
@@ -172,7 +173,7 @@ func TestWalletClient_ReceivedByAddress(t *testing.T) {
 				bn.WithCustomRPC(&mocks.MockRPC{
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "getreceivedbyaddress", method)
-						assert.Equal(t, 1, len(args))
+						assert.Len(t, args, 1)
 						assert.Equal(t, test.address, args[0])
 
 						return r.Do(ctx, method, out, args...)
@@ -182,10 +183,10 @@ func TestWalletClient_ReceivedByAddress(t *testing.T) {
 
 			balance, err := c.ReceivedByAddress(context.TODO(), test.address)
 			if test.expErr != nil {
-				assert.Error(t, err)
+				require.Error(t, err)
 				assert.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expReceived, balance)
 			}
 		})
@@ -233,7 +234,7 @@ func TestWalletClient_DumpPrivateKey(t *testing.T) {
 				bn.WithCustomRPC(&mocks.MockRPC{
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "dumpprivkey", method)
-						assert.Equal(t, 1, len(args))
+						assert.Len(t, args, 1)
 						assert.Equal(t, test.address, args[0])
 
 						return r.Do(ctx, method, out, args...)
@@ -241,13 +242,13 @@ func TestWalletClient_DumpPrivateKey(t *testing.T) {
 				}),
 			)
 
-			wif, err := c.DumpPrivateKey(context.TODO(), test.address)
+			wifKey, err := c.DumpPrivateKey(context.TODO(), test.address)
 			if test.expErr != nil {
-				assert.Error(t, err)
+				require.Error(t, err)
 				assert.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
-				assert.Equal(t, test.expWif, wif)
+				require.NoError(t, err)
+				assert.Equal(t, test.expWif, wifKey)
 			}
 		})
 	}
@@ -302,7 +303,7 @@ func TestWalletClient_NewAddress(t *testing.T) {
 				bn.WithCustomRPC(&mocks.MockRPC{
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "getnewaddress", method)
-						assert.Equal(t, test.expArgsLen, len(args))
+						assert.Len(t, args, test.expArgsLen)
 						if test.opts != nil {
 							assert.Equal(t, test.opts.Account, args[0])
 						}
@@ -314,10 +315,10 @@ func TestWalletClient_NewAddress(t *testing.T) {
 
 			address, err := c.NewAddress(context.TODO(), test.opts)
 			if test.expErr != nil {
-				assert.Error(t, err)
-				assert.EqualError(t, err, test.expErr.Error())
+				require.Error(t, err)
+				require.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expAddress, address)
 			}
 		})
@@ -382,7 +383,7 @@ func TestWalletClient_ListAccounts(t *testing.T) {
 				bn.WithCustomRPC(&mocks.MockRPC{
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "listaccounts", method)
-						assert.Equal(t, test.expArgsLen, len(args))
+						assert.Len(t, args, test.expArgsLen)
 						if test.opts != nil {
 							assert.Equal(t, test.opts.MinConf, args[0])
 							assert.Equal(t, test.opts.IncludeWatchOnly, args[1])
@@ -395,10 +396,10 @@ func TestWalletClient_ListAccounts(t *testing.T) {
 
 			accounts, err := c.ListAccounts(context.TODO(), test.opts)
 			if test.expErr != nil {
-				assert.Error(t, err)
-				assert.EqualError(t, err, test.expErr.Error())
+				require.Error(t, err)
+				require.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expAccounts, accounts)
 			}
 		})
@@ -467,10 +468,10 @@ func TestWalletClient_Move(t *testing.T) {
 				bn.WithCustomRPC(&mocks.MockRPC{
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "move", method)
-						assert.Equal(t, test.expArgsLen, len(args))
+						assert.Len(t, args, test.expArgsLen)
 						assert.Equal(t, test.from, args[0])
 						assert.Equal(t, test.to, args[1])
-						assert.Equal(t, test.expAmount, args[2])
+						assert.InDelta(t, test.expAmount, args[2], 0.0001)
 						if test.opts != nil {
 							assert.Equal(t, test.opts.Comment, args[4])
 						}
@@ -482,10 +483,10 @@ func TestWalletClient_Move(t *testing.T) {
 
 			result, err := c.Move(context.TODO(), test.from, test.to, test.amount, test.opts)
 			if test.expErr != nil {
-				assert.Error(t, err)
+				require.Error(t, err)
 				assert.EqualError(t, err, test.expErr.Error())
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, test.expResult, result)
 			}
 		})
