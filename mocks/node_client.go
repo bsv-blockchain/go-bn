@@ -1096,7 +1096,7 @@ type NodeClientMock struct {
 		ImportPrivateKey []struct {
 			// Ctx is the ctx argument value.
 			Ctx context.Context
-			// Pis the w argument value.
+			// P is the p argument value.
 			P *primitives.PrivateKey
 			// Opts is the opts argument value.
 			Opts *models.OptsImportPrivateKey
