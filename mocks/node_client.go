@@ -5,14 +5,15 @@ package mocks
 
 import (
 	"context"
+	"sync"
+	"time"
+
 	"github.com/bsv-blockchain/go-bc"
 	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bn/internal"
 	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bt/v2"
-	"github.com/libsv/go-bk/wif"
-	"sync"
-	"time"
+	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
 )
 
 // Ensure, that NodeClientMock does implement bn.NodeClient.
@@ -130,7 +131,7 @@ var _ bn.NodeClient = &NodeClientMock{}
 //			DumpParamsFunc: func(ctx context.Context) ([]string, error) {
 //				panic("mock out the DumpParams method")
 //			},
-//			DumpPrivateKeyFunc: func(ctx context.Context, address string) (*wif.WIF, error) {
+//			DumpPrivateKeyFunc: func(ctx context.Context, address string) (*primitives.PrivateKey, error) {
 //				panic("mock out the DumpPrivateKey method")
 //			},
 //			DumpWalletFunc: func(ctx context.Context, dest string) (*models.DumpWallet, error) {
@@ -157,7 +158,7 @@ var _ bn.NodeClient = &NodeClientMock{}
 //			ImportMultiFunc: func(ctx context.Context, reqs []models.ImportMultiRequest, opts *models.OptsImportMulti) ([]*models.ImportMulti, error) {
 //				panic("mock out the ImportMulti method")
 //			},
-//			ImportPrivateKeyFunc: func(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error {
+//			ImportPrivateKeyFunc: func(ctx context.Context, w *primitives.PrivateKey, opts *models.OptsImportPrivateKey) error {
 //				panic("mock out the ImportPrivateKey method")
 //			},
 //			ImportPrunedFundsFunc: func(ctx context.Context, tx *bt.Tx, txOutProof string) error {
@@ -340,7 +341,7 @@ var _ bn.NodeClient = &NodeClientMock{}
 //			SignMessageFunc: func(ctx context.Context, address string, message string) (string, error) {
 //				panic("mock out the SignMessage method")
 //			},
-//			SignMessageWithPrivKeyFunc: func(ctx context.Context, w *wif.WIF, msg string) (string, error) {
+//			SignMessageWithPrivKeyFunc: func(ctx context.Context, w *primitives.PrivateKey, msg string) (string, error) {
 //				panic("mock out the SignMessageWithPrivKey method")
 //			},
 //			SignRawTransactionFunc: func(ctx context.Context, tx *bt.Tx, opts *models.OptsSignRawTransaction) (*models.SignedRawTransaction, error) {
@@ -373,7 +374,7 @@ var _ bn.NodeClient = &NodeClientMock{}
 //			VerifyChainFunc: func(ctx context.Context) (bool, error) {
 //				panic("mock out the VerifyChain method")
 //			},
-//			VerifySignedMessageFunc: func(ctx context.Context, w *wif.WIF, signature string, message string) (bool, error) {
+//			VerifySignedMessageFunc: func(ctx context.Context, w *primitives.PrivateKey, signature string, message string) (bool, error) {
 //				panic("mock out the VerifySignedMessage method")
 //			},
 //			WalletInfoFunc: func(ctx context.Context) (*models.WalletInfo, error) {
@@ -507,7 +508,7 @@ type NodeClientMock struct {
 	DumpParamsFunc func(ctx context.Context) ([]string, error)
 
 	// DumpPrivateKeyFunc mocks the DumpPrivateKey method.
-	DumpPrivateKeyFunc func(ctx context.Context, address string) (*wif.WIF, error)
+	DumpPrivateKeyFunc func(ctx context.Context, address string) (*primitives.PrivateKey, error)
 
 	// DumpWalletFunc mocks the DumpWallet method.
 	DumpWalletFunc func(ctx context.Context, dest string) (*models.DumpWallet, error)
@@ -534,7 +535,7 @@ type NodeClientMock struct {
 	ImportMultiFunc func(ctx context.Context, reqs []models.ImportMultiRequest, opts *models.OptsImportMulti) ([]*models.ImportMulti, error)
 
 	// ImportPrivateKeyFunc mocks the ImportPrivateKey method.
-	ImportPrivateKeyFunc func(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error
+	ImportPrivateKeyFunc func(ctx context.Context, w *primitives.PrivateKey, opts *models.OptsImportPrivateKey) error
 
 	// ImportPrunedFundsFunc mocks the ImportPrunedFunds method.
 	ImportPrunedFundsFunc func(ctx context.Context, tx *bt.Tx, txOutProof string) error
@@ -720,7 +721,7 @@ type NodeClientMock struct {
 	SignMessageFunc func(ctx context.Context, address string, message string) (string, error)
 
 	// SignMessageWithPrivKeyFunc mocks the SignMessageWithPrivKey method.
-	SignMessageWithPrivKeyFunc func(ctx context.Context, w *wif.WIF, msg string) (string, error)
+	SignMessageWithPrivKeyFunc func(ctx context.Context, w *primitives.PrivateKey, msg string) (string, error)
 
 	// SignRawTransactionFunc mocks the SignRawTransaction method.
 	SignRawTransactionFunc func(ctx context.Context, tx *bt.Tx, opts *models.OptsSignRawTransaction) (*models.SignedRawTransaction, error)
@@ -753,7 +754,7 @@ type NodeClientMock struct {
 	VerifyChainFunc func(ctx context.Context) (bool, error)
 
 	// VerifySignedMessageFunc mocks the VerifySignedMessage method.
-	VerifySignedMessageFunc func(ctx context.Context, w *wif.WIF, signature string, message string) (bool, error)
+	VerifySignedMessageFunc func(ctx context.Context, w *primitives.PrivateKey, signature string, message string) (bool, error)
 
 	// WalletInfoFunc mocks the WalletInfo method.
 	WalletInfoFunc func(ctx context.Context) (*models.WalletInfo, error)
@@ -1095,8 +1096,8 @@ type NodeClientMock struct {
 		ImportPrivateKey []struct {
 			// Ctx is the ctx argument value.
 			Ctx context.Context
-			// W is the w argument value.
-			W *wif.WIF
+			// P is the p argument value.
+			P *primitives.PrivateKey
 			// Opts is the opts argument value.
 			Opts *models.OptsImportPrivateKey
 		}
@@ -1545,8 +1546,8 @@ type NodeClientMock struct {
 		SignMessageWithPrivKey []struct {
 			// Ctx is the ctx argument value.
 			Ctx context.Context
-			// W is the w argument value.
-			W *wif.WIF
+			// Pis the w argument value.
+			P *primitives.PrivateKey
 			// Msg is the msg argument value.
 			Msg string
 		}
@@ -1622,8 +1623,8 @@ type NodeClientMock struct {
 		VerifySignedMessage []struct {
 			// Ctx is the ctx argument value.
 			Ctx context.Context
-			// W is the w argument value.
-			W *wif.WIF
+			// Pis the w argument value.
+			P *primitives.PrivateKey
 			// Signature is the signature argument value.
 			Signature string
 			// Message is the message argument value.
@@ -3061,7 +3062,7 @@ func (mock *NodeClientMock) DumpParamsCalls() []struct {
 }
 
 // DumpPrivateKey calls DumpPrivateKeyFunc.
-func (mock *NodeClientMock) DumpPrivateKey(ctx context.Context, address string) (*wif.WIF, error) {
+func (mock *NodeClientMock) DumpPrivateKey(ctx context.Context, address string) (*primitives.PrivateKey, error) {
 	if mock.DumpPrivateKeyFunc == nil {
 		panic("NodeClientMock.DumpPrivateKeyFunc: method is nil but NodeClient.DumpPrivateKey was just called")
 	}
@@ -3405,23 +3406,23 @@ func (mock *NodeClientMock) ImportMultiCalls() []struct {
 }
 
 // ImportPrivateKey calls ImportPrivateKeyFunc.
-func (mock *NodeClientMock) ImportPrivateKey(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error {
+func (mock *NodeClientMock) ImportPrivateKey(ctx context.Context, p *primitives.PrivateKey, opts *models.OptsImportPrivateKey) error {
 	if mock.ImportPrivateKeyFunc == nil {
 		panic("NodeClientMock.ImportPrivateKeyFunc: method is nil but NodeClient.ImportPrivateKey was just called")
 	}
 	callInfo := struct {
 		Ctx  context.Context
-		W    *wif.WIF
+		P    *primitives.PrivateKey
 		Opts *models.OptsImportPrivateKey
 	}{
 		Ctx:  ctx,
-		W:    w,
+		P:    p,
 		Opts: opts,
 	}
 	mock.lockImportPrivateKey.Lock()
 	mock.calls.ImportPrivateKey = append(mock.calls.ImportPrivateKey, callInfo)
 	mock.lockImportPrivateKey.Unlock()
-	return mock.ImportPrivateKeyFunc(ctx, w, opts)
+	return mock.ImportPrivateKeyFunc(ctx, p, opts)
 }
 
 // ImportPrivateKeyCalls gets all the calls that were made to ImportPrivateKey.
@@ -3430,12 +3431,12 @@ func (mock *NodeClientMock) ImportPrivateKey(ctx context.Context, w *wif.WIF, op
 //	len(mockedNodeClient.ImportPrivateKeyCalls())
 func (mock *NodeClientMock) ImportPrivateKeyCalls() []struct {
 	Ctx  context.Context
-	W    *wif.WIF
+	P    *primitives.PrivateKey
 	Opts *models.OptsImportPrivateKey
 } {
 	var calls []struct {
 		Ctx  context.Context
-		W    *wif.WIF
+		P    *primitives.PrivateKey
 		Opts *models.OptsImportPrivateKey
 	}
 	mock.lockImportPrivateKey.RLock()
@@ -5651,23 +5652,23 @@ func (mock *NodeClientMock) SignMessageCalls() []struct {
 }
 
 // SignMessageWithPrivKey calls SignMessageWithPrivKeyFunc.
-func (mock *NodeClientMock) SignMessageWithPrivKey(ctx context.Context, w *wif.WIF, msg string) (string, error) {
+func (mock *NodeClientMock) SignMessageWithPrivKey(ctx context.Context, p *primitives.PrivateKey, msg string) (string, error) {
 	if mock.SignMessageWithPrivKeyFunc == nil {
 		panic("NodeClientMock.SignMessageWithPrivKeyFunc: method is nil but NodeClient.SignMessageWithPrivKey was just called")
 	}
 	callInfo := struct {
 		Ctx context.Context
-		W   *wif.WIF
+		P   *primitives.PrivateKey
 		Msg string
 	}{
 		Ctx: ctx,
-		W:   w,
+		P:   p,
 		Msg: msg,
 	}
 	mock.lockSignMessageWithPrivKey.Lock()
 	mock.calls.SignMessageWithPrivKey = append(mock.calls.SignMessageWithPrivKey, callInfo)
 	mock.lockSignMessageWithPrivKey.Unlock()
-	return mock.SignMessageWithPrivKeyFunc(ctx, w, msg)
+	return mock.SignMessageWithPrivKeyFunc(ctx, p, msg)
 }
 
 // SignMessageWithPrivKeyCalls gets all the calls that were made to SignMessageWithPrivKey.
@@ -5676,12 +5677,12 @@ func (mock *NodeClientMock) SignMessageWithPrivKey(ctx context.Context, w *wif.W
 //	len(mockedNodeClient.SignMessageWithPrivKeyCalls())
 func (mock *NodeClientMock) SignMessageWithPrivKeyCalls() []struct {
 	Ctx context.Context
-	W   *wif.WIF
+	P   *primitives.PrivateKey
 	Msg string
 } {
 	var calls []struct {
 		Ctx context.Context
-		W   *wif.WIF
+		P   *primitives.PrivateKey
 		Msg string
 	}
 	mock.lockSignMessageWithPrivKey.RLock()
@@ -6047,25 +6048,25 @@ func (mock *NodeClientMock) VerifyChainCalls() []struct {
 }
 
 // VerifySignedMessage calls VerifySignedMessageFunc.
-func (mock *NodeClientMock) VerifySignedMessage(ctx context.Context, w *wif.WIF, signature string, message string) (bool, error) {
+func (mock *NodeClientMock) VerifySignedMessage(ctx context.Context, p *primitives.PrivateKey, signature string, message string) (bool, error) {
 	if mock.VerifySignedMessageFunc == nil {
 		panic("NodeClientMock.VerifySignedMessageFunc: method is nil but NodeClient.VerifySignedMessage was just called")
 	}
 	callInfo := struct {
 		Ctx       context.Context
-		W         *wif.WIF
+		P         *primitives.PrivateKey
 		Signature string
 		Message   string
 	}{
 		Ctx:       ctx,
-		W:         w,
+		P:         p,
 		Signature: signature,
 		Message:   message,
 	}
 	mock.lockVerifySignedMessage.Lock()
 	mock.calls.VerifySignedMessage = append(mock.calls.VerifySignedMessage, callInfo)
 	mock.lockVerifySignedMessage.Unlock()
-	return mock.VerifySignedMessageFunc(ctx, w, signature, message)
+	return mock.VerifySignedMessageFunc(ctx, p, signature, message)
 }
 
 // VerifySignedMessageCalls gets all the calls that were made to VerifySignedMessage.
@@ -6074,13 +6075,13 @@ func (mock *NodeClientMock) VerifySignedMessage(ctx context.Context, w *wif.WIF,
 //	len(mockedNodeClient.VerifySignedMessageCalls())
 func (mock *NodeClientMock) VerifySignedMessageCalls() []struct {
 	Ctx       context.Context
-	W         *wif.WIF
+	P         *primitives.PrivateKey
 	Signature string
 	Message   string
 } {
 	var calls []struct {
 		Ctx       context.Context
-		W         *wif.WIF
+		P         *primitives.PrivateKey
 		Signature string
 		Message   string
 	}

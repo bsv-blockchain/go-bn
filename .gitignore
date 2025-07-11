@@ -39,3 +39,6 @@ testdata
 
 # vim
 *.swp
+
+# installed bins
+bin/

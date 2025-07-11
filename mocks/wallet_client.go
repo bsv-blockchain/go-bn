@@ -5,11 +5,12 @@ package mocks
 
 import (
 	"context"
+	"sync"
+
 	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bt/v2"
-	"github.com/libsv/go-bk/wif"
-	"sync"
+	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
 )
 
 // Ensure, that WalletClientMock does implement bn.WalletClient.
@@ -180,7 +181,7 @@ type WalletClientMock struct {
 	BalanceFunc func(ctx context.Context, opts *models.OptsBalance) (uint64, error)
 
 	// DumpPrivateKeyFunc mocks the DumpPrivateKey method.
-	DumpPrivateKeyFunc func(ctx context.Context, address string) (*wif.WIF, error)
+	DumpPrivateKeyFunc func(ctx context.Context, address string) (*primitives.PrivateKey, error)
 
 	// DumpWalletFunc mocks the DumpWallet method.
 	DumpWalletFunc func(ctx context.Context, dest string) (*models.DumpWallet, error)
@@ -195,7 +196,7 @@ type WalletClientMock struct {
 	ImportMultiFunc func(ctx context.Context, reqs []models.ImportMultiRequest, opts *models.OptsImportMulti) ([]*models.ImportMulti, error)
 
 	// ImportPrivateKeyFunc mocks the ImportPrivateKey method.
-	ImportPrivateKeyFunc func(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error
+	ImportPrivateKeyFunc func(ctx context.Context, w *primitives.PrivateKey, opts *models.OptsImportPrivateKey) error
 
 	// ImportPrunedFundsFunc mocks the ImportPrunedFunds method.
 	ImportPrunedFundsFunc func(ctx context.Context, tx *bt.Tx, txOutProof string) error
@@ -384,7 +385,7 @@ type WalletClientMock struct {
 			// Ctx is the ctx argument value.
 			Ctx context.Context
 			// W is the w argument value.
-			W *wif.WIF
+			P *primitives.PrivateKey
 			// Opts is the opts argument value.
 			Opts *models.OptsImportPrivateKey
 		}
@@ -923,7 +924,7 @@ func (mock *WalletClientMock) BalanceCalls() []struct {
 }
 
 // DumpPrivateKey calls DumpPrivateKeyFunc.
-func (mock *WalletClientMock) DumpPrivateKey(ctx context.Context, address string) (*wif.WIF, error) {
+func (mock *WalletClientMock) DumpPrivateKey(ctx context.Context, address string) (*primitives.PrivateKey, error) {
 	if mock.DumpPrivateKeyFunc == nil {
 		panic("WalletClientMock.DumpPrivateKeyFunc: method is nil but WalletClient.DumpPrivateKey was just called")
 	}
@@ -1111,23 +1112,23 @@ func (mock *WalletClientMock) ImportMultiCalls() []struct {
 }
 
 // ImportPrivateKey calls ImportPrivateKeyFunc.
-func (mock *WalletClientMock) ImportPrivateKey(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error {
+func (mock *WalletClientMock) ImportPrivateKey(ctx context.Context, p *primitives.PrivateKey, opts *models.OptsImportPrivateKey) error {
 	if mock.ImportPrivateKeyFunc == nil {
 		panic("WalletClientMock.ImportPrivateKeyFunc: method is nil but WalletClient.ImportPrivateKey was just called")
 	}
 	callInfo := struct {
 		Ctx  context.Context
-		W    *wif.WIF
+		P    *primitives.PrivateKey
 		Opts *models.OptsImportPrivateKey
 	}{
 		Ctx:  ctx,
-		W:    w,
+		P:    p,
 		Opts: opts,
 	}
 	mock.lockImportPrivateKey.Lock()
 	mock.calls.ImportPrivateKey = append(mock.calls.ImportPrivateKey, callInfo)
 	mock.lockImportPrivateKey.Unlock()
-	return mock.ImportPrivateKeyFunc(ctx, w, opts)
+	return mock.ImportPrivateKeyFunc(ctx, p, opts)
 }
 
 // ImportPrivateKeyCalls gets all the calls that were made to ImportPrivateKey.
@@ -1136,12 +1137,12 @@ func (mock *WalletClientMock) ImportPrivateKey(ctx context.Context, w *wif.WIF, 
 //	len(mockedWalletClient.ImportPrivateKeyCalls())
 func (mock *WalletClientMock) ImportPrivateKeyCalls() []struct {
 	Ctx  context.Context
-	W    *wif.WIF
+	P    *primitives.PrivateKey
 	Opts *models.OptsImportPrivateKey
 } {
 	var calls []struct {
 		Ctx  context.Context
-		W    *wif.WIF
+		P    *primitives.PrivateKey
 		Opts *models.OptsImportPrivateKey
 	}
 	mock.lockImportPrivateKey.RLock()

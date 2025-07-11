@@ -5,10 +5,11 @@ package mocks
 
 import (
 	"context"
+	"sync"
+
 	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bn/internal"
 	"github.com/bsv-blockchain/go-bn/models"
-	"sync"
 )
 
 // Ensure, that NetworkClientMock does implement bn.NetworkClient.

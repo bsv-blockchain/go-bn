@@ -5,10 +5,11 @@ package mocks
 
 import (
 	"context"
+	"sync"
+
 	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bn/models"
-	"github.com/libsv/go-bk/wif"
-	"sync"
+	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
 )
 
 // Ensure, that UtilClientMock does implement bn.UtilClient.
@@ -27,13 +28,13 @@ var _ bn.UtilClient = &UtilClientMock{}
 //			CreateMultiSigFunc: func(ctx context.Context, n int, keys ...string) (*models.MultiSig, error) {
 //				panic("mock out the CreateMultiSig method")
 //			},
-//			SignMessageWithPrivKeyFunc: func(ctx context.Context, w *wif.WIF, msg string) (string, error) {
+//			SignMessageWithPrivKeyFunc: func(ctx context.Context, p *primitives.PrivateKey, msg string) (string, error) {
 //				panic("mock out the SignMessageWithPrivKey method")
 //			},
 //			ValidateAddressFunc: func(ctx context.Context, address string) (*models.ValidateAddress, error) {
 //				panic("mock out the ValidateAddress method")
 //			},
-//			VerifySignedMessageFunc: func(ctx context.Context, w *wif.WIF, signature string, message string) (bool, error) {
+//			VerifySignedMessageFunc: func(ctx context.Context, p *primitives.PrivateKey, signature string, message string) (bool, error) {
 //				panic("mock out the VerifySignedMessage method")
 //			},
 //		}
@@ -50,13 +51,13 @@ type UtilClientMock struct {
 	CreateMultiSigFunc func(ctx context.Context, n int, keys ...string) (*models.MultiSig, error)
 
 	// SignMessageWithPrivKeyFunc mocks the SignMessageWithPrivKey method.
-	SignMessageWithPrivKeyFunc func(ctx context.Context, w *wif.WIF, msg string) (string, error)
+	SignMessageWithPrivKeyFunc func(ctx context.Context, p *primitives.PrivateKey, msg string) (string, error)
 
 	// ValidateAddressFunc mocks the ValidateAddress method.
 	ValidateAddressFunc func(ctx context.Context, address string) (*models.ValidateAddress, error)
 
 	// VerifySignedMessageFunc mocks the VerifySignedMessage method.
-	VerifySignedMessageFunc func(ctx context.Context, w *wif.WIF, signature string, message string) (bool, error)
+	VerifySignedMessageFunc func(ctx context.Context, p *primitives.PrivateKey, signature string, message string) (bool, error)
 
 	// calls tracks calls to the methods.
 	calls struct {
@@ -78,8 +79,8 @@ type UtilClientMock struct {
 		SignMessageWithPrivKey []struct {
 			// Ctx is the ctx argument value.
 			Ctx context.Context
-			// W is the w argument value.
-			W *wif.WIF
+			// P is the p argument value.
+			P *primitives.PrivateKey
 			// Msg is the msg argument value.
 			Msg string
 		}
@@ -94,8 +95,8 @@ type UtilClientMock struct {
 		VerifySignedMessage []struct {
 			// Ctx is the ctx argument value.
 			Ctx context.Context
-			// W is the w argument value.
-			W *wif.WIF
+			// P is the p argument value.
+			P *primitives.PrivateKey
 			// Signature is the signature argument value.
 			Signature string
 			// Message is the message argument value.
@@ -182,23 +183,23 @@ func (mock *UtilClientMock) CreateMultiSigCalls() []struct {
 }
 
 // SignMessageWithPrivKey calls SignMessageWithPrivKeyFunc.
-func (mock *UtilClientMock) SignMessageWithPrivKey(ctx context.Context, w *wif.WIF, msg string) (string, error) {
+func (mock *UtilClientMock) SignMessageWithPrivKey(ctx context.Context, p *primitives.PrivateKey, msg string) (string, error) {
 	if mock.SignMessageWithPrivKeyFunc == nil {
 		panic("UtilClientMock.SignMessageWithPrivKeyFunc: method is nil but UtilClient.SignMessageWithPrivKey was just called")
 	}
 	callInfo := struct {
 		Ctx context.Context
-		W   *wif.WIF
+		P   *primitives.PrivateKey
 		Msg string
 	}{
 		Ctx: ctx,
-		W:   w,
+		P:   p,
 		Msg: msg,
 	}
 	mock.lockSignMessageWithPrivKey.Lock()
 	mock.calls.SignMessageWithPrivKey = append(mock.calls.SignMessageWithPrivKey, callInfo)
 	mock.lockSignMessageWithPrivKey.Unlock()
-	return mock.SignMessageWithPrivKeyFunc(ctx, w, msg)
+	return mock.SignMessageWithPrivKeyFunc(ctx, p, msg)
 }
 
 // SignMessageWithPrivKeyCalls gets all the calls that were made to SignMessageWithPrivKey.
@@ -207,12 +208,12 @@ func (mock *UtilClientMock) SignMessageWithPrivKey(ctx context.Context, w *wif.W
 //	len(mockedUtilClient.SignMessageWithPrivKeyCalls())
 func (mock *UtilClientMock) SignMessageWithPrivKeyCalls() []struct {
 	Ctx context.Context
-	W   *wif.WIF
+	P   *primitives.PrivateKey
 	Msg string
 } {
 	var calls []struct {
 		Ctx context.Context
-		W   *wif.WIF
+		P   *primitives.PrivateKey
 		Msg string
 	}
 	mock.lockSignMessageWithPrivKey.RLock()
@@ -258,25 +259,25 @@ func (mock *UtilClientMock) ValidateAddressCalls() []struct {
 }
 
 // VerifySignedMessage calls VerifySignedMessageFunc.
-func (mock *UtilClientMock) VerifySignedMessage(ctx context.Context, w *wif.WIF, signature string, message string) (bool, error) {
+func (mock *UtilClientMock) VerifySignedMessage(ctx context.Context, p *primitives.PrivateKey, signature string, message string) (bool, error) {
 	if mock.VerifySignedMessageFunc == nil {
 		panic("UtilClientMock.VerifySignedMessageFunc: method is nil but UtilClient.VerifySignedMessage was just called")
 	}
 	callInfo := struct {
 		Ctx       context.Context
-		W         *wif.WIF
+		P         *primitives.PrivateKey
 		Signature string
 		Message   string
 	}{
 		Ctx:       ctx,
-		W:         w,
+		P:         p,
 		Signature: signature,
 		Message:   message,
 	}
 	mock.lockVerifySignedMessage.Lock()
 	mock.calls.VerifySignedMessage = append(mock.calls.VerifySignedMessage, callInfo)
 	mock.lockVerifySignedMessage.Unlock()
-	return mock.VerifySignedMessageFunc(ctx, w, signature, message)
+	return mock.VerifySignedMessageFunc(ctx, p, signature, message)
 }
 
 // VerifySignedMessageCalls gets all the calls that were made to VerifySignedMessage.
@@ -285,13 +286,13 @@ func (mock *UtilClientMock) VerifySignedMessage(ctx context.Context, w *wif.WIF,
 //	len(mockedUtilClient.VerifySignedMessageCalls())
 func (mock *UtilClientMock) VerifySignedMessageCalls() []struct {
 	Ctx       context.Context
-	W         *wif.WIF
+	P         *primitives.PrivateKey
 	Signature string
 	Message   string
 } {
 	var calls []struct {
 		Ctx       context.Context
-		W         *wif.WIF
+		P         *primitives.PrivateKey
 		Signature string
 		Message   string
 	}

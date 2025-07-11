@@ -5,13 +5,14 @@ import (
 	"net/http"
 	"testing"
 
+	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
+
 	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bn/internal/config"
 	"github.com/bsv-blockchain/go-bn/internal/mocks"
 	"github.com/bsv-blockchain/go-bn/internal/service"
 	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bn/testing/util"
-	"github.com/libsv/go-bk/wif"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -203,7 +204,7 @@ func TestWalletClientDumpPrivateKey(t *testing.T) {
 	tests := map[string]struct {
 		testFile   string
 		address    string
-		expWif     *wif.WIF
+		expPk      *primitives.PrivateKey
 		expRequest models.Request
 		expErr     error
 	}{
@@ -216,8 +217,8 @@ func TestWalletClientDumpPrivateKey(t *testing.T) {
 				Method:  "dumpprivkey",
 				Params:  []interface{}{"mzcEDt2d7QwHazAwD11WWSn8eSCb4gtpSY"},
 			},
-			expWif: func() *wif.WIF {
-				wifKey, err := wif.DecodeWIF("cW9n4pgq9MqqGD8Ux5cwpgJAJ1VzPvZgskbCEmK1QmWUicejRFQn")
+			expPk: func() *primitives.PrivateKey {
+				wifKey, err := primitives.PrivateKeyFromWif("cW9n4pgq9MqqGD8Ux5cwpgJAJ1VzPvZgskbCEmK1QmWUicejRFQn")
 				assert.NoError(t, err)
 				return wifKey
 			}(),
@@ -252,7 +253,7 @@ func TestWalletClientDumpPrivateKey(t *testing.T) {
 				assert.EqualError(t, err, test.expErr.Error())
 			} else {
 				require.NoError(t, err)
-				assert.Equal(t, test.expWif, wifKey)
+				assert.Equal(t, test.expPk, wifKey)
 			}
 		})
 	}

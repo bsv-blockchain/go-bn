@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/bsv-blockchain/go-bn/models"
-	"github.com/libsv/go-bk/wif"
+	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
 )
 
 // UtilClient interfaces interaction with the util sub commands on a bitcoin node.
@@ -12,8 +12,8 @@ type UtilClient interface {
 	ClearInvalidTransactions(ctx context.Context) (uint64, error)
 	CreateMultiSig(ctx context.Context, n int, keys ...string) (*models.MultiSig, error)
 	ValidateAddress(ctx context.Context, address string) (*models.ValidateAddress, error)
-	SignMessageWithPrivKey(ctx context.Context, w *wif.WIF, msg string) (string, error)
-	VerifySignedMessage(ctx context.Context, w *wif.WIF, signature, message string) (bool, error)
+	SignMessageWithPrivKey(ctx context.Context, w *primitives.PrivateKey, msg string) (string, error)
+	VerifySignedMessage(ctx context.Context, w *primitives.PrivateKey, signature, message string) (bool, error)
 }
 
 // NewUtilClient returns a client only capable of interfacing with the util sub commands on a bitcoin node.
@@ -33,10 +33,14 @@ func (c *client) CreateMultiSig(ctx context.Context, n int, keys ...string) (*mo
 	return &resp, c.rpc.Do(ctx, "createmultisig", &resp, n, keys)
 }
 
-// SignMessageWithPrivKey signs a message with the given private key (WIF).
-func (c *client) SignMessageWithPrivKey(ctx context.Context, w *wif.WIF, msg string) (string, error) {
+// SignMessageWithPrivKey signs a message with the given private key (PrivateKey).
+func (c *client) SignMessageWithPrivKey(ctx context.Context, pk *primitives.PrivateKey, msg string) (string, error) {
 	var resp string
-	return resp, c.rpc.Do(ctx, "signmessagewithprivkey", &resp, w.String(), msg)
+	wif := pk.Wif()
+	if !c.isMainnet {
+		wif = pk.WifPrefix(byte(primitives.TestNet))
+	}
+	return resp, c.rpc.Do(ctx, "signmessagewithprivkey", &resp, wif, msg)
 }
 
 // ValidateAddress checks if the given address is valid and returns information about it.
@@ -45,8 +49,8 @@ func (c *client) ValidateAddress(ctx context.Context, address string) (*models.V
 	return &resp, c.rpc.Do(ctx, "validateaddress", &resp, address)
 }
 
-// VerifySignedMessage verifies a signed message against the given public key (WIF) and message.
-func (c *client) VerifySignedMessage(ctx context.Context, w *wif.WIF, signature, message string) (bool, error) {
+// VerifySignedMessage verifies a signed message against the given public key (PrivateKey) and message.
+func (c *client) VerifySignedMessage(ctx context.Context, pk *primitives.PrivateKey, signature, message string) (bool, error) {
 	var resp bool
-	return resp, c.rpc.Do(ctx, "verifymessage", &resp, w.String(), signature, message)
+	return resp, c.rpc.Do(ctx, "verifymessage", &resp, pk.Wif(), signature, message)
 }
