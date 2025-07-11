@@ -5,10 +5,11 @@ package mocks
 
 import (
 	"context"
+	"sync"
+
 	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bt/v2"
-	"sync"
 )
 
 // Ensure, that TransactionClientMock does implement bn.TransactionClient.

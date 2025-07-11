@@ -5,10 +5,11 @@ package mocks
 
 import (
 	"context"
-	"github.com/bsv-blockchain/go-bn"
-	"github.com/bsv-blockchain/go-bn/models"
 	"sync"
 	"time"
+
+	"github.com/bsv-blockchain/go-bn"
+	"github.com/bsv-blockchain/go-bn/models"
 )
 
 // Ensure, that ControlClientMock does implement bn.ControlClient.

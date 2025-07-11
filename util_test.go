@@ -5,13 +5,14 @@ import (
 	"net/http"
 	"testing"
 
+	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
+
 	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bn/internal/config"
 	"github.com/bsv-blockchain/go-bn/internal/mocks"
 	"github.com/bsv-blockchain/go-bn/internal/service"
 	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bn/testing/util"
-	"github.com/libsv/go-bk/wif"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -22,7 +23,7 @@ func TestUtilClientSignMessageWithPrivKey(t *testing.T) {
 
 	tests := map[string]struct {
 		testFile   string
-		wif        *wif.WIF
+		pk         *primitives.PrivateKey
 		msg        string
 		expRequest models.Request
 		expMsg     string
@@ -30,8 +31,8 @@ func TestUtilClientSignMessageWithPrivKey(t *testing.T) {
 	}{
 		"successful request": {
 			testFile: "signmessagewithprivkey",
-			wif: func() *wif.WIF {
-				wifKey, err := wif.DecodeWIF("cW9n4pgq9MqqGD8Ux5cwpgJAJ1VzPvZgskbCEmK1QmWUicejRFQn")
+			pk: func() *primitives.PrivateKey {
+				wifKey, err := primitives.PrivateKeyFromWif("cW9n4pgq9MqqGD8Ux5cwpgJAJ1VzPvZgskbCEmK1QmWUicejRFQn")
 				assert.NoError(t, err)
 				return wifKey
 			}(),
@@ -61,7 +62,7 @@ func TestUtilClientSignMessageWithPrivKey(t *testing.T) {
 					DoFunc: func(ctx context.Context, method string, out interface{}, args ...interface{}) error {
 						assert.Equal(t, "signmessagewithprivkey", method)
 						assert.Len(t, args, 2)
-						assert.Equal(t, test.wif.String(), args[0])
+						assert.Equal(t, test.pk.WifPrefix(byte(primitives.TestNet)), args[0])
 						assert.Equal(t, test.msg, args[1])
 
 						return r.Do(ctx, method, out, args...)
@@ -69,7 +70,7 @@ func TestUtilClientSignMessageWithPrivKey(t *testing.T) {
 				}),
 			)
 
-			signedMsg, err := c.SignMessageWithPrivKey(context.TODO(), test.wif, test.msg)
+			signedMsg, err := c.SignMessageWithPrivKey(context.TODO(), test.pk, test.msg)
 			if test.expErr != nil {
 				require.Error(t, err)
 				assert.EqualError(t, err, test.expErr.Error())

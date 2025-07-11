@@ -6,12 +6,12 @@ import (
 	"github.com/bsv-blockchain/go-bn/internal/util"
 	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bt/v2"
-	"github.com/libsv/go-bk/wif"
+	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
 )
 
 // InternalDumpPrivateKey the true to form dumpprivkey response from the bitcoin node.
 type InternalDumpPrivateKey struct {
-	WIF *wif.WIF
+	PrivateKey *primitives.PrivateKey
 }
 
 // UnmarshalJSON unmarshal the response.
@@ -21,12 +21,12 @@ func (i *InternalDumpPrivateKey) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	w, err := wif.DecodeWIF(s)
+	pk, err := primitives.PrivateKeyFromWif(s)
 	if err != nil {
 		return err
 	}
 
-	i.WIF = w
+	i.PrivateKey = pk
 	return nil
 }
 

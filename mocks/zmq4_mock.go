@@ -4,9 +4,10 @@
 package mocks
 
 import (
-	"github.com/go-zeromq/zmq4"
 	"net"
 	"sync"
+
+	"github.com/go-zeromq/zmq4"
 )
 
 // Ensure, that SocketMock does implement zmq4.Socket.

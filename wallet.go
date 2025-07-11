@@ -7,7 +7,7 @@ import (
 	"github.com/bsv-blockchain/go-bn/internal/util"
 	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bt/v2"
-	"github.com/libsv/go-bk/wif"
+	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
 )
 
 // WalletClient interfaces interaction with the wallet sub commands on a bitcoin node.
@@ -15,7 +15,7 @@ type WalletClient interface {
 	AbandonTransaction(ctx context.Context, txID string) error
 	AddMultiSigAddress(ctx context.Context, n int, keys ...string) (string, error)
 	BackupWallet(ctx context.Context, dest string) error
-	DumpPrivateKey(ctx context.Context, address string) (*wif.WIF, error)
+	DumpPrivateKey(ctx context.Context, address string) (*primitives.PrivateKey, error)
 	DumpWallet(ctx context.Context, dest string) (*models.DumpWallet, error)
 	Account(ctx context.Context, address string) (string, error)
 	AccountAddress(ctx context.Context, account string) (string, error)
@@ -30,7 +30,7 @@ type WalletClient interface {
 	WalletInfo(ctx context.Context) (*models.WalletInfo, error)
 	ImportMulti(ctx context.Context, reqs []models.ImportMultiRequest,
 		opts *models.OptsImportMulti) ([]*models.ImportMulti, error)
-	ImportPrivateKey(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error
+	ImportPrivateKey(ctx context.Context, pk *primitives.PrivateKey, opts *models.OptsImportPrivateKey) error
 	ImportPrunedFunds(ctx context.Context, tx *bt.Tx, txOutProof string) error
 	ImportPublicKey(ctx context.Context, publicKey string, opts *models.OptsImportPublicKey) error
 	ImportWallet(ctx context.Context, filename string) error
@@ -80,9 +80,9 @@ func (c *client) BackupWallet(ctx context.Context, dest string) error {
 }
 
 // DumpPrivateKey retrieves the private key for the given address in WIF format.
-func (c *client) DumpPrivateKey(ctx context.Context, address string) (*wif.WIF, error) {
+func (c *client) DumpPrivateKey(ctx context.Context, address string) (*primitives.PrivateKey, error) {
 	var resp imodels.InternalDumpPrivateKey
-	return resp.WIF, c.rpc.Do(ctx, "dumpprivkey", &resp, address)
+	return resp.PrivateKey, c.rpc.Do(ctx, "dumpprivkey", &resp, address)
 }
 
 // DumpWallet dumps the wallet to the specified destination file.
@@ -178,8 +178,8 @@ func (c *client) ImportPublicKey(ctx context.Context, publicKey string, opts *mo
 }
 
 // ImportPrivateKey imports a private key (WIF) into the wallet, optionally filtered by the provided options.
-func (c *client) ImportPrivateKey(ctx context.Context, w *wif.WIF, opts *models.OptsImportPrivateKey) error {
-	return c.rpc.Do(ctx, "importprivkey", nil, c.argsFor(opts, w.String())...)
+func (c *client) ImportPrivateKey(ctx context.Context, pk *primitives.PrivateKey, opts *models.OptsImportPrivateKey) error {
+	return c.rpc.Do(ctx, "importprivkey", nil, c.argsFor(opts, pk.Wif())...)
 }
 
 // ImportWallet imports a wallet from a file.
