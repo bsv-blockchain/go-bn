@@ -6,16 +6,15 @@ toolchain go1.24.4
 
 require (
 	github.com/bsv-blockchain/go-bc v1.0.2
-	github.com/bsv-blockchain/go-bt/v2 v2.4.3
+	github.com/bsv-blockchain/go-bt/v2 v2.4.4
+	github.com/bsv-blockchain/go-sdk v1.2.4
 	github.com/go-zeromq/zmq4 v0.17.0
-	github.com/libsv/go-bk v0.1.6
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/sync v0.15.0
 )
 
 require (
-	github.com/bsv-blockchain/go-sdk v1.2.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-zeromq/goczmq/v4 v4.2.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
