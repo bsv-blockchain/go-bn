@@ -42,3 +42,6 @@ testdata
 
 # installed bins
 bin/
+
+# AI Models
+.claude
