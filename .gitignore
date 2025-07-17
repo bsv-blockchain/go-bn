@@ -45,3 +45,6 @@ bin/
 
 # AI Models
 .claude
+
+# Node modules
+node_modules/
