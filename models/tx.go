@@ -275,5 +275,5 @@ type AddToConfiscationTransactionWhitelistNotProcessed []struct {
 
 // AddToConfiscationTransactionWhitelistResponse represents the response for adding confiscation transactions to the whitelist
 type AddToConfiscationTransactionWhitelistResponse struct {
-	NotProcessed AddToConsensusBlacklistNotProcessed `json:"notProcessed"`
+	NotProcessed AddToConfiscationTransactionWhitelistNotProcessed `json:"notProcessed"`
 }
