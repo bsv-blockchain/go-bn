@@ -249,22 +249,31 @@ type SendRawTransactionsResponse struct {
 	} `json:"unconfirmed"`
 }
 
-// AddToConsensusBlacklistResponse response
-type AddToConsensusBlacklistResponse struct {
-	NotProcessed []struct {
-		TxOut struct {
-			TxId string `json:"txId"`
-			Vout int    `json:"vout"`
-		} `json:"txOut"`
-		Reason string `json:"reason"`
-	} `json:"notProcessed"`
+// AddToConsensusBlacklistNotProcessed represents a not processed transaction output or confiscation transaction
+type AddToConsensusBlacklistNotProcessed []struct {
+	TxOut struct {
+		TxId string `json:"txId"`
+		Vout int    `json:"vout"`
+	}
+	Reason string `json:"reason"`
 }
 
+// AddToConsensusBlacklistResponse response
+type AddToConsensusBlacklistResponse struct {
+	AddToConsensusBlacklistNotProcessed `json:"notProcessed"`
+}
+
+type WhitelistConfiscationTransaction struct {
+	TxId string `json:"txId"`
+}
+
+// AddToConfiscationTransactionWhitelistNotProcessed represents a not processed confiscation transaction
+type AddToConfiscationTransactionWhitelistNotProcessed []struct {
+	WhitelistConfiscationTransaction `json:"confiscationTx"`
+	Reason                           string `json:"reason"`
+}
+
+// AddToConfiscationTransactionWhitelistResponse represents the response for adding confiscation transactions to the whitelist
 type AddToConfiscationTransactionWhitelistResponse struct {
-	NotProcessed []struct {
-		ConfiscationTransaction struct {
-			TxId string `json:"txId"`
-		} `json:"confiscationTx"`
-		Reason string `json:"reason"`
-	} `json:"notProcessed"`
+	AddToConfiscationTransactionWhitelistNotProcessed `json:"notProcessed"`
 }
