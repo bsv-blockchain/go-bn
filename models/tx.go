@@ -260,7 +260,7 @@ type AddToConsensusBlacklistNotProcessed []struct {
 
 // AddToConsensusBlacklistResponse response
 type AddToConsensusBlacklistResponse struct {
-	AddToConsensusBlacklistNotProcessed `json:"notProcessed"`
+	NotProcessed AddToConsensusBlacklistNotProcessed `json:"notProcessed"`
 }
 
 type WhitelistConfiscationTransaction struct {
@@ -269,11 +269,11 @@ type WhitelistConfiscationTransaction struct {
 
 // AddToConfiscationTransactionWhitelistNotProcessed represents a not processed confiscation transaction
 type AddToConfiscationTransactionWhitelistNotProcessed []struct {
-	WhitelistConfiscationTransaction `json:"confiscationTx"`
-	Reason                           string `json:"reason"`
+	ConfiscationTransaction WhitelistConfiscationTransaction `json:"confiscationTx"`
+	Reason                  string                           `json:"reason"`
 }
 
 // AddToConfiscationTransactionWhitelistResponse represents the response for adding confiscation transactions to the whitelist
 type AddToConfiscationTransactionWhitelistResponse struct {
-	AddToConfiscationTransactionWhitelistNotProcessed `json:"notProcessed"`
+	NotProcessed AddToConsensusBlacklistNotProcessed `json:"notProcessed"`
 }
