@@ -13,7 +13,7 @@ type nodeMqCfg struct {
 	optionValue    string
 	allowOverwrite bool
 	errorFn        ErrorFunc
-	ctx            context.Context
+	ctx            context.Context //nolint:containedctx // context required for long-lived ZMQ socket lifecycle
 	zmqSocket      zmq4.Socket
 }
 

@@ -2,6 +2,8 @@ package bn
 
 import (
 	"context"
+	"errors"
+	"math"
 
 	imodels "github.com/bsv-blockchain/go-bn/internal/models"
 	"github.com/bsv-blockchain/go-bn/internal/util"
@@ -9,6 +11,9 @@ import (
 	"github.com/bsv-blockchain/go-bt/v2"
 	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
 )
+
+// ErrAmountOverflow is returned when an amount exceeds the maximum allowed value
+var ErrAmountOverflow = errors.New("amount exceeds maximum value")
 
 // WalletClient interfaces interaction with the wallet sub commands on a bitcoin node.
 type WalletClient interface {
@@ -256,6 +261,9 @@ func (c *client) LockUnspent(ctx context.Context, lock bool, opts *models.OptsLo
 // Move transfers funds between accounts, optionally filtered by the provided options.
 func (c *client) Move(ctx context.Context, from, to string, amount uint64, opts *models.OptsMove) (bool, error) {
 	var resp bool
+	if amount > math.MaxInt64 {
+		return resp, ErrAmountOverflow
+	}
 	return resp, c.rpc.Do(ctx, "move", &resp, c.argsFor(opts, from, to, util.SatoshisToBSV(int64(amount)))...)
 }
 
@@ -269,6 +277,9 @@ func (c *client) SendFrom(ctx context.Context, from, to string, amount uint64,
 	opts *models.OptsSendFrom,
 ) (string, error) {
 	var resp string
+	if amount > math.MaxInt64 {
+		return resp, ErrAmountOverflow
+	}
 	return resp, c.rpc.Do(ctx, "sendfrom", &resp, c.argsFor(opts, from, to, util.SatoshisToBSV(int64(amount)))...)
 }
 
@@ -285,6 +296,9 @@ func (c *client) SendToAddress(ctx context.Context, address string, amount uint6
 	opts *models.OptsSendToAddress,
 ) (string, error) {
 	var resp string
+	if amount > math.MaxInt64 {
+		return resp, ErrAmountOverflow
+	}
 	return resp, c.rpc.Do(ctx, "sendtoaddress", &resp, c.argsFor(opts, address, util.SatoshisToBSV(int64(amount)))...)
 }
 
@@ -296,6 +310,7 @@ func (c *client) SetAccount(ctx context.Context, address, account string) error 
 // SetTxFee sets the transaction fee for the wallet, returning true if successful.
 func (c *client) SetTxFee(ctx context.Context, amount uint64) (bool, error) {
 	var resp bool
+	//nolint:gosec // Bitcoin values never exceed int64 max (21M BTC = 2.1e15 satoshis < 9.2e18)
 	return resp, c.rpc.Do(ctx, "settxfee", &resp, util.SatoshisToBSV(int64(amount)))
 }
 

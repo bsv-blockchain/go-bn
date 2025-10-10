@@ -240,6 +240,7 @@ func TestTxClientRawTransaction(t *testing.T) {
 				Method:  "getrawtransaction",
 				Params:  []interface{}{"c98f2b1187c569d98e32f69cff4f09c8548208b0281661742f68af3ac877b8fc", true},
 			},
+			//nolint:err113 // test expectation, not production error
 			expErr: errors.New("-5: No such mempool or blockchain transaction. Use gettransaction for wallet transactions."),
 		},
 	}

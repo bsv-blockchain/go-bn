@@ -9,6 +9,7 @@ import (
 // InternalFundRawTransaction the true to form fundrawtransaction response.
 type InternalFundRawTransaction struct {
 	*models.FundRawTransaction
+
 	Hex    string  `json:"hex"`
 	BsvFee float64 `json:"fee"`
 }
@@ -23,8 +24,9 @@ func (i *InternalFundRawTransaction) PostProcess() error {
 
 // InternalSignRawTransaction the true to form signrawtransaction response.
 type InternalSignRawTransaction struct {
-	Hex string `json:"hex"`
 	*models.SignedRawTransaction
+
+	Hex string `json:"hex"`
 }
 
 // PostProcess an RPC response.

@@ -16,6 +16,16 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+var (
+	errAlreadySubscribed = errors.New("already subscribed to topic: hashtx")
+	errInvalidTopic      = errors.New("invalid topic: oh hello there")
+	errInvalidTopicRawTx = errors.New("invalid topic: rawtx")
+	errHostEmpty         = errors.New("host cannot be empty")
+	errYikes             = errors.New("YIKES")
+	errNoOptions         = errors.New("no options 4 u")
+	errOhNo              = errors.New("oh no")
+)
+
 func TestNodeMQ_Subscribe(t *testing.T) {
 	t.Parallel()
 
@@ -50,10 +60,12 @@ func TestNodeMQ_Subscribe(t *testing.T) {
 		},
 		"error subscribing to rawtx without being enabled": {
 			topics: []zmq.Topic{zmq.TopicRawTx},
+			//nolint:err113 // test expectation, not production error
 			expErr: errors.New("invalid topic: rawtx"),
 		},
 		"error subscribing to rawblock without being enabled": {
 			topics: []zmq.Topic{zmq.TopicRawBlock},
+			//nolint:err113 // test expectation, not production error
 			expErr: errors.New("invalid topic: rawblock"),
 		},
 		"error subscribing to all topics without raw enabled": {
@@ -66,6 +78,7 @@ func TestNodeMQ_Subscribe(t *testing.T) {
 				zmq.TopicRawTx,
 				zmq.TopicRawBlock,
 			},
+			//nolint:err113 // test expectation, not production error
 			expErr: errors.New("invalid topic: rawtx"),
 		},
 		"successful subscription rawtx when enabled": {
@@ -93,7 +106,7 @@ func TestNodeMQ_Subscribe(t *testing.T) {
 				zmq.TopicHashTx,
 				zmq.TopicHashTx,
 			},
-			expErr: errors.New("already subscribed to topic: hashtx"),
+			expErr: errAlreadySubscribed,
 		},
 		"successful resubscription to topic when enabled": {
 			topics: []zmq.Topic{
@@ -106,7 +119,7 @@ func TestNodeMQ_Subscribe(t *testing.T) {
 			topics: []zmq.Topic{
 				zmq.Topic("oh hello there"),
 			},
-			expErr: errors.New("invalid topic: oh hello there"),
+			expErr: errInvalidTopic,
 		},
 	}
 
@@ -151,7 +164,7 @@ func TestNodeMQ_Unsubscribe(t *testing.T) {
 		"error when unsubscribing from raw topic when not enabled": {
 			subscribedTo:    []zmq.Topic{zmq.TopicHashTx},
 			unsubscribeFrom: []zmq.Topic{zmq.TopicRawTx},
-			expErr:          errors.New("invalid topic: rawtx"),
+			expErr:          errInvalidTopicRawTx,
 		},
 		"successful unsubscribe from raw topic when enabled": {
 			subscribedTo:    []zmq.Topic{zmq.TopicRawTx},
@@ -220,15 +233,15 @@ func TestNodeMQ_Connect(t *testing.T) {
 				return nil
 			},
 			expCounts:       map[zmq.Topic]int{},
-			expConnectError: errors.New("host cannot be empty"),
+			expConnectError: errHostEmpty,
 		},
 		"error dailing socket is returned": {
 			host: "tcp://localhost:12345",
 			socketDialFn: func(s string) error {
-				return errors.New("YIKES")
+				return errYikes
 			},
 			expCounts:       map[zmq.Topic]int{},
-			expConnectError: errors.New("YIKES"),
+			expConnectError: errYikes,
 		},
 		"error setting option is returned": {
 			host: "tcp://localhost:12345",
@@ -236,14 +249,14 @@ func TestNodeMQ_Connect(t *testing.T) {
 				return nil
 			},
 			setOptionFunc: func(string, interface{}) error {
-				return errors.New("no options 4 u")
+				return errNoOptions
 			},
 			expOptions: []option{{
 				name:  "SUBSCRIBE",
 				value: "hash",
 			}},
 			expCounts:       map[zmq.Topic]int{},
-			expConnectError: errors.New("no options 4 u"),
+			expConnectError: errNoOptions,
 		},
 		"error on close is reported": {
 			host: "tcp://localhost:12345",
@@ -266,20 +279,22 @@ func TestNodeMQ_Connect(t *testing.T) {
 				return zmq4.Msg{}, nil
 			},
 			closeFunc: func() error {
-				return errors.New("oh no")
+				return errOhNo
 			},
 			expOptions: []option{{
 				name:  "SUBSCRIBE",
 				value: "hash",
 			}},
 			expCounts:             map[zmq.Topic]int{},
-			expErrorHandlerErrors: []error{errors.New("oh no")},
+			expErrorHandlerErrors: []error{errOhNo},
 		},
 		"error with received messages are reported": {
 			host: "tcp://localhost:12345",
 			messages: []message{{
+				//nolint:err113 // test expectation, not production error
 				err: errors.New("first error"),
 			}, {
+				//nolint:err113 // test expectation, not production error
 				err: errors.New("second error"),
 			}, {
 				msg: zmq4.Msg{
@@ -290,6 +305,7 @@ func TestNodeMQ_Connect(t *testing.T) {
 					}(),
 				},
 			}, {
+				//nolint:err113 // test expectation, not production error
 				err: errors.New("third error"),
 			}},
 			socketDialFn: func(s string) error {
@@ -310,8 +326,11 @@ func TestNodeMQ_Connect(t *testing.T) {
 			}},
 			expCounts: map[zmq.Topic]int{},
 			expErrorHandlerErrors: []error{
+				//nolint:err113 // test expectation, not production error
 				errors.New("first error"),
+				//nolint:err113 // test expectation, not production error
 				errors.New("second error"),
+				//nolint:err113 // test expectation, not production error
 				errors.New("third error"),
 			},
 		},

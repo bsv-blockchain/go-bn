@@ -2,9 +2,9 @@ package util
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"path"
 	"testing"
 
@@ -22,7 +22,7 @@ func TestServer(t *testing.T, expReq *models.Request, testFile string) (*httptes
 		assert.Equal(t, *expReq, req)
 
 		//nolint:gosec // test code
-		response, err := ioutil.ReadFile(path.Join("./testing/data", testFile+".json"))
+		response, err := os.ReadFile(path.Join("./testing/data", testFile+".json"))
 		assert.NoError(t, err)
 
 		mm := map[string]interface{}{}

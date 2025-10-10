@@ -86,7 +86,7 @@ func TestRPC_Do_SingleFlight(t *testing.T) {
 					Result: "ohiya",
 				})
 				assert.NoError(t, err)
-				w.Write(bb)
+				_, _ = w.Write(bb)
 			}))
 			defer svr.Close()
 

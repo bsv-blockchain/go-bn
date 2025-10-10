@@ -90,11 +90,9 @@ type SocketMock struct {
 	// calls tracks calls to the methods.
 	calls struct {
 		// Addr holds details about calls to the Addr method.
-		Addr []struct {
-		}
+		Addr []struct{}
 		// Close holds details about calls to the Close method.
-		Close []struct {
-		}
+		Close []struct{}
 		// Dial holds details about calls to the Dial method.
 		Dial []struct {
 			// Ep is the ep argument value.
@@ -111,8 +109,7 @@ type SocketMock struct {
 			Ep string
 		}
 		// Recv holds details about calls to the Recv method.
-		Recv []struct {
-		}
+		Recv []struct{}
 		// Send holds details about calls to the Send method.
 		Send []struct {
 			// Msg is the msg argument value.
@@ -131,8 +128,7 @@ type SocketMock struct {
 			Value interface{}
 		}
 		// Type holds details about calls to the Type method.
-		Type []struct {
-		}
+		Type []struct{}
 	}
 	lockAddr      sync.RWMutex
 	lockClose     sync.RWMutex
@@ -151,8 +147,7 @@ func (mock *SocketMock) Addr() net.Addr {
 	if mock.AddrFunc == nil {
 		panic("SocketMock.AddrFunc: method is nil but Socket.Addr was just called")
 	}
-	callInfo := struct {
-	}{}
+	callInfo := struct{}{}
 	mock.lockAddr.Lock()
 	mock.calls.Addr = append(mock.calls.Addr, callInfo)
 	mock.lockAddr.Unlock()
@@ -163,10 +158,8 @@ func (mock *SocketMock) Addr() net.Addr {
 // Check the length with:
 //
 //	len(mockedSocket.AddrCalls())
-func (mock *SocketMock) AddrCalls() []struct {
-} {
-	var calls []struct {
-	}
+func (mock *SocketMock) AddrCalls() []struct{} {
+	var calls []struct{}
 	mock.lockAddr.RLock()
 	calls = mock.calls.Addr
 	mock.lockAddr.RUnlock()
@@ -178,8 +171,7 @@ func (mock *SocketMock) Close() error {
 	if mock.CloseFunc == nil {
 		panic("SocketMock.CloseFunc: method is nil but Socket.Close was just called")
 	}
-	callInfo := struct {
-	}{}
+	callInfo := struct{}{}
 	mock.lockClose.Lock()
 	mock.calls.Close = append(mock.calls.Close, callInfo)
 	mock.lockClose.Unlock()
@@ -190,10 +182,8 @@ func (mock *SocketMock) Close() error {
 // Check the length with:
 //
 //	len(mockedSocket.CloseCalls())
-func (mock *SocketMock) CloseCalls() []struct {
-} {
-	var calls []struct {
-	}
+func (mock *SocketMock) CloseCalls() []struct{} {
+	var calls []struct{}
 	mock.lockClose.RLock()
 	calls = mock.calls.Close
 	mock.lockClose.RUnlock()
@@ -301,8 +291,7 @@ func (mock *SocketMock) Recv() (zmq4.Msg, error) {
 	if mock.RecvFunc == nil {
 		panic("SocketMock.RecvFunc: method is nil but Socket.Recv was just called")
 	}
-	callInfo := struct {
-	}{}
+	callInfo := struct{}{}
 	mock.lockRecv.Lock()
 	mock.calls.Recv = append(mock.calls.Recv, callInfo)
 	mock.lockRecv.Unlock()
@@ -313,10 +302,8 @@ func (mock *SocketMock) Recv() (zmq4.Msg, error) {
 // Check the length with:
 //
 //	len(mockedSocket.RecvCalls())
-func (mock *SocketMock) RecvCalls() []struct {
-} {
-	var calls []struct {
-	}
+func (mock *SocketMock) RecvCalls() []struct{} {
+	var calls []struct{}
 	mock.lockRecv.RLock()
 	calls = mock.calls.Recv
 	mock.lockRecv.RUnlock()
@@ -428,8 +415,7 @@ func (mock *SocketMock) Type() zmq4.SocketType {
 	if mock.TypeFunc == nil {
 		panic("SocketMock.TypeFunc: method is nil but Socket.Type was just called")
 	}
-	callInfo := struct {
-	}{}
+	callInfo := struct{}{}
 	mock.lockType.Lock()
 	mock.calls.Type = append(mock.calls.Type, callInfo)
 	mock.lockType.Unlock()
@@ -440,10 +426,8 @@ func (mock *SocketMock) Type() zmq4.SocketType {
 // Check the length with:
 //
 //	len(mockedSocket.TypeCalls())
-func (mock *SocketMock) TypeCalls() []struct {
-} {
-	var calls []struct {
-	}
+func (mock *SocketMock) TypeCalls() []struct{} {
+	var calls []struct{}
 	mock.lockType.RLock()
 	calls = mock.calls.Type
 	mock.lockType.RUnlock()

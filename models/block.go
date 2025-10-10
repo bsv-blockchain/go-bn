@@ -10,14 +10,16 @@ import (
 
 // BlockDecodeHeader model.
 type BlockDecodeHeader struct {
-	Txs []string `json:"tx"`
 	BlockHeader
+
+	Txs []string `json:"tx"`
 }
 
 // Block model.
 type Block struct {
-	Txs bt.Txs `json:"tx"`
 	BlockHeader
+
+	Txs bt.Txs `json:"tx"`
 }
 
 // UnmarshalJSON unmarshal response.
@@ -53,6 +55,7 @@ func (b *Block) UnmarshalJSON(bb []byte) error {
 // BlockHeader model.
 type BlockHeader struct {
 	*bc.BlockHeader
+
 	Hash          string `json:"hash"`
 	Confirmations uint64 `json:"confirmations"`
 	Height        uint64 `json:"height"`
@@ -124,6 +127,7 @@ func (b *BlockHeader) MarshalJSON() ([]byte, error) {
 	cpy.BlockHeader = nil
 	bh := struct {
 		BlockHeader
+
 		PreviousBlockHash string `json:"previousblockhash"`
 		MerkleRoot        string `json:"merkleroot"`
 		Version           uint32 `json:"version"`

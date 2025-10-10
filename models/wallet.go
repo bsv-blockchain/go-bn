@@ -315,7 +315,7 @@ func (o *OptsListUnspent) Args() []interface{} {
 		o.MaxConf = 9999999
 	}
 
-	if o.Address != nil && len(o.Address) > 0 {
+	if len(o.Address) > 0 {
 		aa = append(aa, o.Address)
 	}
 
@@ -337,7 +337,7 @@ type OptsLockUnspent struct {
 
 // Args convert struct into optional positional arguments.
 func (o *OptsLockUnspent) Args() []interface{} {
-	if o.Txs == nil || len(o.Txs) == 0 {
+	if len(o.Txs) == 0 {
 		return nil
 	}
 
@@ -389,7 +389,7 @@ func (o *OptsSendMany) Args() []interface{} {
 		aa[0] = 1
 	}
 
-	if o.SubtractFeeFrom != nil && len(o.SubtractFeeFrom) > 1 {
+	if len(o.SubtractFeeFrom) > 1 {
 		aa = append(aa, o.SubtractFeeFrom)
 	}
 
@@ -407,7 +407,7 @@ type OptsSendToAddress struct {
 func (o *OptsSendToAddress) Args() []interface{} {
 	aa := []interface{}{o.Comment, o.CommentTo}
 
-	if o.SubtractFeeFrom != nil && len(o.SubtractFeeFrom) > 1 {
+	if len(o.SubtractFeeFrom) > 1 {
 		aa = append(aa, o.SubtractFeeFrom)
 	}
 

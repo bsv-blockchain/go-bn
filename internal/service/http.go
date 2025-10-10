@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"golang.org/x/sync/singleflight"
@@ -75,7 +75,7 @@ func (h *rpc) do(ctx context.Context, r request, out interface{}) error {
 			_ = resp.Body.Close()
 		}()
 
-		bb, err := ioutil.ReadAll(resp.Body)
+		bb, err := io.ReadAll(resp.Body)
 		if err != nil {
 			return nil, err
 		}

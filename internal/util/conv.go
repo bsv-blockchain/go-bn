@@ -32,6 +32,7 @@ func MapSatoshisToBSV(vv map[string]uint64) map[string]float64 {
 
 	mm := make(map[string]float64, len(vv))
 	for k, v := range vv {
+		//nolint:gosec // Bitcoin values never exceed int64 max (21M BTC = 2.1e15 satoshis < 9.2e18)
 		mm[k] = SatoshisToBSV(int64(v))
 	}
 
