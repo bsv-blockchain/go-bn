@@ -1,9 +1,9 @@
 {
-  "result": {
-    "": 85.67,
-    "john": 0.001,
-    "bob": 1
-  },
-  "error": null,
-  "id": "go-bn"
+    "error": null,
+    "id": "go-bn",
+    "result": {
+        "": 85.67,
+        "bob": 1,
+        "john": 0.001
+    }
 }
