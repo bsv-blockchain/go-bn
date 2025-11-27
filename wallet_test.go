@@ -6,6 +6,8 @@ import (
 	"testing"
 
 	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bn/internal/config"
@@ -13,8 +15,6 @@ import (
 	"github.com/bsv-blockchain/go-bn/internal/service"
 	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bn/testing/util"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 )
 
 // TestWalletClientBalance tests the Balance method of the WalletClient.

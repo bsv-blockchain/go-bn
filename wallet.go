@@ -5,11 +5,12 @@ import (
 	"errors"
 	"math"
 
+	"github.com/bsv-blockchain/go-bt/v2"
+	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
+
 	imodels "github.com/bsv-blockchain/go-bn/internal/models"
 	"github.com/bsv-blockchain/go-bn/internal/util"
 	"github.com/bsv-blockchain/go-bn/models"
-	"github.com/bsv-blockchain/go-bt/v2"
-	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
 )
 
 // ErrAmountOverflow is returned when an amount exceeds the maximum allowed value

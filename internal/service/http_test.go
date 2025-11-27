@@ -9,12 +9,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bsv-blockchain/go-bn/internal/config"
-	"github.com/bsv-blockchain/go-bn/internal/service"
-	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
+
+	"github.com/bsv-blockchain/go-bn/internal/config"
+	"github.com/bsv-blockchain/go-bn/internal/service"
+	"github.com/bsv-blockchain/go-bn/models"
 )
 
 func TestRPC_Do_SingleFlight(t *testing.T) {

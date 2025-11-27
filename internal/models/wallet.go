@@ -3,10 +3,11 @@ package models
 import (
 	"encoding/json"
 
-	"github.com/bsv-blockchain/go-bn/internal/util"
-	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/bsv-blockchain/go-bt/v2"
 	primitives "github.com/bsv-blockchain/go-sdk/primitives/ec"
+
+	"github.com/bsv-blockchain/go-bn/internal/util"
+	"github.com/bsv-blockchain/go-bn/models"
 )
 
 // InternalDumpPrivateKey the true to form dumpprivkey response from the bitcoin node.

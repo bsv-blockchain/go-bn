@@ -8,8 +8,9 @@ import (
 	"path"
 	"testing"
 
-	"github.com/bsv-blockchain/go-bn/models"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/bsv-blockchain/go-bn/models"
 )
 
 type closeFunc func()

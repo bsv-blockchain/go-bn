@@ -7,11 +7,11 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/pkg/errors"
 	"golang.org/x/sync/singleflight"
 
 	"github.com/bsv-blockchain/go-bn/internal/config"
 	"github.com/bsv-blockchain/go-bn/models"
-	"github.com/pkg/errors"
 )
 
 // Boiler RPC fields.

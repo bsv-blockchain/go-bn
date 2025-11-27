@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/bsv-blockchain/go-bc"
+
 	"github.com/bsv-blockchain/go-bn/models"
 )
 

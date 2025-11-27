@@ -8,12 +8,13 @@ import (
 	"testing"
 
 	"github.com/bsv-blockchain/go-bc"
-	"github.com/bsv-blockchain/go-bn/mocks"
-	"github.com/bsv-blockchain/go-bn/zmq"
 	"github.com/bsv-blockchain/go-bt/v2"
 	"github.com/go-zeromq/zmq4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/bsv-blockchain/go-bn/mocks"
+	"github.com/bsv-blockchain/go-bn/zmq"
 )
 
 var (

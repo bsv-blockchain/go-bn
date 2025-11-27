@@ -3,9 +3,10 @@ package bn
 import (
 	"context"
 
+	"github.com/bsv-blockchain/go-bt/v2"
+
 	imodels "github.com/bsv-blockchain/go-bn/internal/models"
 	"github.com/bsv-blockchain/go-bn/models"
-	"github.com/bsv-blockchain/go-bt/v2"
 )
 
 // TransactionClient interfaces interaction with the transaction sub commands on a bitcoin node.

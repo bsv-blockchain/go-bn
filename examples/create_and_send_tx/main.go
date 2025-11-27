@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/bsv-blockchain/go-bn"
 	"github.com/bsv-blockchain/go-bt/v2"
+
+	"github.com/bsv-blockchain/go-bn"
 )
 
 func main() {

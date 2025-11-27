@@ -1,9 +1,10 @@
 package models
 
 import (
+	"github.com/bsv-blockchain/go-bt/v2"
+
 	"github.com/bsv-blockchain/go-bn/internal/util"
 	"github.com/bsv-blockchain/go-bn/models"
-	"github.com/bsv-blockchain/go-bt/v2"
 )
 
 // InternalFundRawTransaction the true to form fundrawtransaction response.

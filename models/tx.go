@@ -3,10 +3,11 @@ package models
 import (
 	"encoding/json"
 
-	"github.com/bsv-blockchain/go-bn/internal/util"
 	"github.com/bsv-blockchain/go-bt/v2"
 	"github.com/bsv-blockchain/go-bt/v2/bscript"
 	"github.com/bsv-blockchain/go-bt/v2/sighash"
+
+	"github.com/bsv-blockchain/go-bn/internal/util"
 )
 
 // Output model.
