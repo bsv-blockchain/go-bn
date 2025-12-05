@@ -52,9 +52,7 @@ type InternalTransaction struct {
 
 // PostProcess an RPC response.
 func (i *InternalTransaction) PostProcess() error {
-	//nolint:gosec // Bitcoin values never exceed int64 max (21M BTC = 2.1e15 satoshis < 9.2e18)
 	i.Transaction.Amount = int64(util.BSVToSatoshis(i.Amount))
-	//nolint:gosec // Bitcoin values never exceed int64 max (21M BTC = 2.1e15 satoshis < 9.2e18)
 	i.Transaction.Fee = int64(util.BSVToSatoshis(i.Fee))
 
 	i.Transaction.Details = make([]models.TransactionDetail, len(i.Details))
@@ -64,12 +62,10 @@ func (i *InternalTransaction) PostProcess() error {
 			Abandoned: detail.Abandoned,
 			Address:   detail.Address,
 			Category:  detail.Category,
-			//nolint:gosec // Bitcoin values never exceed int64 max (21M BTC = 2.1e15 satoshis < 9.2e18)
-			Amount: int64(util.BSVToSatoshis(detail.Amount)),
-			//nolint:gosec // Bitcoin values never exceed int64 max (21M BTC = 2.1e15 satoshis < 9.2e18)
-			Fee:   int64(util.BSVToSatoshis(detail.Fee)),
-			Label: detail.Label,
-			Vout:  detail.Vout,
+			Amount:    int64(util.BSVToSatoshis(detail.Amount)),
+			Fee:       int64(util.BSVToSatoshis(detail.Fee)),
+			Label:     detail.Label,
+			Vout:      detail.Vout,
 		}
 	}
 	var err error
