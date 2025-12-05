@@ -48,7 +48,6 @@ func (c *client) MiningInfo(ctx context.Context) (*models.MiningInfo, error) {
 // NetworkHashPS returns the estimated network hash rate in hashes per second.
 func (c *client) NetworkHashPS(ctx context.Context, opts *models.OptsNetworkHashPS) (uint64, error) {
 	var resp int64
-	//nolint:gosec // network hash rate is always positive, safe conversion
 	return uint64(resp), c.rpc.Do(ctx, "getnetworkhashps", &resp, c.argsFor(opts)...)
 }
 

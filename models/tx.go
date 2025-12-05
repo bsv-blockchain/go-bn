@@ -119,16 +119,13 @@ func (p *ParamsCreateRawTransaction) Args() []interface{} {
 	for _, o := range p.Outputs {
 		pkh, err := o.LockingScript.PublicKeyHash()
 		if err != nil {
-			//nolint:gosec // satoshi values never exceed int64 max (max 21M BTC = 2.1e15 satoshis)
 			outputs["invalid locking script"] = util.SatoshisToBSV(int64(o.Satoshis))
 			continue
 		}
 		addr, err := bscript.NewAddressFromPublicKeyHash(pkh, p.mainnet)
 		if err != nil {
-			//nolint:gosec // satoshi values never exceed int64 max (max 21M BTC = 2.1e15 satoshis)
 			outputs["invalid locking script"] = util.SatoshisToBSV(int64(o.Satoshis))
 		}
-		//nolint:gosec // satoshi values never exceed int64 max (max 21M BTC = 2.1e15 satoshis)
 		outputs[addr.AddressString] = util.SatoshisToBSV(int64(o.Satoshis))
 	}
 

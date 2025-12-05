@@ -311,7 +311,6 @@ func (c *client) SetAccount(ctx context.Context, address, account string) error 
 // SetTxFee sets the transaction fee for the wallet, returning true if successful.
 func (c *client) SetTxFee(ctx context.Context, amount uint64) (bool, error) {
 	var resp bool
-	//nolint:gosec // Bitcoin values never exceed int64 max (21M BTC = 2.1e15 satoshis < 9.2e18)
 	return resp, c.rpc.Do(ctx, "settxfee", &resp, util.SatoshisToBSV(int64(amount)))
 }
 
