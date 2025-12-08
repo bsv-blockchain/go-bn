@@ -119,14 +119,14 @@ func (p *ParamsCreateRawTransaction) Args() []interface{} {
 	for _, o := range p.Outputs {
 		pkh, err := o.LockingScript.PublicKeyHash()
 		if err != nil {
-			outputs["invalid locking script"] = util.SatoshisToBSV(int64(o.Satoshis))
+			outputs["invalid locking script"] = util.SatoshisToBSV(int64(o.Satoshis)) //nolint:gosec // G115: Intentional conversion for Bitcoin satoshi amounts
 			continue
 		}
 		addr, err := bscript.NewAddressFromPublicKeyHash(pkh, p.mainnet)
 		if err != nil {
-			outputs["invalid locking script"] = util.SatoshisToBSV(int64(o.Satoshis))
+			outputs["invalid locking script"] = util.SatoshisToBSV(int64(o.Satoshis)) //nolint:gosec // G115: Intentional conversion for Bitcoin satoshi amounts
 		}
-		outputs[addr.AddressString] = util.SatoshisToBSV(int64(o.Satoshis))
+		outputs[addr.AddressString] = util.SatoshisToBSV(int64(o.Satoshis)) //nolint:gosec // G115: Intentional conversion for Bitcoin satoshi amounts
 	}
 
 	return []interface{}{outputs}

@@ -48,7 +48,7 @@ func (c *client) MiningInfo(ctx context.Context) (*models.MiningInfo, error) {
 // NetworkHashPS returns the estimated network hash rate in hashes per second.
 func (c *client) NetworkHashPS(ctx context.Context, opts *models.OptsNetworkHashPS) (uint64, error) {
 	var resp int64
-	return uint64(resp), c.rpc.Do(ctx, "getnetworkhashps", &resp, c.argsFor(opts)...)
+	return uint64(resp), c.rpc.Do(ctx, "getnetworkhashps", &resp, c.argsFor(opts)...) //nolint:gosec // G115: Intentional conversion for network hash rate
 }
 
 // PrioritiseTx attempts to prioritize a transaction by its ID with a fee delta.

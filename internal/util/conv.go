@@ -32,7 +32,7 @@ func MapSatoshisToBSV(vv map[string]uint64) map[string]float64 {
 
 	mm := make(map[string]float64, len(vv))
 	for k, v := range vv {
-		mm[k] = SatoshisToBSV(int64(v))
+		mm[k] = SatoshisToBSV(int64(v)) //nolint:gosec // G115: Intentional conversion for Bitcoin satoshi amounts
 	}
 
 	return mm
