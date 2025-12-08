@@ -311,7 +311,7 @@ func (c *client) SetAccount(ctx context.Context, address, account string) error 
 // SetTxFee sets the transaction fee for the wallet, returning true if successful.
 func (c *client) SetTxFee(ctx context.Context, amount uint64) (bool, error) {
 	var resp bool
-	return resp, c.rpc.Do(ctx, "settxfee", &resp, util.SatoshisToBSV(int64(amount)))
+	return resp, c.rpc.Do(ctx, "settxfee", &resp, util.SatoshisToBSV(int64(amount))) //nolint:gosec // G115: Intentional conversion for Bitcoin satoshi amounts
 }
 
 // SignMessage signs a message with the private key associated with the given address.

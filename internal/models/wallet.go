@@ -52,8 +52,8 @@ type InternalTransaction struct {
 
 // PostProcess an RPC response.
 func (i *InternalTransaction) PostProcess() error {
-	i.Transaction.Amount = int64(util.BSVToSatoshis(i.Amount))
-	i.Transaction.Fee = int64(util.BSVToSatoshis(i.Fee))
+	i.Transaction.Amount = int64(util.BSVToSatoshis(i.Amount)) //nolint:gosec // G115: Intentional conversion for Bitcoin satoshi amounts
+	i.Transaction.Fee = int64(util.BSVToSatoshis(i.Fee))       //nolint:gosec // G115: Intentional conversion for Bitcoin satoshi amounts
 
 	i.Transaction.Details = make([]models.TransactionDetail, len(i.Details))
 	for idx, detail := range i.Details {
@@ -62,8 +62,8 @@ func (i *InternalTransaction) PostProcess() error {
 			Abandoned: detail.Abandoned,
 			Address:   detail.Address,
 			Category:  detail.Category,
-			Amount:    int64(util.BSVToSatoshis(detail.Amount)),
-			Fee:       int64(util.BSVToSatoshis(detail.Fee)),
+			Amount:    int64(util.BSVToSatoshis(detail.Amount)), //nolint:gosec // G115: Intentional conversion for Bitcoin satoshi amounts
+			Fee:       int64(util.BSVToSatoshis(detail.Fee)),    //nolint:gosec // G115: Intentional conversion for Bitcoin satoshi amounts
 			Label:     detail.Label,
 			Vout:      detail.Vout,
 		}
