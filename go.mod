@@ -6,7 +6,7 @@ toolchain go1.24.4
 
 require (
 	github.com/bsv-blockchain/go-bc v1.1.4
-	github.com/bsv-blockchain/go-bt/v2 v2.5.2
+	github.com/bsv-blockchain/go-bt/v2 v2.5.3
 	github.com/bsv-blockchain/go-sdk v1.2.17
 	github.com/go-zeromq/zmq4 v0.17.0
 	github.com/pkg/errors v0.9.1
