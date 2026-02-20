@@ -67,7 +67,7 @@ func (h *rpc) do(ctx context.Context, r request, out interface{}) error {
 		req.SetBasicAuth(h.cfg.Username, h.cfg.Password)
 		req.Header.Add("Content-Type", "text/plain")
 
-		resp, err := h.c.Do(req)
+		resp, err := h.c.Do(req) //nolint:gosec // G704: Host is a configured RPC endpoint, not user-supplied input
 		if err != nil {
 			return nil, err
 		}
