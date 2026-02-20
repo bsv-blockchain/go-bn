@@ -189,7 +189,7 @@ type SignedRawTransaction struct {
 // OptsSignRawTransaction options.
 type OptsSignRawTransaction struct {
 	From        bt.UTXOs
-	PrivateKeys []string
+	PrivateKeys []string //nolint:gosec // G117: Private keys are intentional signing parameters, not a secret field
 	SigHashType sighash.Flag
 }
 
