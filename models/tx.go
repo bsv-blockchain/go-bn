@@ -189,13 +189,15 @@ type SignedRawTransaction struct {
 // OptsSignRawTransaction options.
 type OptsSignRawTransaction struct {
 	From        bt.UTXOs
-	PrivateKeys []string //nolint:gosec // G117: Private keys are intentional signing parameters, not a secret field
+	PrivateKeys []string
 	SigHashType sighash.Flag
 }
 
 // Args convert struct into optional positional arguments.
 func (o *OptsSignRawTransaction) Args() []interface{} {
-	aa := []interface{}{[]interface{}{}, []interface{}{}}
+	aa := make([]interface{}, 2, 3)
+	aa[0] = []interface{}{}
+	aa[1] = []interface{}{}
 	if o.From != nil {
 		aa[0] = o.From.NodeJSON()
 	}

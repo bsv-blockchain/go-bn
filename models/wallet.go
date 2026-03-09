@@ -158,7 +158,8 @@ type OptsImportPublicKey struct {
 
 // Args convert struct into optional positional arguments.
 func (o *OptsImportPublicKey) Args() []interface{} {
-	aa := []interface{}{o.Label}
+	aa := make([]interface{}, 1, 2)
+	aa[0] = o.Label
 	if o.Rescan == nil {
 		return aa
 	}
@@ -188,7 +189,8 @@ type OptsListAccounts struct {
 
 // Args convert struct into optional positional arguments.
 func (o *OptsListAccounts) Args() []interface{} {
-	aa := []interface{}{o.MinConf}
+	aa := make([]interface{}, 1, 2)
+	aa[0] = o.MinConf
 	if o.MinConf == 0 {
 		aa[0] = 1
 	}
@@ -220,7 +222,8 @@ type OptsListReceivedBy struct {
 
 // Args convert struct into optional positional arguments.
 func (o *OptsListReceivedBy) Args() []interface{} {
-	aa := []interface{}{o.MinConf}
+	aa := make([]interface{}, 1, 3)
+	aa[0] = o.MinConf
 	if o.MinConf == 0 {
 		aa[0] = 1
 	}
@@ -272,7 +275,9 @@ type OptsListSinceBlock struct {
 
 // Args convert struct into optional positional arguments.
 func (o *OptsListSinceBlock) Args() []interface{} {
-	aa := []interface{}{o.BlockHash, o.TargetConfirmations}
+	aa := make([]interface{}, 2, 3)
+	aa[0] = o.BlockHash
+	aa[1] = o.TargetConfirmations
 	if o.TargetConfirmations == 0 {
 		aa[1] = 1
 	}
@@ -367,7 +372,8 @@ type OptsSendFrom struct {
 
 // Args convert struct into optional positional arguments.
 func (o *OptsSendFrom) Args() []interface{} {
-	aa := []interface{}{o.MinConf}
+	aa := make([]interface{}, 1, 3)
+	aa[0] = o.MinConf
 	if aa[0] == 0 {
 		aa[0] = 1
 	}
