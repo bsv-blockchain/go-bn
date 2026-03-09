@@ -1,8 +1,6 @@
 module github.com/bsv-blockchain/go-bn
 
-go 1.24.3
-
-toolchain go1.24.4
+go 1.25.0
 
 require (
 	github.com/bsv-blockchain/go-bc v1.1.4
@@ -11,7 +9,7 @@ require (
 	github.com/go-zeromq/zmq4 v0.17.0
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.11.1
-	golang.org/x/sync v0.19.0
+	golang.org/x/sync v0.20.0
 )
 
 require (
