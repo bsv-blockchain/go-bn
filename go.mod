@@ -5,7 +5,7 @@ go 1.25.0
 require (
 	github.com/bsv-blockchain/go-bc v1.1.5
 	github.com/bsv-blockchain/go-bt/v2 v2.6.2
-	github.com/bsv-blockchain/go-sdk v1.2.21
+	github.com/bsv-blockchain/go-sdk v1.2.23
 	github.com/go-zeromq/zmq4 v0.17.0
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.11.1
