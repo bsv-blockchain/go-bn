@@ -37,8 +37,8 @@ func TestUtilClientSignMessageWithPrivKey(t *testing.T) {
 				return wifKey
 			}(),
 			expRequest: models.Request{
-				JSONRpc: "1.0",
-				ID:      "go-bn",
+				JSONRpc: service.JSONRpc,
+				ID:      service.ID,
 				Method:  "signmessagewithprivkey",
 				Params:  []interface{}{"cW9n4pgq9MqqGD8Ux5cwpgJAJ1VzPvZgskbCEmK1QmWUicejRFQn", "hello"},
 			},

@@ -37,8 +37,8 @@ func TestTxClientCreateRawTransaction(t *testing.T) {
 			utxos:    bt.UTXOs{},
 			expTx:    "02000000000100e1f505000000001976a91467e701e630adaee761583a894b53d4356028ca0b88ac00000000",
 			expRequest: models.Request{
-				ID:      "go-bn",
-				JSONRpc: "1.0",
+				ID:      service.ID,
+				JSONRpc: service.JSONRpc,
 				Method:  "createrawtransaction",
 				Params:  []interface{}{[]interface{}{}, map[string]interface{}{"mpzLdVLZhbRXxYpaT8YcHntWb2tyPJvUnz": 0.1}},
 			},
@@ -111,8 +111,8 @@ func TestTxClientFundRawTransaction(t *testing.T) {
 				return tx
 			}(),
 			expRequest: models.Request{
-				ID:      "go-bn",
-				JSONRpc: "1.0",
+				ID:      service.ID,
+				JSONRpc: service.JSONRpc,
 				Method:  "fundrawtransaction",
 				Params: []interface{}{
 					"02000000000100e1f505000000001976a91467e701e630adaee761583a894b53d4356028ca0b88ac00000000",
@@ -151,8 +151,8 @@ func TestTxClientFundRawTransaction(t *testing.T) {
 				return tx
 			}(),
 			expRequest: models.Request{
-				ID:      "go-bn",
-				JSONRpc: "1.0",
+				ID:      service.ID,
+				JSONRpc: service.JSONRpc,
 				Method:  "fundrawtransaction",
 				Params: []interface{}{
 					"02000000000100e1f505000000001976a91467e701e630adaee761583a894b53d4356028ca0b88ac00000000",
@@ -226,8 +226,8 @@ func TestTxClientRawTransaction(t *testing.T) {
 			txID:     "c98f2b1187c569d98e32f69cff4f09c8548208b0281661742f68af3ac877b8fb",
 			expTx:    "0200000001c9059cca32a90834a9ea6e989446edb4282e91bba486f4512477052214b185df0000000048473044022056e7348677c69dbcba776fbe0c270116c2a3eaf0bead0c1ccdbd9c083b73a08e022062da00341e54a28bb83b28dfd772c9504f5aace3452e762dc30dff249a378c0a41feffffff0240101024010000001976a914316230517501a16e2837465ec28c157fa61cabec88ac00e1f505000000001976a914beb20631d5271a6e150231e625bccff55a58cbea88ac70000000",
 			expRequest: models.Request{
-				ID:      "go-bn",
-				JSONRpc: "1.0",
+				ID:      service.ID,
+				JSONRpc: service.JSONRpc,
 				Method:  "getrawtransaction",
 				Params:  []interface{}{"c98f2b1187c569d98e32f69cff4f09c8548208b0281661742f68af3ac877b8fb", true},
 			},
@@ -236,8 +236,8 @@ func TestTxClientRawTransaction(t *testing.T) {
 			txID:     "c98f2b1187c569d98e32f69cff4f09c8548208b0281661742f68af3ac877b8fc",
 			testFile: "getrawtx_notfound",
 			expRequest: models.Request{
-				ID:      "go-bn",
-				JSONRpc: "1.0",
+				ID:      service.ID,
+				JSONRpc: service.JSONRpc,
 				Method:  "getrawtransaction",
 				Params:  []interface{}{"c98f2b1187c569d98e32f69cff4f09c8548208b0281661742f68af3ac877b8fc", true},
 			},
@@ -302,8 +302,8 @@ func TestTxClientSignRawTransaction(t *testing.T) {
 				return tx
 			}(),
 			expRequest: models.Request{
-				ID:      "go-bn",
-				JSONRpc: "1.0",
+				ID:      service.ID,
+				JSONRpc: service.JSONRpc,
 				Method:  "signrawtransaction",
 				Params: []interface{}{
 					"0200000001fbb877c83aaf682f74611628b0088254c8094fff9cf6328ed969c587112b8fc90000000000feffffff025e2e1a1e010000001976a91401becd83278806a62cd87bed129faa72af38a0d588ac00e1f505000000001976a91467e701e630adaee761583a894b53d4356028ca0b88ac00000000",
@@ -334,8 +334,8 @@ func TestTxClientSignRawTransaction(t *testing.T) {
 				return tx
 			}(),
 			expRequest: models.Request{
-				ID:      "go-bn",
-				JSONRpc: "1.0",
+				ID:      service.ID,
+				JSONRpc: service.JSONRpc,
 				Method:  "signrawtransaction",
 				Params: []interface{}{
 					"0200000001fbb877c83aaf682f74611628b0088254c8094fff9cf6328ed969c587112b8fc90000000000feffffff025e2e1a1e010000001976a91401becd83278806a62cd87bed129faa72af38a0d588ac00e1f505000000001976a91467e701e630adaee761583a894b53d4356028ca0b88ac00000000",
