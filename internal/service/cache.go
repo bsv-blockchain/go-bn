@@ -40,16 +40,16 @@ func (c *cache) do(ctx context.Context, r request, out interface{}) error {
 // write writes the source value to the destination value.
 func (c *cache) write(dest, src interface{}) error {
 	drv := reflect.ValueOf(dest)
-	if drv.Kind() != reflect.Ptr || drv.IsNil() {
+	if drv.Kind() != reflect.Pointer || drv.IsNil() {
 		return &json.InvalidUnmarshalError{Type: reflect.TypeOf(dest)}
 	}
 
-	for drv.Kind() == reflect.Ptr {
+	for drv.Kind() == reflect.Pointer {
 		drv = reflect.Indirect(drv)
 	}
 
 	srv := reflect.ValueOf(src)
-	for srv.Kind() == reflect.Ptr {
+	for srv.Kind() == reflect.Pointer {
 		srv = reflect.Indirect(srv)
 	}
 
