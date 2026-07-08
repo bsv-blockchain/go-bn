@@ -1,7 +1,7 @@
-github.com/bsv-blockchain/go-bc v1.1.7 h1:+2RhCA3U4SP55qgmHKvAHukcLV6A5+MOo3iEmV4TORA=
-github.com/bsv-blockchain/go-bc v1.1.7/go.mod h1:gt9KLIwV/PZrX2iaAoIL6MkdKVWE2P71bfem2PfXv4w=
-github.com/bsv-blockchain/go-bt/v2 v2.6.7 h1:PrtzDw38VcwM8cnpuxaj0/J5+ZsUsaxdUDD5VeS+mD8=
-github.com/bsv-blockchain/go-bt/v2 v2.6.7/go.mod h1:vv8YoWugxOwZvPAqmNoMwQmhvH6kKUMNTdJhdUv/bak=
+github.com/bsv-blockchain/go-bc v1.1.8 h1:AkOOAb25aU6fNT/yCZV06wAuYCY8KCXS5Fbf4g7Yg1M=
+github.com/bsv-blockchain/go-bc v1.1.8/go.mod h1:cWQdoth53+H6d/D6ocDx842kSxRtps0RgQT8WDHqh5M=
+github.com/bsv-blockchain/go-bt/v2 v2.6.8 h1:lk6asRPfLA/+jmmk9ggSglPYn7C0Wzu31R6Ldkemwz4=
+github.com/bsv-blockchain/go-bt/v2 v2.6.8/go.mod h1:QNUJG28qG3UEe0RNySaqZJQJpyVtjxb3cjDZKq7OsFA=
 github.com/bsv-blockchain/go-sdk v1.2.24 h1:lUUcOQirAmmnJfUOQtNIWy0fVGBgSdisLOstouCvrGg=
 github.com/bsv-blockchain/go-sdk v1.2.24/go.mod h1:yTDARQK2SJBod2w+10/Rtu5VdyBFn7gkOwNbnI2zplg=
 github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc h1:U9qPSI2PIWSS1VwoXQT9A3Wy9MM3WgvqSxFWenqJduM=
@@ -26,10 +26,10 @@ github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu
 github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
 golang.org/x/crypto v0.53.0 h1:QZ4Muo8THX6CizN2vPPd5fBGHyogrdK9fG4wLPFUsto=
 golang.org/x/crypto v0.53.0/go.mod h1:DNLU434OwVakk9PzuwV8w62mAJpRJL3vsgcfp4Qnsio=
-golang.org/x/sync v0.21.0 h1:HLII4xRRTtCRkxYp4HNFF0Js/Og6q2i++KXbg0gHCwM=
-golang.org/x/sync v0.21.0/go.mod h1:9xrNwdLfx4jkKbNva9FpL6vEN7evnE43NNNJQ2LF3+0=
-golang.org/x/text v0.38.0 h1:sXmwo9DwP3OK9EZ7PqAdaooSGozfl/3a6/xJcbzPRhE=
-golang.org/x/text v0.38.0/go.mod h1:YXZt3QhHUKYT53r2lLKFIVi6Ao1jdzrTR/KQ09qyxF4=
+golang.org/x/sync v0.22.0 h1:SZjpbeLmrCk4xhRSZFNZW5gFUeCeFgjekvI/+gfScek=
+golang.org/x/sync v0.22.0/go.mod h1:9xrNwdLfx4jkKbNva9FpL6vEN7evnE43NNNJQ2LF3+0=
+golang.org/x/text v0.40.0 h1:Ub2Z6/xjgF1WrYQz2nuITOEegKFtiIy+rieRJ5lHZKs=
+golang.org/x/text v0.40.0/go.mod h1:hpnzDAfGV753zIKo+wk3u1bVKCGPbrnF7+7LBF/UHVY=
 google.golang.org/protobuf v1.36.11 h1:fV6ZwhNocDyBLK0dj+fg8ektcVegBBuEolpbTQyBNVE=
 google.golang.org/protobuf v1.36.11/go.mod h1:HTf+CrKn2C3g5S8VImy6tdcUvCska2kB7j23XfzDpco=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
