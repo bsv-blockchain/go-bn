@@ -1,7 +1,7 @@
-github.com/bsv-blockchain/go-bc v1.1.8 h1:AkOOAb25aU6fNT/yCZV06wAuYCY8KCXS5Fbf4g7Yg1M=
-github.com/bsv-blockchain/go-bc v1.1.8/go.mod h1:cWQdoth53+H6d/D6ocDx842kSxRtps0RgQT8WDHqh5M=
-github.com/bsv-blockchain/go-bt/v2 v2.6.9 h1:0g6Dme9cNPNG+iHz0y3NhTfOdCBl2OmZ5xZmrztZ1Fk=
-github.com/bsv-blockchain/go-bt/v2 v2.6.9/go.mod h1:Oj/oRSHe7COsLG0165FB9v/p9Sm3U/BrNqkS0ADu1JQ=
+github.com/bsv-blockchain/go-bc v1.2.0 h1:6VDbUHyi4ZAQHzTi1Xzv562SHyvfTVnRYx4bVNTX1A8=
+github.com/bsv-blockchain/go-bc v1.2.0/go.mod h1:G8MZVVmGegvSogql+7N7DVwC7GvxJEk8PIjqPP5/mOE=
+github.com/bsv-blockchain/go-bt/v2 v2.7.0 h1:g4dDUkNb6vTRz06twnrN27zn8ai6V9p0bjJhWSGWe7g=
+github.com/bsv-blockchain/go-bt/v2 v2.7.0/go.mod h1:v/HVFIBC2ZIt1bZ88F2TECfDuIG7XeeLYphy18NeQmM=
 github.com/bsv-blockchain/go-sdk v1.4.1 h1:J2hECn17QkLXq8K8O0m0qA7yih4YmWFTX6o9Ox72Tf8=
 github.com/bsv-blockchain/go-sdk v1.4.1/go.mod h1:p2aRf3+hHx8uaQazzVBbX/iFv/vatCFbazrM7RmvT08=
 github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc h1:U9qPSI2PIWSS1VwoXQT9A3Wy9MM3WgvqSxFWenqJduM=
@@ -18,11 +18,11 @@ github.com/stretchr/testify v1.12.1 h1:EuwCh5fleGS7H32xRwO3wRGT7DxrDhLAT6FF8MpWD
 github.com/stretchr/testify v1.12.1/go.mod h1:MDEgiDPPsNp5cuIrHPPCyornHKgEVbtFUmoNlxoYthg=
 go.yaml.in/yaml/v3 v3.0.5 h1:N6y/pJk8buWs9NY5ERU2HSMfm+IuD/OtfdAnq6kESPw=
 go.yaml.in/yaml/v3 v3.0.5/go.mod h1:HVTZu1O7/Vkt2N+BFy8Zza+lnLsABggaTM2ZpNIGuKg=
-golang.org/x/crypto v0.56.0 h1:GUh5Ii4J5jtcseSMiRqr1jXCNHoxjeV9Fmekc2oLy6Y=
-golang.org/x/crypto v0.56.0/go.mod h1:OMW5y6CY9l38uPLmxU6l6pwcXp1obtLo3e6gT7gQR2I=
+golang.org/x/crypto v0.57.0 h1:3ZVCjf8Ggz7zneR/EHRVx68Ctf+2pmIMP2UFhh9cC6M=
+golang.org/x/crypto v0.57.0/go.mod h1:Fdz0i5U6CoizGwLda9DttjSk6qlZo25zYNtR+ycvuZA=
 golang.org/x/sync v0.23.0 h1:KameEIfc1IkluZyXWLn39Wd4tURc6GbCiISGiZm2bQk=
 golang.org/x/sync v0.23.0/go.mod h1:sUUOizhqBxiL6pEWpqNLUiaJn1ShEbZ6BBqskPbjZm0=
-golang.org/x/text v0.41.0 h1:vz/seA0lnX87Othu2f/0L24RcgrXD9/YFTSuGjj3rH8=
-golang.org/x/text v0.41.0/go.mod h1:jvf1O8ajNzZqhSrQBPbutR/EB83Cc0CFrezNQIwbb5M=
+golang.org/x/text v0.42.0 h1:JbOZXgfeCPU9gacVtYliJqOhD+zhrEqK4LfdpmlUZqI=
+golang.org/x/text v0.42.0/go.mod h1:ojzP1Z+2QtioaF8DTtO8K5q7JWVVYwZKenzujK0Zd0E=
 google.golang.org/protobuf v1.36.12 h1:pJOKDDOyeXErUroCihFAd5LQuwXBSpVnKGrj5o/fwxc=
 google.golang.org/protobuf v1.36.12/go.mod h1:HTf+CrKn2C3g5S8VImy6tdcUvCska2kB7j23XfzDpco=
