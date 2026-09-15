@@ -4,8 +4,8 @@ go 1.26.0
 
 require (
 	github.com/bsv-blockchain/go-bc v1.2.0
-	github.com/bsv-blockchain/go-bt/v2 v2.7.0
-	github.com/bsv-blockchain/go-sdk v1.4.1
+	github.com/bsv-blockchain/go-bt/v2 v2.7.1
+	github.com/bsv-blockchain/go-sdk v1.5.1
 	github.com/go-zeromq/zmq4 v0.17.0
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.12.1
