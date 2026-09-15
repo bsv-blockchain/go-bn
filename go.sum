@@ -1,9 +1,9 @@
 github.com/bsv-blockchain/go-bc v1.2.0 h1:6VDbUHyi4ZAQHzTi1Xzv562SHyvfTVnRYx4bVNTX1A8=
 github.com/bsv-blockchain/go-bc v1.2.0/go.mod h1:G8MZVVmGegvSogql+7N7DVwC7GvxJEk8PIjqPP5/mOE=
-github.com/bsv-blockchain/go-bt/v2 v2.7.0 h1:g4dDUkNb6vTRz06twnrN27zn8ai6V9p0bjJhWSGWe7g=
-github.com/bsv-blockchain/go-bt/v2 v2.7.0/go.mod h1:v/HVFIBC2ZIt1bZ88F2TECfDuIG7XeeLYphy18NeQmM=
-github.com/bsv-blockchain/go-sdk v1.4.1 h1:J2hECn17QkLXq8K8O0m0qA7yih4YmWFTX6o9Ox72Tf8=
-github.com/bsv-blockchain/go-sdk v1.4.1/go.mod h1:p2aRf3+hHx8uaQazzVBbX/iFv/vatCFbazrM7RmvT08=
+github.com/bsv-blockchain/go-bt/v2 v2.7.1 h1:yiinRgtCryYFea4OVgUSi2qUd+ubfAJP7yKz4Z8AVAk=
+github.com/bsv-blockchain/go-bt/v2 v2.7.1/go.mod h1:v/HVFIBC2ZIt1bZ88F2TECfDuIG7XeeLYphy18NeQmM=
+github.com/bsv-blockchain/go-sdk v1.5.1 h1:NGqtUAVjSfwrWPEX2bFNt7yAuwRa0b3G6El4tHZDNHc=
+github.com/bsv-blockchain/go-sdk v1.5.1/go.mod h1:clGHSZoOwrnqJrzEw4VHYZk3JQXbrr+mnybCXZCdrt4=
 github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc h1:U9qPSI2PIWSS1VwoXQT9A3Wy9MM3WgvqSxFWenqJduM=
 github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/go-zeromq/goczmq/v4 v4.2.2 h1:HAJN+i+3NW55ijMJJhk7oWxHKXgAuSBkoFfvr8bYj4U=
@@ -12,6 +12,8 @@ github.com/go-zeromq/zmq4 v0.17.0 h1:r12/XdqPeRbuaF4C3QZJeWCt7a5vpJbslDH1rTXF+Kc
 github.com/go-zeromq/zmq4 v0.17.0/go.mod h1:EQxjJD92qKnrsVMzAnx62giD6uJIPi1dMGZ781iCDtY=
 github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
 github.com/google/go-cmp v0.7.0/go.mod h1:pXiqmnSA92OHEEa9HXL2W4E7lf9JzCmGVUdgjX3N/iU=
+github.com/mrz1836/go-whatsonchain v1.1.0 h1:m/bVHDx8t5zDcuV/l4h6ZXPcu0DQ7ZZB/p+Oy/llC1c=
+github.com/mrz1836/go-whatsonchain v1.1.0/go.mod h1:SAMQltVzWjjBSSIM9KBoLRTFuv9fIrejyEUK95qPDZI=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/stretchr/testify v1.12.1 h1:EuwCh5fleGS7H32xRwO3wRGT7DxrDhLAT6FF8MpWDWE=
