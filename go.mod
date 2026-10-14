@@ -5,11 +5,11 @@ go 1.26.0
 require (
 	github.com/bsv-blockchain/go-bc v1.2.0
 	github.com/bsv-blockchain/go-bt/v2 v2.7.4
-	github.com/bsv-blockchain/go-sdk v1.7.1
+	github.com/bsv-blockchain/go-sdk v1.7.2
 	github.com/go-zeromq/zmq4 v0.17.0
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.12.1
-	golang.org/x/sync v0.23.0
+	golang.org/x/sync v0.24.0
 )
 
 require (
